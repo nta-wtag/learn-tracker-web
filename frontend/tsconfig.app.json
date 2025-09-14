@@ -22,7 +22,6 @@
     "erasableSyntaxOnly": true,
     "noFallthroughCasesInSwitch": true,
     "noUncheckedSideEffectImports": true,
-
     "baseUrl": "src",       // This allows imports starting from 'src'
     "paths": {
       "components/*": ["components/*"],
