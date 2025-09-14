@@ -2,44 +2,41 @@ import React from "react";
 import InputField from "../InputField";
 import Button from "../Button";
 
-interface RegisterProps {
+interface Props {
   authData: { email: string; password: string; username: string };
   setAuthData: React.Dispatch<React.SetStateAction<any>>;
+  errors: { email?: string; password?: string; username?: string };
+  onSubmit: (e: React.FormEvent) => void; // <- added
 }
 
-function Register({ authData, setAuthData }: RegisterProps) {
-  const handleSubmit = async (e: React.FormEvent) => {
-    e.preventDefault();
-    try {
-      alert(`Registration success...\nUsername: ${authData.username}`);
-    } catch (err: any) {
-      alert(err.message);
-    }
-  };
-
+function Register({ authData, setAuthData, errors, onSubmit }: Props) {
   return (
-    <form className="flex flex-col space-y-4 w-full" onSubmit={handleSubmit}>
+    <form className="flex flex-col space-y-4 w-full" onSubmit={onSubmit}>
       <InputField
         type="text"
         placeholder="Username"
         value={authData.username}
         onChange={(e) => setAuthData((prev: any) => ({ ...prev, username: e.target.value }))}
+        error={errors.username}
       />
       <InputField
         type="email"
         placeholder="Email"
         value={authData.email}
         onChange={(e) => setAuthData((prev: any) => ({ ...prev, email: e.target.value }))}
+        error={errors.email}
       />
       <InputField
         type="password"
         placeholder="Password"
         value={authData.password}
         onChange={(e) => setAuthData((prev: any) => ({ ...prev, password: e.target.value }))}
+        error={errors.password}
       />
-      <Button text="Register" onClick={handleSubmit} />
+      <Button text="Register" type="submit"/>
     </form>
   );
 }
+
 
 export default Register;

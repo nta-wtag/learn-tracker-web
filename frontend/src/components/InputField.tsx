@@ -1,22 +1,28 @@
-import React from 'react';
+import React from "react";
 
-function InputField({type, placeholder, value, onChange}) {
-    return (
-        <div className='space-y-1 flex flex-col'>
-            <label className='text-sm font-light text-gray-700'>
-                {placeholder}
-            </label>
-            <input
-              type={type}
-              placeholder=""
-              name={type}
-              className="w-full text-left border border-gray-400 rounded px-4 py-2 text-sm"
-              required
-              value={value}
-              onChange={onChange}
-            />
-        </div>
-    );
+interface InputProps {
+  type: string;
+  placeholder: string;
+  value: string;
+  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
+  error?: string;
+}
+
+function InputField({ type, placeholder, value, onChange, error }: InputProps) {
+  return (
+    <div className="flex flex-col space-y-1">
+      <input
+        type={type}
+        placeholder={placeholder}
+        value={value}
+        onChange={onChange}
+        className={`w-full border rounded px-4 py-2 ${
+          error ? "border-red-500" : "border-gray-400"
+        }`}
+      />
+      {error && <span className="text-red-500 text-sm">{error}</span>}
+    </div>
+  );
 }
 
 export default InputField;
