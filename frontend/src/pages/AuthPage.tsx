@@ -1,23 +1,19 @@
 import React, { useState } from "react";
-import { AnimatePresence, motion } from "framer-motion";
 import loginImg from "../assets/Education-Isometric-Illustration.jpg";
 import registerImg from "../assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
 import Login from "../components/login/Login";
 import Register from "../components/login/Register";
+import { useAuthForm } from "../hooks/useAuthForm";
+import { AnimatePresence, motion } from "framer-motion";
 
-function AuthPage() {
+const AuthPage = () => {
     const [isLogin, setIsLogin] = useState(true);
-
-    const [authData, setAuthData] = useState({
-        email: "",
-        password: "",
-        username: "",
-    });
+    const { authData, setAuthData, errors, handleSubmit } = useAuthForm();
 
     return (
         <div className="w-full h-screen relative flex px-64 text-[#2e214a] font-[poppins]">
-            <div className="w-full h-full flex justify-center">
-                <div className="w-1/2 h-full flex items-center">
+            <div className="w-full flex justify-center h-full">
+                <div className="w-1/2 h-1/2 flex items-center self-center">
                     <AnimatePresence mode="wait">
                         <motion.img
                             key={isLogin ? "login-img" : "register-img"}
@@ -26,7 +22,7 @@ function AuthPage() {
                             animate={{ opacity: 1 }}
                             exit={{ opacity: 0 }}
                             transition={{ duration: 0.5 }}
-                            className="w-full p-4 h-1/2 object-contain"
+                            className="w-full p-4 h-full object-contain"
                         />
                     </AnimatePresence>
                 </div>
@@ -38,38 +34,25 @@ function AuthPage() {
                         <span className="mb-8 font-extralight text-lg">
                             {isLogin ? "Sign in to continue" : "Create a new account"}
                         </span>
+
                         <div className="flex flex-col space-y-4 w-full">
                             <AnimatePresence mode="wait">
                                 {isLogin ? (
-                                    <motion.div
-                                        key="login"
-                                        initial={{ opacity: 0, x: 50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: -50 }}
-                                        transition={{ duration: 0.3 }}
-                                    >
-                                        <Login authData={authData} setAuthData={setAuthData} />
+                                    <motion.div key="login" initial={{ opacity: 0, x: 50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: -50 }} transition={{ duration: 0.3 }}>
+                                        <Login authData={authData} setAuthData={setAuthData} errors={errors} onSubmit={(e) => handleSubmit(e, true)} />
                                     </motion.div>
                                 ) : (
-                                    <motion.div
-                                        key="register"
-                                        initial={{ opacity: 0, x: -50 }}
-                                        animate={{ opacity: 1, x: 0 }}
-                                        exit={{ opacity: 0, x: 50 }}
-                                        transition={{ duration: 0.3 }}
-                                    >
-                                        <Register authData={authData} setAuthData={setAuthData} />
+                                    <motion.div key="register" initial={{ opacity: 0, x: -50 }} animate={{ opacity: 1, x: 0 }} exit={{ opacity: 0, x: 50 }} transition={{ duration: 0.3 }}>
+                                        <Register authData={authData} setAuthData={setAuthData} errors={errors} onSubmit={(e) => handleSubmit(e, false)} />
                                     </motion.div>
                                 )}
                             </AnimatePresence>
                         </div>
 
-                        <div className="flex items-baseline mt-8 w-full justify-evenly items-center relative">
+                        <div className="flex items-baseline mt-16 w-full justify-evenly items-center relative">
                             <button
                                 onClick={() => setIsLogin(true)}
-                                className={`relative text-xl px-2 transition-colors text-lg  ${!isLogin
-                                    ? "text-gray-400 font-light"
-                                    : "text-[#6b3dcb] font-extrabold"
+                                className={`relative text-xl px-2 transition-colors text-lg ${!isLogin ? "text-gray-400 font-light" : "text-[#6b3dcb] font-extrabold"
                                     }`}
                             >
                                 Sign In
@@ -84,9 +67,7 @@ function AuthPage() {
                             <div className="border-l border-gray-400 h-5"></div>
                             <button
                                 onClick={() => setIsLogin(false)}
-                                className={`relative text-xl px-2 transition-colors text-lg  ${isLogin
-                                    ? "text-gray-400 font-light"
-                                    : "text-[#6b3dcb] font-extrabold"
+                                className={`relative text-xl px-2 transition-colors text-lg ${isLogin ? "text-gray-400 font-light" : "text-[#6b3dcb] font-extrabold"
                                     }`}
                             >
                                 Sign Up
@@ -104,6 +85,6 @@ function AuthPage() {
             </div>
         </div>
     );
-}
+};
 
 export default AuthPage;
