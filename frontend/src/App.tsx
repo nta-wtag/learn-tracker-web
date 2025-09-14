@@ -1,5 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import AuthPage from "./pages/AuthPage";
+import './App.css'
 
 function App() {
   return (
