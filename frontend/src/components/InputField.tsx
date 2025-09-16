@@ -1,28 +1,30 @@
 import React from "react";
+import { Field } from "react-final-form";
 
-interface InputProps {
-  type: string;
-  placeholder: string;
-  value: string;
-  onChange: (e: React.ChangeEvent<HTMLInputElement>) => void;
-  error?: string;
+interface InputFieldProps {
+  name: string;
+  type?: string;
+  placeholder?: string;
 }
 
-function InputField({ type, placeholder, value, onChange, error }: InputProps) {
+const InputField: React.FC<InputFieldProps> = ({ name, type = "text", placeholder }) => {
   return (
-    <div className="flex flex-col space-y-1">
-      <input
-        type={type}
-        placeholder={placeholder}
-        value={value}
-        onChange={onChange}
-        className={`w-full border rounded px-4 py-2 ${
-          error ? "border-red-500" : "border-gray-400"
-        }`}
-      />
-      {error && <span className="text-red-500 text-sm">{error}</span>}
-    </div>
+    <Field name={name}>
+      {({ input, meta }) => (
+        <div className="flex flex-col w-full">
+          <input
+            {...input}
+            type={type}
+            placeholder={placeholder}
+            className="w-full border rounded px-3 py-2"
+          />
+          {meta.touched && meta.error && (
+            <span className="text-red-500 text-sm mt-1">{meta.error}</span>
+          )}
+        </div>
+      )}
+    </Field>
   );
-}
+};
 
 export default InputField;

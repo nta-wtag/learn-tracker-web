@@ -1,13 +1,25 @@
 import React, { useState } from "react";
+import { Form } from "react-final-form";
+import { validateAuth } from "../utils/authValidation";
+import InputField from "../components/InputField";
+
 import loginImg from "../assets/Education-Isometric-Illustration.jpg";
 import registerImg from "../assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
-import Login from "../components/login/Login";
-import Register from "../components/login/Register";
-import { useAuthForm } from "../hooks/useAuthForm";
 
 const AuthPage = () => {
   const [isLogin, setIsLogin] = useState(true);
-  const { authData, setAuthData, errors, handleSubmit } = useAuthForm();
+
+  const onSubmit = async (values: any) => {
+    try {
+      if (isLogin) {
+        alert(`Login success\nEmail: ${values.email}`);
+      } else {
+        alert(`Registration success\nUsername: ${values.username}`);
+      }
+    } catch (err: any) {
+      alert(err.response?.data?.message || err.message || "Something went wrong");
+    }
+  };
 
   return (
     <div className="w-full h-screen relative flex lg:px-16 xl:px-32 3xl:px-64 text-[#2e214a] font-[poppins]">
@@ -26,34 +38,38 @@ const AuthPage = () => {
               {isLogin ? "Welcome Back" : "Hello There"}
             </h1>
             <span className="mb-8 font-extralight text-sm lg:text-lg">
-              {isLogin ? "Sign in to continue" : "Create a new account to cnotinue"}
+              {isLogin ? "Sign in to continue" : "Create a new account to continue"}
             </span>
 
-            <div className="flex flex-col space-y-4 w-full">
-              {isLogin ? (
-                <Login
-                  authData={authData}
-                  setAuthData={setAuthData}
-                  errors={errors}
-                  onSubmit={(e) => handleSubmit(e, true)}
-                />
-              ) : (
-                <Register
-                  authData={authData}
-                  setAuthData={setAuthData}
-                  errors={errors}
-                  onSubmit={(e) => handleSubmit(e, false)}
-                />
+            <Form
+              onSubmit={onSubmit}
+              validate={(values) => validateAuth(values, isLogin)}
+              render={({ handleSubmit, submitting }) => (
+                <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full">
+                  {!isLogin && (
+                    <InputField name="username" placeholder="Username" />
+                  )}
+
+                  <InputField name="email" type="email" placeholder="Email" />
+
+                  <InputField name="password" type="password" placeholder="Password" />
+
+                  <button
+                    type="submit"
+                    disabled={submitting}
+                    className="w-50 bg-[#6b3dcb] p-2 text-white flex justify-center rounded-lg my-4"
+                  >
+                    {isLogin ? "Sign In" : "Sign Up"}
+                  </button>
+                </form>
               )}
-            </div>
+            />
 
             <div className="flex items-baseline mt-16 w-full justify-evenly">
               <button
                 onClick={() => setIsLogin(true)}
                 className={`relative text-md lg:text-xl px-2 transition-colors text-lg ${
-                  !isLogin
-                    ? "text-gray-400 font-light"
-                    : "text-[#6b3dcb] font-extrabold"
+                  !isLogin ? "text-gray-400 font-light" : "text-[#6b3dcb] font-extrabold"
                 }`}
               >
                 Sign In
@@ -67,9 +83,7 @@ const AuthPage = () => {
               <button
                 onClick={() => setIsLogin(false)}
                 className={`relative text-md lg:text-xl px-2 transition-colors text-lg ${
-                  isLogin
-                    ? "text-gray-400 font-light"
-                    : "text-[#6b3dcb] font-extrabold"
+                  isLogin ? "text-gray-400 font-light" : "text-[#6b3dcb] font-extrabold"
                 }`}
               >
                 Sign Up
