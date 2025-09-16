@@ -31,7 +31,7 @@ export const useAuthForm = () => {
         else if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(authData.email)) newErrors.email = "Invalid email format";
 
         if (!authData.password) newErrors.password = "Password is required";
-        else if (authData.password.length < 6) newErrors.password = "Password must be at least 6 characters";
+        else if (!/^(?=.*[A-Za-z])(?=.*\d)(?=.*[@$!%*#?&])[A-Za-z\d@$!%*#?&]{8,}$/.test(authData.password)) newErrors.password = "Password must be at least 8 characters and contain at least one letter, one number and one special character";
 
         setErrors(newErrors);
 
