@@ -4,8 +4,8 @@ import AuthHeader from "@components/auth/AuthHeader";
 import AuthImage from "@components/auth/AuthImage";
 import AuthToggle from "@components/auth/AuthToggle";
 
-import loginImg from "../assets/Education-Isometric-Illustration.jpg";
-import registerImg from "../assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
+import loginImg from "@assets/Education-Isometric-Illustration.jpg";
+import registerImg from "@assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
 
 const AuthPage = () => {
   const [isLoggedin, setIsLoggedin] = useState(true);
