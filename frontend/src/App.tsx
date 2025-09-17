@@ -1,13 +1,5 @@
-import { Routes, Route } from "react-router-dom";
-import AuthPage from "./pages/AuthPage";
-import './App.css'
+import AppRoutes from "./AppRoutes";
 
-function App() {
-  return (
-    <Routes>
-      <Route path="/" element={<AuthPage />} />
-    </Routes>
-  );
+export default function App() {
+  return <AppRoutes />;
 }
-
-export default App;
