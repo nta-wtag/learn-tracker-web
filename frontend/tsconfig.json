@@ -1,5 +1,15 @@
 {
   "files": [],
+  "compilerOptions": {
+   "baseUrl": "src",       // This allows imports starting from 'src'
+    "paths": {
+      "@components/*": ["components/*"],
+      "@pages/*": ["pages/*"],
+      "@utils/*": ["utils/*"],
+      "@assets/*": ["assets/*"]
+    }
+  },
+  "include": ["src"],
   "references": [
     { "path": "./tsconfig.app.json" },
     { "path": "./tsconfig.node.json" }
