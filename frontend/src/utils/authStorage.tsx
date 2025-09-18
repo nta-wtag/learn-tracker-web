@@ -23,3 +23,7 @@ export const getCurrentUser = (): AuthData | null => {
   const user = localStorage.getItem("currentUser");
   return user ? JSON.parse(user) : null;
 };
+
+export const logout = () => {
+  localStorage.removeItem("currentUser");
+};
