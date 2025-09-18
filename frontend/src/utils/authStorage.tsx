@@ -17,9 +17,15 @@ export const findUserByEmail = (email: string) => {
 
 export const setCurrentUser = (user: AuthData) => {
   localStorage.setItem("currentUser", JSON.stringify(user));
+  console.log("currentUser", JSON.stringify(user))
 };
 
 export const getCurrentUser = (): AuthData | null => {
   const user = localStorage.getItem("currentUser");
+  console.log(user ? JSON.parse(user) : "nothing")
   return user ? JSON.parse(user) : null;
+};
+
+export const logout = () => {
+  localStorage.removeItem("currentUser");
 };
