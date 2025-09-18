@@ -8,7 +8,13 @@ export const validateAuth = (values: any, isLogin: boolean) => {
     errors.email = "Invalid email format";
 
   if (!values.password) errors.password = "Password is required";
-  else if (!validator.isStrongPassword(values.password, { minLength: 8 }))
+  else if (!validator.isStrongPassword(values.password, {
+      minLength: 8,
+      minLowercase: 1,
+      minUppercase: 0,
+      minNumbers: 1,
+      minSymbols: 1,
+    }))
     errors.password =
       "Password must be at least 8 characters, include letters, numbers and a special character";
 
