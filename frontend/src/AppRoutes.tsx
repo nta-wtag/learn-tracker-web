@@ -2,9 +2,10 @@ import { Routes, Route } from "react-router-dom";
 import AuthPage from "@pages/AuthPage";
 import PrivateRoute from "@components/PrivateRoute";
 import DashboardPage from "@pages/DashboardPage";
-import CoursesPage from "@pages/CoursePage";
+import CoursePage from "@pages/CoursePage";
 import ProfilePage from "@pages/ProfilePage";
 import ModuleDetail from "@pages/modules/ModuleDetail";
+import NotFoundPage from "./pages/NotFoundPage";
 
 export default function AppRoutes() {
   return (
@@ -30,7 +31,7 @@ export default function AppRoutes() {
         path="/courses"
         element={
           <PrivateRoute>
-            <CoursesPage />
+            <CoursePage />
           </PrivateRoute>
         }
       >
@@ -44,6 +45,7 @@ export default function AppRoutes() {
           </PrivateRoute>
         }
       />
+      <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
 }
