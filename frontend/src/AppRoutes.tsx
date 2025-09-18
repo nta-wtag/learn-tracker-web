@@ -5,6 +5,7 @@ import DashboardPage from "@pages/DashboardPage";
 import CoursesPage from "@pages/CoursesPage";
 import ProfilePage from "@pages/ProfilePage";
 import ModuleDetail from "@pages/modules/ModuleDetail";
+import NotFound from "@pages/NotFoundPage";
 
 export default function AppRoutes() {
   return (
@@ -44,6 +45,7 @@ export default function AppRoutes() {
           </PrivateRoute>
         }
       />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }
