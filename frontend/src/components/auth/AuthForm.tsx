@@ -1,16 +1,42 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
 import { validateAuth } from "@utils/authValidation"
-import Input from "../Input";
+import Input from "@components/Input";
+import type { AuthData } from "@types/AuthData";
+import { findUserByEmail, saveUser, setCurrentUser } from "../../hooks/useAuth";
 
 interface AuthFormProps {
   isLoggedin: boolean;
-  onSubmit: (values: any) => Promise<void>;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin, onSubmit }) => (
+const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => (
   <Form
-    onSubmit={onSubmit}
+    onSubmit={async (values) => {
+      const { username, email, password } = values;
+
+      if (isLoggedin) {
+        const user = findUserByEmail(email);
+        if (!user) {
+          alert("User not found. Please sign up first.");
+          return;
+        }
+        if (user.password !== password) {
+          alert("Incorrect password.");
+          return;
+        }
+        setCurrentUser(user);
+        alert("Login successful!");
+      } else {
+        if (findUserByEmail(email)) {
+          alert("Email already registered.");
+          return;
+        }
+        const newUser: AuthData = { username, email, password };
+        saveUser(newUser);
+        setCurrentUser(newUser);
+        alert("Registration successful!");
+      }
+    }}
     validate={(values) => validateAuth(values, isLoggedin)}
     render={({ handleSubmit, submitting }) => (
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full">

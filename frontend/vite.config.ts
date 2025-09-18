@@ -7,12 +7,14 @@ import path from 'path';
 export default defineConfig({
   plugins: [
     tailwindcss(),
-    react()],
+    react()
+  ],
     resolve: {
     alias: {
       '@components': path.resolve(__dirname, './src/components'),
       '@pages': path.resolve(__dirname, './src/pages'),
       '@utils': path.resolve(__dirname, './src/utils'),
+      '@types': path.resolve(__dirname, './src/types'),
       '@assets': path.resolve(__dirname, './src/assets')
     }
   }
