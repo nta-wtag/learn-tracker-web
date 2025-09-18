@@ -3,7 +3,7 @@ import { Field, Form } from "react-final-form";
 import { validateAuth } from "@utils/authValidation"
 import Input from "@components/Input";
 import type { AuthData } from "@types/AuthData";
-import { findUserByEmail, saveUser, setCurrentUser } from "../../hooks/useAuth";
+import { findUserByEmail, saveUser, setCurrentUser } from "@utils/authStorage";
 
 interface AuthFormProps {
   isLoggedin: boolean;
