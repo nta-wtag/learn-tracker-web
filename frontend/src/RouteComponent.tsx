@@ -7,7 +7,7 @@ import ProfilePage from "pages/ProfilePage";
 import ModuleDetail from "pages/modules/ModuleDetail";
 import NotFoundPage from "pages/NotFoundPage";
 
-export default function AppRoutes() {
+export default function RouteComponent() {
   return (
     <Routes>
       <Route path="/" element={<AuthPage />} />

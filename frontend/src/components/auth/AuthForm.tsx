@@ -1,9 +1,14 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
 import { validateAuth } from "utils/authValidation"
-import Input from "components/Input";
-import type { AuthData } from "types/AuthData";
+import Input from "components/base-components/Input";
 import { findUserByEmail, saveUser, setCurrentUser } from "utils/authStorage";
+
+export interface AuthData {
+    email: string;
+    password: string;
+    username: string;
+}
 
 interface AuthFormProps {
   isLoggedin: boolean;
@@ -42,14 +47,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => (
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full">
         {!isLoggedin && (
           <Field name="username">
-            {({ input, meta }) => <Input input={input} meta={meta} placeholder="Username" />}
+            {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} placeholder="Username" />}
           </Field>
         )}
         <Field name="email">
-          {({ input, meta }) => <Input input={input} meta={meta} type="email" placeholder="Email" />}
+          {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} type="email" placeholder="Email" />}
         </Field>
         <Field name="password">
-          {({ input, meta }) => <Input input={input} meta={meta} type="password" placeholder="Password" />}
+          {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} type="password" placeholder="Password" />}
         </Field>
         <button
           type="submit"
