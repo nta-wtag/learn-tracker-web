@@ -1,12 +1,12 @@
 import React from "react";
-import { Navigate } from "react-router-dom";
+import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 
 interface Props {
-  children: JSX.Element;
+  allowedRoles?: string[];
 }
 
-const PrivateRoute = ({ children }: Props) => {
+const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
   const { isAuthenticated, isAuthChecked } = useAuth();
 
   if (!isAuthChecked) {
@@ -17,7 +17,15 @@ const PrivateRoute = ({ children }: Props) => {
     );
   }
 
-  return isAuthenticated ? children : <Navigate to="/auth" />;
+  if (!isAuthenticated) {
+    return <Navigate to="/auth" />;
+  }
+
+  if (allowedRoles && !allowedRoles.includes("USER")) { 
+    return <Navigate to="/unauthorized" />;
+  }
+
+  return <Outlet />;
 };
 
-export default PrivateRoute;
+export default ProtectedRoute;

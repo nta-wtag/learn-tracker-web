@@ -1,15 +1,22 @@
+// src/hooks/useAuth.ts
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "utils/authStorage";
+import { getCurrentUser, AuthData } from "utils/authStorage";
 
 export const useAuth = () => {
-  const [isAuthenticated, setIsAuthenticated] = useState(false);
+  const [user, setUser] = useState<AuthData | null>(null);
   const [isAuthChecked, setIsAuthChecked] = useState(false);
 
   useEffect(() => {
-    const user = getCurrentUser();
-    setIsAuthenticated(!!user);
+    const currentUser = getCurrentUser();
+    if (currentUser) {
+      setUser(currentUser);
+    }
     setIsAuthChecked(true);
   }, []);
 
-  return { isAuthenticated, isAuthChecked };
+  return {
+    user,
+    isAuthenticated: !!user,
+    isAuthChecked,
+  };
 };

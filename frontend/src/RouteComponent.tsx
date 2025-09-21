@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 import AuthPage from "pages/AuthPage";
-import PrivateRoute from "components/PrivateRoute";
+import ProtectedRoute from "components/ProtectedRoute";
 import DashboardPage from "pages/DashboardPage";
 import CoursePage from "pages/CoursePage";
 import ProfilePage from "pages/ProfilePage";
@@ -11,40 +11,20 @@ export default function RouteComponent() {
   return (
     <Routes>
       <Route path="/" element={<AuthPage />} />
-      <Route
-        path="/"
-        element={
-          <PrivateRoute>
-            <DashboardPage />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/dashboard"
-        element={
-          <PrivateRoute>
-            <DashboardPage />
-          </PrivateRoute>
-        }
-      />
-      <Route
-        path="/courses"
-        element={
-          <PrivateRoute>
-            <CoursePage />
-          </PrivateRoute>
-        }
-      >
-        <Route path=":courseId/modules/:moduleId" element={<ModuleDetail />} />
+      <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
+        <Route path="/dashboard" element={<DashboardPage />} />
+        <Route
+          path="/courses"
+          element={
+            <ProtectedRoute>
+              <CoursePage />
+            </ProtectedRoute>
+          }
+        >
+          <Route path=":courseId/modules/:moduleId" element={<ModuleDetail />} />
+        </Route>
+        <Route path="/profile" element={<ProfilePage />} />
       </Route>
-      <Route
-        path="/profile"
-        element={
-          <PrivateRoute>
-            <ProfilePage />
-          </PrivateRoute>
-        }
-      />
       <Route path="*" element={<NotFoundPage />} />
     </Routes>
   );
