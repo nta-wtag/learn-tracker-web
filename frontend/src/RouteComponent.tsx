@@ -1,13 +1,13 @@
 import { Routes, Route } from "react-router-dom";
-import AuthPage from "@pages/AuthPage";
-import PrivateRoute from "@components/PrivateRoute";
-import DashboardPage from "@pages/DashboardPage";
-import CoursePage from "@pages/CoursePage";
-import ProfilePage from "@pages/ProfilePage";
-import ModuleDetail from "@pages/modules/ModuleDetail";
-import NotFoundPage from "./pages/NotFoundPage";
+import AuthPage from "pages/AuthPage";
+import PrivateRoute from "components/PrivateRoute";
+import DashboardPage from "pages/DashboardPage";
+import CoursePage from "pages/CoursePage";
+import ProfilePage from "pages/ProfilePage";
+import ModuleDetail from "pages/modules/ModuleDetail";
+import NotFoundPage from "pages/NotFoundPage";
 
-export default function AppRoutes() {
+export default function RouteComponent() {
   return (
     <Routes>
       <Route path="/" element={<AuthPage />} />

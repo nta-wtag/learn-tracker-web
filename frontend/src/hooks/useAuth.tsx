@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCurrentUser } from "@utils/authStorage";
+import { getCurrentUser } from "utils/authStorage";
 
 export const useAuth = () => {
   const [isAuthenticated, setIsAuthenticated] = useState(false);

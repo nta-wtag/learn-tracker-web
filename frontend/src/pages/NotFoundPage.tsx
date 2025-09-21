@@ -1,8 +1,8 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuth } from "../hooks/useAuth";
+import { useAuth } from "hooks/useAuth";
 
-import image from '@assets/istockphoto-1366754976-612x612.jpg'
+import image from 'assets/istockphoto-1366754976-612x612.jpg'
 
 const NotFoundPage = () => {
     const isAuthenticated = useAuth();
