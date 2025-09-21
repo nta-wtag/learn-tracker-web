@@ -1,7 +1,7 @@
 import { Routes, Route } from "react-router-dom";
-import AuthPage from "@pages/AuthPage";
+import AuthPage from "pages/AuthPage";
 
-export default function AppRoutes() {
+export default function RouteComponent() {
   return (
     <Routes>
       <Route path="/" element={<AuthPage />} />

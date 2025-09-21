@@ -1,4 +1,4 @@
-import { AuthData } from "@types/auth";
+import { AuthData } from "types/auth";
 
 export const getUsers = (): AuthData[] => {
   return JSON.parse(localStorage.getItem("users") || "[]");
@@ -12,7 +12,7 @@ export const saveUser = (user: AuthData) => {
 
 export const findUserByEmail = (email: string) => {
   const users = getUsers();
-  return users.find(u => u.email === email);
+  return users.find((u) => u.email === email);
 };
 
 export const setCurrentUser = (user: AuthData) => {
