@@ -1,16 +1,56 @@
 import React from "react";
-import AuthToggleButton from "./AuthToggleButton";
+import classNames from 'classnames'
 
 interface AuthToggleProps {
   isLoggedin: boolean;
   setIsLoggedin: (val: boolean) => void;
 }
 
-const AuthToggle: React.FC<AuthToggleProps> = ({ isLoggedin, setIsLoggedin }) => (
+const AuthToggle: React.FC<AuthToggleProps> = ({
+  isLoggedin,
+  setIsLoggedin,
+}) => (
   <div className="flex items-baseline mt-16 w-full justify-evenly">
-    <AuthToggleButton active={isLoggedin} label="Sign In" onClick={() => setIsLoggedin(true)} />
+    <button
+      onClick={() => setIsLoggedin(true)}
+      className={classNames(
+        "relative",
+        "px-2",
+        "transition-colors",
+        "lg:text-xl",
+        "text-lg",
+        {
+          "text-[#6b3dcb] font-extrabold": isLoggedin,
+          "text-gray-400 font-light": !isLoggedin,
+        }
+      )}
+    >
+      Sign In
+      {isLoggedin && (
+        <div className="absolute left-0 right-0 -bottom-1 h-[3px] bg-[#6b3dcb] rounded" />
+      )}
+    </button>
     <div className="border-l border-gray-400 h-5"></div>
-    <AuthToggleButton active={!isLoggedin} label="Sign Up" onClick={() => setIsLoggedin(false)} />
+    <button
+      onClick={() => setIsLoggedin(false)}
+      className={classNames(
+        "relative",
+        "px-2",
+        "transition-colors",
+        "text-md",
+        "lg:text-xl",
+        "text-lg", 
+        {
+          "text-[#6b3dcb] font-extrabold": !isLoggedin,
+          "text-gray-400 font-light": isLoggedin,
+        }
+      )}
+    >
+      Sign Up
+      {!isLoggedin && (
+        <div className="absolute left-0 right-0 -bottom-1 h-[3px] bg-[#6b3dcb] rounded" />
+      )}
+    </button>
   </div>
 );
 
