@@ -38,7 +38,6 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
         </main>
       </div>
     </div>
-
   );
 };
 
