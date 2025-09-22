@@ -2,6 +2,7 @@ import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 import Sidebar from "components/protected-components/Sidebar";
+import TopNav from "components/protected-components/TopNav";
 
 interface Props {
   allowedRoles?: string[];
@@ -23,17 +24,21 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
     return <Navigate to="/" replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes("USER")) { 
+  if (allowedRoles && !allowedRoles.includes("USER")) {
     return <Navigate to="/unauthorized" replace />;
   }
 
   return (
-    <div className="flex">
+    <div className="flex min-h-screen">
       <Sidebar />
-      <main className="flex-1 p-6 bg-gray-50 min-h-screen">
-        <Outlet />
-      </main>
+      <div className="flex flex-col flex-1">
+        <TopNav />
+        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+          <Outlet />
+        </main>
+      </div>
     </div>
+
   );
 };
 
