@@ -1,11 +1,11 @@
-import React from 'react';
+import React from "react";
+import Sidebar from "components/protected-components/Sidebar";
 
-function DashboardPage(props) {
-    return (
-        <div>
-            Dashboard
-        </div>
-    );
-}
+
+const DashboardPage: React.FC = () => {
+  return (
+    <Sidebar/>
+  );
+};
 
 export default DashboardPage;

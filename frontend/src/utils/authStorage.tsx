@@ -25,7 +25,7 @@ export const saveUser = (user: AuthData) => {
 };
 
 export const getCurrentUser = () => {
-  const user = localStorage.getItem("user");
+  const user = localStorage.getItem("currentUser");
   return user ? JSON.parse(user) : null;
 };
 
