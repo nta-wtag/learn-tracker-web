@@ -1,6 +1,7 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
+import Sidebar from "components/protected-components/Sidebar";
 
 interface Props {
   allowedRoles?: string[];
@@ -18,14 +19,22 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
   }
 
   if (!isAuthenticated) {
-    return <Navigate to="/auth" />;
+    alert("Please log in to access this page.");
+    return <Navigate to="/" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes("USER")) { 
-    return <Navigate to="/unauthorized" />;
+    return <Navigate to="/unauthorized" replace />;
   }
 
-  return <Outlet />;
+  return (
+    <div className="flex">
+      <Sidebar />
+      <main className="flex-1 p-6 bg-gray-50 min-h-screen">
+        <Outlet />
+      </main>
+    </div>
+  );
 };
 
 export default ProtectedRoute;
