@@ -16,9 +16,7 @@ export default function RouteComponent() {
         <Route
           path="/courses"
           element={
-            <ProtectedRoute>
               <CoursePage />
-            </ProtectedRoute>
           }
         >
           <Route path=":courseId/modules/:moduleId" element={<ModuleDetail />} />
