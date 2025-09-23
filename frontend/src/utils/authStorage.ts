@@ -1,4 +1,8 @@
-import { AuthData } from "types/auth";
+export interface AuthData {
+    email: string;
+    password: string;
+    username: string;
+}
 
 export const getUsers = (): AuthData[] => {
   return JSON.parse(localStorage.getItem("users") || "[]");
