@@ -10,12 +10,14 @@ import {
   } from "utils/authStorage";
 import Button from "components/base-components/Button";
 import type { AuthData } from "utils/authStorage";
+import { useNavigate } from "react-router-dom";
 
 interface AuthFormProps {
   isLoggedin: boolean;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
+  const navigate = useNavigate();
   const handleSubmit = async (values: AuthData) => {
     const { username, email, password } = values;
 
@@ -31,6 +33,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
       }
       setCurrentUser(user);
       alert("Login successful!");
+      navigate("/dashboard");
     } else {
       if (findUserByEmail(email)) {
         alert("Email already registered.");
@@ -45,6 +48,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
       saveUser(newUser);
       setCurrentUser(newUser);
       alert("Registration successful!");
+      navigate("/dashboard");
     }
   };
 
