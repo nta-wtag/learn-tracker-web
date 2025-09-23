@@ -4,6 +4,7 @@ import { validateAuth } from "utils/authValidation"
 import Input from "components/base-components/Input";
 import type { AuthData } from "types/AuthData";
 import { findUserByEmail, saveUser, setCurrentUser } from "utils/authStorage";
+import Button from "components/base-components/Button";
 
 export interface AuthData {
     email: string;
@@ -57,13 +58,12 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => (
         <Field name="password">
           {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} type="password" placeholder="Password" />}
         </Field>
-        <button
+        <Button
           type="submit"
+          text={isLoggedin ? "Sign In" : "Sign Up"}
           disabled={submitting}
-          className="w-full bg-[#6b3dcb] p-2 text-white rounded-lg"
-        >
-          {isLoggedin ? "Sign In" : "Sign Up"}
-        </button>
+          variant="primary"
+        />
       </form>
     )}
   />
