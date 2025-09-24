@@ -9,6 +9,7 @@
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
       "hooks/*": ["hooks/*"],
+      "data/*": ["data/*"],
     }
   },
   "include": ["src"],

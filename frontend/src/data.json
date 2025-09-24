@@ -1,0 +1,230 @@
+[
+  {
+    "course": "Javascript",
+    "lessons": [
+      {
+        "week": 1,
+        "modules": [
+          { "title": "Data Types and Variables", "estDays": 1, "resources": [] },
+          { "title": "Scope in JavaScript", "estDays": 1, "resources": [] },
+          { "title": "Operators and Control Flow and Looping Mechanism", "estDays": 1, "resources": [] },
+          { "title": "Object Fundamentals", "estDays": 1, "resources": [] },
+          { "title": "Arrays, Immutability and Copying", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 2,
+        "modules": [
+          { "title": "Function Basics", "estDays": 1, "resources": [] },
+          { "title": "Function Advanced (IIFE, HOF, Hoising, Closures)", "estDays": 1, "resources": [] },
+          { "title": "Closures", "estDays": 1, "resources": [] },
+          { "title": "this\" keyword ( what and why )", "estDays": 1, "resources": [] },
+          { "title": "this\" keyword ( how it behaves inside objects )", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 3,
+        "modules": [
+          { "title": "this\" keyword ( Brush up basics and other perks of this )", "estDays": 1, "resources": [] },
+          {
+            "title": "Asynchronous JavaScript",
+            "estDays": 1,
+            "resources": [
+              "https://www.youtube.com/watch?v=8aGhZQkoFbQ&t=17s",
+              "https://www.youtube.com/watch?v=eiC58R16hb8"
+            ]
+          },
+          { "title": "Object-Oriented Programming", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 4,
+        "modules": [
+          { "title": "DOM Manipulation", "estDays": 1, "resources": [] },
+          { "title": "Modern JavaScript and Ecosystem", "estDays": 1, "resources": [] },
+          { "title": "Advanced Topics (JS ninja)", "estDays": 1, "resources": [] },
+          { "title": "Revise Scopes, Objects, Functions and Closures", "estDays": 1, "resources": [] },
+          { "title": "Revise this, Asynchronous Javascript", "estDays": 1, "resources": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "course": "React",
+    "lessons": [
+      {
+        "week": 1,
+        "modules": [
+          { "title": "Introduction and Environment Setup - Understanding React's core philosophy, Module Bundlers, Install Vite, Folder Structure. JSX, Component Basics", "estDays": 1, "resources": [] },
+          { "title": "React Fundamentals- Props, Props Destructuring, State and Events - State Basics, Event Basics, Import And Export Statements. Styling react components", "estDays": 2, "resources": [] },
+          { "title": "Understand Lifecycle Hooks, useState, useEffect, useLayoutEffect, useRef, Data fetching using hooks", "estDays": 2, "resources": ["https://www.youtube.com/watch?v=xfKYYRE6-TQ"] }
+        ]
+      },
+      {
+        "week": 2,
+        "modules": [
+          { "title": "Forms and Refs - Creating and handling forms in React\nAdd Form Validation, Managing form state with React, state management, and event handling in Forms.", "estDays": 2, "resources": ["https://final-form.org/docs/react-final-form/getting-started", "https://www.youtube.com/watch?v=EYpdEYK25Dc", "https://www.youtube.com/watch?v=H63Pd_lXkeQ"] },
+          { "title": "Advanced React Concepts - useReducer, Prop Drilling, Context API and useContext", "estDays": 2, "resources": ["https://www.youtube.com/watch?v=5LrDIWkK_Bc&t=346s", "https://www.freecodecamp.org/news/react-usereducer-hook/", "How to Use the useReducer Hook in React"] },
+          { "title": "Custom Hooks - build a custom hook to fetch API data, Component Composition, using different hooks in a component", "estDays": 1, "resources": ["https://dev.to/rasaf_ibrahim/a-guide-to-react-custom-hooks-2b4h", "https://medium.com/@bhairabpatra.iitd/custom-hooks-in-react-fcd6ec1bba9a", "https://www.youtube.com/watch?v=6ThXsUwLWvc"] }
+        ]
+      },
+      {
+        "week": 3,
+        "modules": [
+          { "title": "useParams, useLocation, useHistory, useNavigation, Routing - Learn react router, its provided APIs and how to use them and when. Create a small multi page app with routing and nested routing", "estDays": 2, "resources": ["https://www.youtube.com/watch?v=Ul3y1LXxzdU", "https://blog.logrocket.com/react-router-v6-guide/", "https://reactrouter.com/home", "https://www.youtube.com/watch?v=oUZjO00NkhY&t=6s"] },
+          { "title": "Performance Optimization Hooks: learn useCallback and useMemo hooks and how can they be used to optimize rendering performance. Understand and implement error boundaries. Implement code splitting and lazy loading", "estDays": 2, "resources": ["https://hygraph.com/blog/react-usecallback-a-complete-guide#the-problem-with-callback-functions", "https://www.joshwcomeau.com/react/usememo-and-usecallback/", "https://deadsimplechat.com/blog/usecallback-guide-use-cases-and-examples/", "https://www.freecodecamp.org/news/how-to-work-with-usememo-in-react/", "https://www.youtube.com/watch?v=QSLKhwYKBc4"] },
+          { "title": "Explore Higher-Order Components (HOCs), Render props pattern, Learn to use React DevTools, Components and Hooks (Revise)", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 4,
+        "modules": [
+          { "title": "State Management. Redux Basics", "estDays": 1, "resources": [] },
+          { "title": "Redux Architecture: store, actions, and reducers", "estDays": 1, "resources": [] },
+          { "title": "Set up Redux in a React application, Implement the unidirectional data flow pattern", "estDays": 2, "resources": [] },
+          { "title": "Learn and Use middleware for side effects (redux-thunk)", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 5,
+        "modules": [
+          { "title": "Redux Toolkit - Simplify Redux setup with configureStore, Create slices with createSlice for actions and reducers, Handle asynchronous operations with createAsyncThunk, Implement RTK Query for API calls and caching", "estDays": 1, "resources": [] },
+          { "title": "Optimization Techniques - Lazy loading components, Suspense", "estDays": 1, "resources": [] },
+          { "title": "Best Practices - Production Deployment, Performance, Security", "estDays": 1, "resources": [] },
+          { "title": "Testing - Unit testing with Jest: Component testing, Learn React Testing Library, Write unit tests for components and hooks, Mock API calls and Redux store in tests, Add Vitest in the project and write tests using it\nE2E testing: Cypress basics", "estDays": 1, "resources": [] },
+          { "title": "Ecosystem - Next.js: SSR, static site generation, file-based routing \nVite: Fast cold starts, hot module replacement \nRedux DevTools: Component inspection, time travel debugging", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 6,
+        "modules": [
+          { "title": "Project + KT", "estDays": 5, "resources": [] }
+        ]
+      },
+      {
+        "week": 7,
+        "modules": [
+          { "title": "Project + KT", "estDays": 5, "resources": [] }
+        ]
+      },
+      {
+        "week": 8,
+        "modules": [
+          { "title": "Project + KT", "estDays": 5, "resources": [] }
+        ]
+      },
+      {
+        "week": 9,
+        "modules": [
+          { "title": "Project + KT", "estDays": 5, "resources": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "course": "Python",
+    "lessons": [
+      {
+        "week": 1,
+        "modules": [
+          { "title": "Introduction to Python and Setup", "estDays": 1, "resources": ["https://www.python.org/"] },
+          { "title": "Python IDEs and Hello World Program", "estDays": 1, "resources": [] },
+          { "title": "Variables, Data Types, and Basic Operators", "estDays": 2, "resources": [] }
+        ]
+      },
+      {
+        "week": 2,
+        "modules": [
+          { "title": "Control Flow: if, elif, else", "estDays": 1, "resources": [] },
+          { "title": "Loops: for and while loops", "estDays": 2, "resources": [] },
+          { "title": "Functions, Arguments, and Return Values", "estDays": 2, "resources": [] }
+        ]
+      },
+      {
+        "week": 3,
+        "modules": [
+          { "title": "Lists, Tuples, Sets, and Dictionaries", "estDays": 2, "resources": [] },
+          { "title": "String Manipulation and Formatting", "estDays": 1, "resources": [] },
+          { "title": "File Handling and Exception Handling", "estDays": 2, "resources": [] }
+        ]
+      },
+      {
+        "week": 4,
+        "modules": [
+          { "title": "Modules and Packages", "estDays": 1, "resources": [] },
+          { "title": "Object-Oriented Programming in Python", "estDays": 2, "resources": [] },
+          { "title": "Working with Libraries: NumPy, Pandas, Matplotlib", "estDays": 2, "resources": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "course": "HTML & CSS",
+    "lessons": [
+      {
+        "week": 1,
+        "modules": [
+          { "title": "Introduction to HTML", "estDays": 1, "resources": [] },
+          { "title": "HTML Tags, Attributes, and Structure", "estDays": 1, "resources": [] },
+          { "title": "HTML Forms and Input Elements", "estDays": 1, "resources": [] },
+          { "title": "Introduction to CSS", "estDays": 1, "resources": [] },
+          { "title": "Selectors, Classes, IDs, and Styling Text", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 2,
+        "modules": [
+          { "title": "Box Model, Padding, Margin, Borders", "estDays": 1, "resources": [] },
+          { "title": "Flexbox Layout", "estDays": 2, "resources": [] },
+          { "title": "CSS Grid Layout", "estDays": 2, "resources": [] }
+        ]
+      },
+      {
+        "week": 3,
+        "modules": [
+          { "title": "Responsive Design and Media Queries", "estDays": 1, "resources": [] },
+          { "title": "CSS Transitions and Animations", "estDays": 1, "resources": [] },
+          { "title": "CSS Variables and Advanced Styling Techniques", "estDays": 1, "resources": [] },
+          { "title": "Building a Simple Responsive Web Page", "estDays": 2, "resources": [] }
+        ]
+      }
+    ]
+  },
+  {
+    "course": "Node.js",
+    "lessons": [
+      {
+        "week": 1,
+        "modules": [
+          { "title": "Introduction to Node.js and Environment Setup", "estDays": 1, "resources": [] },
+          { "title": "NPM and Installing Packages", "estDays": 1, "resources": [] },
+          { "title": "Basic Node.js Modules and File System", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 2,
+        "modules": [
+          { "title": "Event Loop and Asynchronous Programming", "estDays": 2, "resources": [] },
+          { "title": "Working with Express.js - Introduction and Setup", "estDays": 2, "resources": [] },
+          { "title": "Routing and Middleware in Express.js", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 3,
+        "modules": [
+          { "title": "REST API Development with Express.js", "estDays": 2, "resources": [] },
+          { "title": "Connecting to Databases (MongoDB / MySQL)", "estDays": 2, "resources": [] },
+          { "title": "Authentication and Authorization (JWT, Sessions)", "estDays": 1, "resources": [] }
+        ]
+      },
+      {
+        "week": 4,
+        "modules": [
+          { "title": "Error Handling and Logging", "estDays": 1, "resources": [] },
+          { "title": "Environment Variables and Config Management", "estDays": 2, "resources": [] },
+          { "title": "Deploying Node.js Applications", "estDays": 2, "resources": [] }
+        ]
+      }
+    ]
+  }
+]
