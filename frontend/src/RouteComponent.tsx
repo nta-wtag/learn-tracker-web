@@ -15,9 +15,8 @@ export default function RouteComponent() {
       <Route path="/" element={<AuthPage />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
         <Route path="/dashboard" element={<DashboardPage />} />
-        <Route path="/enroll" element={<EnrollCoursePage />} >
-          <Route path=":courseId/" element={<LessonPage />} />
-        </Route>
+        <Route path="/enroll" element={<EnrollCoursePage />} />
+        <Route path="/enroll/:courseId" element={<LessonPage />} />
         <Route
           path="/courses"
           element={
