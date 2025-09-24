@@ -1,11 +1,12 @@
 import { Routes, Route } from "react-router-dom";
 import AuthPage from "pages/AuthPage";
-import ProtectedRoute from "components/ProtectedRoute";
+import ProtectedRoute from "components/base-components/ProtectedRoute";
 import DashboardPage from "pages/DashboardPage";
 import CoursePage from "pages/CoursePage";
 import ProfilePage from "pages/ProfilePage";
 import ModuleDetail from "pages/modules/ModuleDetail";
 import NotFoundPage from "pages/NotFoundPage";
+import EnrollCoursePage from "./pages/EnrollCoursePage";
 
 export default function RouteComponent() {
   return (
@@ -13,6 +14,7 @@ export default function RouteComponent() {
       <Route path="/" element={<AuthPage />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/enroll" element={<EnrollCoursePage />} />
         <Route
           path="/courses"
           element={
