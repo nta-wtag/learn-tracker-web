@@ -3,16 +3,22 @@ import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
 import Input from "components/base-components/Input";
 import { validateAuth } from "utils/authValidation";
-import { findUserByEmail, saveUser, setCurrentUser } from "utils/authStorage";
+import {
+  findUserByEmail,
+  saveUser,
+  setCurrentUser,
+  } from "utils/authStorage";
+import Button from "components/base-components/Button";
 import type { AuthData } from "utils/authStorage";
+import { useNavigate } from "react-router-dom";
 
 interface AuthFormProps {
   isLoggedin: boolean;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
+  const navigate = useNavigate();
   const handleSubmit = async (values: AuthData) => {
-
     const { username, email, password } = values;
 
     if (isLoggedin) {
@@ -27,6 +33,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
       }
       setCurrentUser(user);
       alert("Login successful!");
+      navigate("/dashboard");
     } else {
       if (findUserByEmail(email)) {
         alert("Email already registered.");
@@ -41,6 +48,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
       saveUser(newUser);
       setCurrentUser(newUser);
       alert("Registration successful!");
+      navigate("/dashboard");
     }
   };
 
@@ -84,13 +92,12 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
               />
             )}
           </Field>
-          <button
+          <Button
             type="submit"
+            text={isLoggedin ? "Sign In" : "Sign Up"}
             disabled={submitting}
-            className="w-full bg-[#6b3dcb] p-2 text-white rounded-lg"
-          >
-            {isLoggedin ? "Sign In" : "Sign Up"}
-          </button>
+            variant="primary"
+          />
         </form>
       )}
     />

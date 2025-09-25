@@ -6,6 +6,8 @@ import CoursePage from "pages/CoursePage";
 import ProfilePage from "pages/ProfilePage";
 import ModuleDetail from "pages/modules/ModuleDetail";
 import NotFoundPage from "pages/NotFoundPage";
+import EnrollCoursePage from "./pages/EnrollCoursePage";
+import LessonPage from "./pages/LessonPage";
 
 export default function RouteComponent() {
   return (
@@ -13,6 +15,8 @@ export default function RouteComponent() {
       <Route path="/" element={<AuthPage />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
         <Route path="/dashboard" element={<DashboardPage />} />
+        <Route path="/enroll" element={<EnrollCoursePage />} />
+        <Route path="/enroll/:courseId" element={<LessonPage />} />
         <Route
           path="/courses"
           element={

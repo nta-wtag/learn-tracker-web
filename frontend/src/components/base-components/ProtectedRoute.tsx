@@ -1,8 +1,11 @@
 import React from "react";
 import { Navigate, Outlet } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
+<<<<<<<< HEAD:frontend/src/components/protected-components/ProtectedRoute.tsx
 import Sidebar from "components/protected-components/layout/Sidebar";
 import TopNav from "components/protected-components/layout/TopNav";
+========
+>>>>>>>> 98e5868f8831279f15b7d1c542f831690b972a07:frontend/src/components/base-components/ProtectedRoute.tsx
 
 interface Props {
   allowedRoles?: string[];
@@ -29,11 +32,17 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
   }
 
   return (
+<<<<<<<< HEAD:frontend/src/components/protected-components/ProtectedRoute.tsx
     <div className="flex h-screen">
       <Sidebar />
       <div className="flex flex-col flex-1">
         <TopNav />
+        <main className="flex-1 overflow-y-auto p-6">
+========
+    <div className="flex min-h-screen">
+      <div className="flex flex-col flex-1">
         <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
+>>>>>>>> 98e5868f8831279f15b7d1c542f831690b972a07:frontend/src/components/base-components/ProtectedRoute.tsx
           <Outlet />
         </main>
       </div>
