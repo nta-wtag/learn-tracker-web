@@ -1,11 +1,11 @@
 import React from 'react';
 
-function ProfilePage(props) {
+function EnrollCourse(props) {
     return (
         <div>
-           Profile 
+            
         </div>
     );
 }
 
-export default ProfilePage;
+export default EnrollCourse;

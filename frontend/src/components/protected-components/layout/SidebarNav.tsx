@@ -4,7 +4,7 @@ import SidebarLink from "components/protected-components/layout/SidebarLink";
 
 const SidebarNav: React.FC = () => {
   const links = [
-    { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { to: "/", label: "Dashboard", icon: LayoutDashboard },
     { to: "/courses", label: "Courses", icon: LibraryBig },
     { to: "/profile", label: "Profile", icon: UserCircle },
   ];

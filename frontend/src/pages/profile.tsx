@@ -1,11 +1,11 @@
 import React from 'react';
 
-function CoursePage(props) {
+function Profile(props) {
     return (
         <div>
-            Courses
+           Profile 
         </div>
     );
 }
 
-export default CoursePage;
+export default Profile;

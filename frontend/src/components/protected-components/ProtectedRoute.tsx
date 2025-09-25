@@ -1,8 +1,8 @@
 import React from "react";
-import { Navigate, Outlet } from "react-router-dom";
+import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
-import Sidebar from "components/protected-components/layout/Sidebar";
-import TopNav from "components/protected-components/layout/TopNav";
+import LoadingScreen from "components/base-components/LoadingScreen";
+import AppLayout from "components/layout/AppLayout";
 
 interface Props {
   allowedRoles?: string[];
@@ -12,33 +12,19 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
   const { isAuthenticated, isAuthChecked } = useAuth();
 
   if (!isAuthChecked) {
-    return (
-      <div className="flex items-center justify-center h-screen">
-        <div className="w-12 h-12 border-4 border-[#6b3dcb] border-t-transparent rounded-full animate-spin"></div>
-      </div>
-    );
+    return <LoadingScreen />;
   }
 
   if (!isAuthenticated) {
     alert("Please log in to access this page.");
-    return <Navigate to="/" replace />;
+    return <Navigate to="/auth" replace />;
   }
 
   if (allowedRoles && !allowedRoles.includes("USER")) {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  return (
-    <div className="flex h-screen">
-      <Sidebar />
-      <div className="flex flex-col flex-1">
-        <TopNav />
-        <main className="flex-1 overflow-y-auto p-6 bg-gray-50">
-          <Outlet />
-        </main>
-      </div>
-    </div>
-  );
+  return <AppLayout />;
 };
 
 export default ProtectedRoute;

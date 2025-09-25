@@ -14,7 +14,7 @@ const SidebarLink: React.FC<SidebarLinkProps> = ({ to, label, icon: Icon }) => {
       to={to}
       className={({ isActive }) =>
         classNames(
-          "flex items-center gap-3 px-2 py-2 rounded transition-colors",
+          "flex items-center gap-3 px-2 py-2 rounded transition-colors font-light",
           {
             "bg-[#6b3dcb]/10 text-[#6b3dcb]": isActive,
             "text-gray-400 hover:text-gray-600": !isActive,
