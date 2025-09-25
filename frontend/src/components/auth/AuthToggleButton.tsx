@@ -1,12 +1,12 @@
 import React from "react";
 import ToggleButton from "components/base-components/ToggleButton";
 
-interface AuthToggleProps {
+interface AuthToggleButtonProps {
   isLoggedin: boolean;
   setIsLoggedin: (val: boolean) => void;
 }
 
-const AuthToggle: React.FC<AuthToggleProps> = ({ isLoggedin, setIsLoggedin }) => (
+const AuthToggleButton: React.FC<AuthToggleButtonProps> = ({ isLoggedin, setIsLoggedin }) => (
   <div className="flex items-baseline mt-16 w-full justify-evenly">
     <ToggleButton 
       label="Sign In" 
@@ -22,4 +22,4 @@ const AuthToggle: React.FC<AuthToggleProps> = ({ isLoggedin, setIsLoggedin }) =>
   </div>
 );
 
-export default AuthToggle;
+export default AuthToggleButton;
