@@ -1,6 +1,6 @@
 import React from 'react';
 
-function DashboardPage(props) {
+function Dashboard(props) {
     return (
         <div>
             Dashboard
@@ -8,4 +8,4 @@ function DashboardPage(props) {
     );
 }
 
-export default DashboardPage;
+export default Dashboard;

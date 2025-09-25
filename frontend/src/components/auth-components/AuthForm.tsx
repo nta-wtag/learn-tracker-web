@@ -1,16 +1,11 @@
-// src/components/auth/AuthForm.tsx
-import React, { useState } from "react";
 import { Field, Form } from "react-final-form";
-import Input from "components/base-components/Input";
-import { validateAuth } from "utils/authValidation";
-import {
-  findUserByEmail,
-  saveUser,
-  setCurrentUser,
-  } from "utils/authStorage";
-import Button from "components/base-components/Button";
-import type { AuthData } from "utils/authStorage";
 import { useNavigate } from "react-router-dom";
+
+import Input from "components/fields/Input";
+import Button from "components/base-components/Button";
+
+import { validateAuth } from "utils/auth-validation"
+import { AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
 
 interface AuthFormProps {
   isLoggedin: boolean;
@@ -33,7 +28,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
       }
       setCurrentUser(user);
       alert("Login successful!");
-      navigate("/dashboard");
+      navigate("/");
     } else {
       if (findUserByEmail(email)) {
         alert("Email already registered.");
@@ -48,7 +43,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => {
       saveUser(newUser);
       setCurrentUser(newUser);
       alert("Registration successful!");
-      navigate("/dashboard");
+      navigate("/");
     }
   };
 

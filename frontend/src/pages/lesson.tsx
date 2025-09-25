@@ -4,7 +4,7 @@ import coursesData from "data/Courses.json";
 import Button from "components/base-components/Button";
 import WeekSection from "components/course-components/WeekSection";
 
-const LessonPage: React.FC = () => {
+const Lesson: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const navigate = useNavigate();
   const course = coursesData.find((c) => c.course === courseId);
@@ -14,12 +14,13 @@ const LessonPage: React.FC = () => {
   const handleStartLearning = () => {
     const enrolledCourses = JSON.parse(
       localStorage.getItem("enrolledCourses") || "[]"
+
     );
     if (!enrolledCourses.includes(course.course)) {
       enrolledCourses.push(course.course);
       localStorage.setItem("enrolledCourses", JSON.stringify(enrolledCourses));
     }
-    navigate("/dashboard");
+    navigate("/");
   };
 
   return (
@@ -35,4 +36,4 @@ const LessonPage: React.FC = () => {
   );
 };
 
-export default LessonPage;
+export default Lesson;

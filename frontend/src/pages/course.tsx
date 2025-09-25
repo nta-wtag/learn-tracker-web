@@ -1,6 +1,6 @@
 import React from 'react';
 
-function CoursePage(props) {
+function Course(props) {
     return (
         <div>
             Courses
@@ -8,4 +8,4 @@ function CoursePage(props) {
     );
 }
 
-export default CoursePage;
+export default Course;

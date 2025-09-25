@@ -1,6 +1,5 @@
-// src/hooks/useAuth.ts
 import { useEffect, useState } from "react";
-import { getCurrentUser, AuthData } from "utils/authStorage";
+import { getCurrentUser, AuthData } from "utils/auth-storage";
 
 export const useAuth = () => {
   const [user, setUser] = useState<AuthData | null>(null);
