@@ -1,11 +1,11 @@
 import React from 'react';
 
-function CoursePage(props) {
+function Dashboard(props) {
     return (
         <div>
-            Courses
+            Dashboard
         </div>
     );
 }
 
-export default CoursePage;
+export default Dashboard;

@@ -4,7 +4,7 @@ import { useAuth } from "hooks/useAuth";
 
 import image from 'assets/istockphoto-1366754976-612x612.jpg'
 
-const NotFoundPage = () => {
+const NotFound = () => {
     const isAuthenticated = useAuth();
     return (
         <div className="flex flex-col w-full h-screen justify-between">
@@ -23,4 +23,4 @@ const NotFoundPage = () => {
     );
 };
 
-export default NotFoundPage;
+export default NotFound;

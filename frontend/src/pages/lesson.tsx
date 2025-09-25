@@ -1,11 +1,11 @@
 import React from 'react';
 
-function ProfilePage(props) {
+function Lesson(props) {
     return (
         <div>
-           Profile 
+            Lesson
         </div>
     );
 }
 
-export default ProfilePage;
+export default Lesson;

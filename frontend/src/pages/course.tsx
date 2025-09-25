@@ -1,11 +1,11 @@
 import React from 'react';
 
-function LessonPage(props) {
+function Course(props) {
     return (
         <div>
-            Lesson
+            Courses
         </div>
     );
 }
 
-export default LessonPage;
+export default Course;
