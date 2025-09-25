@@ -1,29 +1,31 @@
 import { Routes, Route } from "react-router-dom";
-import AuthPage from "pages/AuthPage";
-import ProtectedRoute from "components/ProtectedRoute";
-import DashboardPage from "pages/DashboardPage";
-import CoursePage from "pages/CoursePage";
-import ProfilePage from "pages/ProfilePage";
-import ModuleDetail from "pages/modules/ModuleDetail";
-import NotFoundPage from "pages/NotFoundPage";
+import ProtectedRoute from "components/protected-components/ProtectedRoute";
+import Dashboard from "pages/dashboard";
+import Course from "pages/course";
+import Profile from "pages/profile";
+import ModuleDetail from "pages/modules/module-detail";
+import NotFound from "pages/not-found";
+import EnrollCourse from "pages/enroll-course";
+import Lesson from "pages/lesson";
+import Authentication from "pages/authentication";
 
 export default function RouteComponent() {
   return (
     <Routes>
-      <Route path="/" element={<AuthPage />} />
+      <Route path="/auth" element={<Authentication />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
-        <Route path="/dashboard" element={<DashboardPage />} />
-        <Route
-          path="/courses"
-          element={
-              <CoursePage />
-          }
-        >
-          <Route path=":courseId/modules/:moduleId" element={<ModuleDetail />} />
+        <Route path="/" element={<Dashboard />} />
+        <Route path="/enroll" element={<EnrollCourse />} />
+        <Route path="/enroll/:courseId" element={<Lesson />} />
+        <Route path="/courses" element={<Course />}>
+          <Route
+            path=":courseId/modules/:moduleId"
+            element={<ModuleDetail />}
+          />
         </Route>
-        <Route path="/profile" element={<ProfilePage />} />
+        <Route path="/profile" element={<Profile />} />
       </Route>
-      <Route path="*" element={<NotFoundPage />} />
+      <Route path="*" element={<NotFound />} />
     </Routes>
   );
 }

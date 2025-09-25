@@ -36,7 +36,7 @@ const RecentActivity: React.FC<RecentActivityProps> = ({ activities }) => {
   };
 
   return (
-    <div className="bg-white rounded-xl shadow p-6">
+    <div className="bg-gray-50 rounded-xl shadow p-6">
       <h2 className="text-lg font-semibold mb-4">Recent Activity</h2>
       {activities.length === 0 ? (
         <p className="text-gray-500 text-sm">No recent activity.</p>

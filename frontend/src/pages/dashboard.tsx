@@ -34,7 +34,7 @@ const mockActivities = [
 const Dashboard: React.FC = () => {
   return (
     <div className="space-y-6">
-      {/* Stats cards */}
+        <h1 className="text-4xl font-bold pb-8">Dashboard</h1>
       <div className="grid grid-cols-1 md:grid-cols-3 gap-6">
       <Card 
         title="Courses Enrolled" 
@@ -52,8 +52,6 @@ const Dashboard: React.FC = () => {
         icon={<Flame />} 
       />
     </div>
-
-      {/* Recent Activity */}
       <RecentActivity activities={mockActivities} />
     </div>
   );
