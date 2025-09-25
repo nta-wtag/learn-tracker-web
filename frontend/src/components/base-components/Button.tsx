@@ -34,4 +34,3 @@ const Button: React.FC<ButtonProps> = ({
 };
 
 export default Button;
->>>>>>> 98e5868f8831279f15b7d1c542f831690b972a07
