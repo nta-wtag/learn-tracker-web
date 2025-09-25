@@ -1,10 +1,11 @@
 import React from 'react';
 import Auth from 'components/auth-components/Auth';
 
-function authentication(props) {
+function Authentication(props) {
   return (
     <Auth/>
   );
 }
 
-export default authentication;
+export default Authentication;
+

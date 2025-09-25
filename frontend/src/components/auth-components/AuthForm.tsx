@@ -1,63 +1,31 @@
-import React from "react";
-import { Field, Form } from "react-final-form";
-
-import Input from "components/fields/Input";
+import { Form } from "react-final-form";
 import Button from "components/base-components/Button";
+import AuthFields from "components/auth-components/AuthFields";
 
-import { validateAuth } from "utils/auth-validation"
-import { AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
+import { validateAuth } from "utils/auth-validation";
+import { handleLogin, handleRegister } from "utils/auth-handlers";
 
 interface AuthFormProps {
-  isLoggedin: boolean;
+  isLoginMode: boolean;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ isLoggedin }) => (
+const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => (
   <Form
-    onSubmit={async (values) => {
-      const { username, email, password } = values;
-
-      if (isLoggedin) {
-        const user = findUserByEmail(email);
-        if (!user) {
-          alert("User not found. Please sign up first.");
-          return;
-        }
-        if (user.password !== password) {
-          alert("Incorrect password.");
-          return;
-        }
-        setCurrentUser(user);
-        alert("Login successful!");
+    onSubmit={async ({ username, email, password }) => {
+      if (isLoginMode) {
+        handleLogin(email, password);
       } else {
-        if (findUserByEmail(email)) {
-          alert("Email already registered.");
-          return;
-        }
-        const newUser: AuthData = { username, email, password };
-        saveUser(newUser);
-        setCurrentUser(newUser);
-        alert("Registration successful!");
+        handleRegister(username, email, password);
       }
     }}
-    validate={(values) => validateAuth(values, isLoggedin)}
+    validate={(values) => validateAuth(values, isLoginMode)}
     render={({ handleSubmit, submitting }) => (
       <form onSubmit={handleSubmit} className="flex flex-col space-y-4 w-full">
-        {!isLoggedin && (
-          <Field name="username">
-            {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} placeholder="Username" />}
-          </Field>
-        )}
-        <Field name="email">
-          {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} type="email" placeholder="Email" />}
-        </Field>
-        <Field name="password">
-          {({ input, meta }) => <Input input={input} error={meta.error} touched={meta.touched} type="password" placeholder="Password" />}
-        </Field>
+        <AuthFields isLoginMode={isLoginMode} />
         <Button
           type="submit"
-          text={isLoggedin ? "Sign In" : "Sign Up"}
+          text={isLoginMode ? "Sign In" : "Sign Up"}
           disabled={submitting}
-          variant="primary"
         />
       </form>
     )}
