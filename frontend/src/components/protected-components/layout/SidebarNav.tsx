@@ -1,0 +1,26 @@
+import React from "react";
+import { LayoutDashboard, LibraryBig, UserCircle } from "lucide-react";
+import SidebarLink from "components/protected-components/layout/SidebarLink";
+
+const SidebarNav: React.FC = () => {
+  const links = [
+    { to: "/dashboard", label: "Dashboard", icon: LayoutDashboard },
+    { to: "/courses", label: "Courses", icon: LibraryBig },
+    { to: "/profile", label: "Profile", icon: UserCircle },
+  ];
+
+  return (
+    <nav className="flex-grow px-4 py-8 space-y-6 text-gray-400">
+      {links.map((link) => (
+        <SidebarLink
+          key={link.to}
+          to={link.to}
+          label={link.label}
+          icon={link.icon}
+        />
+      ))}
+    </nav>
+  );
+};
+
+export default SidebarNav;

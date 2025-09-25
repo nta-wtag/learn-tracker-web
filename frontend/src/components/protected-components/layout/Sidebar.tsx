@@ -1,7 +1,6 @@
 import React from "react";
 import logo from '/image-removebg-preview.png'
-import SidebarNav from "./SidebarNav";
-import SidebarFooter from "./SidebarFooter";
+import SidebarNav from "components/protected-components/layout/SidebarNav";
 
 
 const Sidebar: React.FC = () => {
@@ -15,7 +14,6 @@ const Sidebar: React.FC = () => {
         </div>
 
         <SidebarNav/>
-        <SidebarFooter/>
 
       </aside>
     </div>
