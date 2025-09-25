@@ -1,10 +1,11 @@
 import React from "react";
 import { Field, Form } from "react-final-form";
-import { validateAuth } from "utils/authValidation"
-import Input from "components/base-components/Input";
-import { findUserByEmail, saveUser, setCurrentUser } from "utils/authStorage";
+
+import Input from "components/fields/Input";
 import Button from "components/base-components/Button";
-import type { AuthData } from "utils/authStorage";
+
+import { validateAuth } from "utils/auth-validation"
+import { AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
 
 interface AuthFormProps {
   isLoggedin: boolean;

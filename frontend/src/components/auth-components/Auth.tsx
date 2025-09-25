@@ -1,13 +1,13 @@
 import React, { useState } from "react";
-import AuthForm from "components/auth/AuthForm";
-import AuthHeader from "components/auth/AuthHeader";
-import AuthImage from "components/auth/AuthImage";
-import AuthToggle from "components/auth/AuthToggle";
+import AuthForm from "components/auth-components/AuthForm";
+import AuthHeader from "components/auth-components/AuthHeader";
+import AuthImage from "components/auth-components/AuthImage";
+import AuthToggleButton from "components/auth-components/AuthToggleButton";
 
 import loginImg from "assets/Education-Isometric-Illustration.jpg";
 import registerImg from "assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
 
-const AuthPage = () => {
+const Auth = () => {
   const [isLoggedin, setIsLoggedin] = useState(true);
 
   return (
@@ -18,7 +18,7 @@ const AuthPage = () => {
           <div className="w-full sm:w-2/3 lg:w-full rounded-lg px-8 lg:px-16 2xl:px-32 py-8 lg:py-16 flex flex-col items-start justify-center lg:space-y-4 bg-white text-black">
             <AuthHeader isLoggedin={isLoggedin} />
             <AuthForm isLoggedin={isLoggedin} />
-            <AuthToggle isLoggedin={isLoggedin} setIsLoggedin={setIsLoggedin} />
+            <AuthToggleButton isLoggedin={isLoggedin} setIsLoggedin={setIsLoggedin} />
           </div>
         </div>
       </div>
@@ -26,4 +26,4 @@ const AuthPage = () => {
   );
 };
 
-export default AuthPage;
+export default Auth;
