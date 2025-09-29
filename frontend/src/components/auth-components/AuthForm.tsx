@@ -1,7 +1,7 @@
 import React from "react";
 import { Form } from "react-final-form";
 import Button from "components/base-components/Button";
-import AuthFields from "./AuthFields";
+import AuthFields from "components/auth-components/AuthFields";
 
 import { validateAuth } from "utils/auth-validation";
 import { handleLogin, handleRegister } from "utils/auth-handlers";
