@@ -12,7 +12,7 @@ export const getUsers = (): AuthData[] => {
 export const findUserByEmail = (email: string) => {
   const users = getUsers();
   return users.find((u) => u.email === email);
-};
+}
 
 export const setCurrentUser = (user: AuthData) => {
   localStorage.setItem("currentUser", JSON.stringify(user));

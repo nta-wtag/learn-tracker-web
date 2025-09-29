@@ -8,4 +8,3 @@ function Authentication(props) {
 }
 
 export default Authentication;
-
