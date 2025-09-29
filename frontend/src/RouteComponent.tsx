@@ -1,6 +1,6 @@
 import { Routes, Route } from "react-router-dom";
 
-import ProtectedRoute from "components/base-components/ProtectedRoute";
+import ProtectedRoute from "components/protected-components/ProtectedRoute";
 import Dashboard from "pages/dashboard";
 import Course from "pages/course";
 import Profile from "pages/profile";
