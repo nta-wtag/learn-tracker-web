@@ -1,6 +1,7 @@
 import React from "react";
 import Button from "components/base-components/Button";
 import { useNavigate } from "react-router-dom";
+import { enrollCourseForCurrentUser } from "utils/auth-storage";
 
 export interface Module {
   title: string;
@@ -36,8 +37,18 @@ const CourseCard: React.FC<Props> = ({ course }) => {
     0
   );
 
+  const handleStartLearning = () => {
+    console.log("Enrolling...")
+    if (!course) return;
+
+    enrollCourseForCurrentUser(course.course);
+
+    alert(`You are now enrolled in ${course.course}!`);
+    navigate("/");
+  };
+
   return (
-    <div className="bg-white shadow rounded-lg p-6 flex flex-col gap-8">
+    <div className="bg-white p-6 flex flex-col gap-8 shadow-lg rounded-lg">
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-bold mb-2">{course.course}</h2>
         <p className="text-gray-600">Lessons: {totalLessons}</p>
@@ -51,7 +62,7 @@ const CourseCard: React.FC<Props> = ({ course }) => {
         />
         <Button
           text="Enroll"
-          onClick={() => alert(`Enrolled in ${course.course}`)}
+          onClick={handleStartLearning}
         />
       </div>
     </div>
