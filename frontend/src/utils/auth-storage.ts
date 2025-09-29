@@ -3,7 +3,7 @@ export interface AuthData {
   password: string;
   username: string;
   role: "ADMIN" | "USER";
-  courses: []
+  courses:[]
 }
 
 export const getUsers = (): AuthData[] => {
@@ -36,33 +36,4 @@ export const saveUser = (user: AuthData) => {
 export const getCurrentUser = () : AuthData | null => {
   const user = localStorage.getItem("currentUser");
   return user ? JSON.parse(user) : null;
-};
-
-export const enrollCourseForCurrentUser = (courseName: string) => {
-  const user = getCurrentUser();
-  if (!user) return;
-
-  // Initialize courses array if missing
-  if (!user.courses) user.courses = [];
-
-  // Add course if not already enrolled
-  if (!user.courses.includes(courseName)) {
-    user.courses.push(courseName);
-
-    // Update user in local storage
-    setCurrentUser(user);
-
-    // Also update in all users array
-    const users = getUsers();
-    const idx = users.findIndex(u => u.email === user.email);
-    if (idx !== -1) {
-      users[idx] = user;
-      localStorage.setItem("users", JSON.stringify(users));
-    }
-  }
-};
-
-export const getEnrolledCourses = (): string[] => {
-  const user = getCurrentUser();
-  return user?.courses || [];
 };
