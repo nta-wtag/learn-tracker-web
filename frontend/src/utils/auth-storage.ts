@@ -12,16 +12,10 @@ export const getUsers = (): AuthData[] => {
 export const findUserByEmail = (email: string) => {
   const users = getUsers();
   return users.find((u) => u.email === email);
-};
+}
 
 export const setCurrentUser = (user: AuthData) => {
   localStorage.setItem("currentUser", JSON.stringify(user));
-};
-
-export const saveUser = (user: AuthData) => {
-  const users = getUsers();
-  users.push(user);
-  localStorage.setItem("users", JSON.stringify(users));
 };
 
 export const getCurrentUser = () => {
@@ -35,4 +29,10 @@ export const clearUser = () => {
 
 export const logout = () => {
   localStorage.removeItem("currentUser");
+};
+
+export const saveUser = (user: AuthData) => {
+  const users = getUsers();
+  users.push(user);
+  localStorage.setItem("users", JSON.stringify(users));
 };
