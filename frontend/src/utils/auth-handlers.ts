@@ -1,4 +1,4 @@
-import { AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
+import {type AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
 
 export const handleLogin = (email: string, password: string) => {
   const user = findUserByEmail(email);
