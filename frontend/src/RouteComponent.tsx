@@ -4,7 +4,7 @@ import ProtectedRoute from "components/protected-components/ProtectedRoute";
 import Dashboard from "pages/dashboard";
 import Courses from "pages/courses";
 import Profile from "pages/profile";
-import ModuleDetail from "pages/modules/ModuleDetail";
+import ModuleDetail from "pages/modules/module-detail";
 import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
 import Lessons from "pages/lessons";
