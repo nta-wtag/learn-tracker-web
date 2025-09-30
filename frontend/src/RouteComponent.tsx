@@ -1,3 +1,4 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "components/protected-components/ProtectedRoute";
 import Dashboard from "pages/dashboard";
