@@ -1,7 +1,6 @@
 import React from "react";
 import Button from "components/base-components/Button";
 import { useNavigate } from "react-router-dom";
-import { enrollCourseForCurrentUser } from "utils/auth-storage";
 
 export interface Module {
   title: string;
@@ -40,8 +39,6 @@ const CourseCard: React.FC<Props> = ({ course }) => {
   const handleStartLearning = () => {
     console.log("Enrolling...")
     if (!course) return;
-
-    enrollCourseForCurrentUser(course.course);
 
     alert(`You are now enrolled in ${course.course}!`);
     navigate("/");

@@ -17,9 +17,9 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
 }) => {
   const buttonClass = classNames(
-    "px-2 sm:px-4 md:px-8 py-2 rounded-lg transition-colors",
+    "px-4 py-2 rounded-lg transition-colors",
     {
-      "bg-[#6b3dcb] text-white hover:bg-[#5a31b3]": variant === "primary",
+      "bg-primaryColor text-white hover:bg-darkPrimaryColor": variant === "primary",
       "bg-gray-200 text-gray-700 hover:bg-gray-300": variant === "secondary",
       "bg-red-500 text-white hover:bg-red-600": variant === "danger",
       "opacity-50 cursor-not-allowed": disabled,
