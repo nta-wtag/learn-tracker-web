@@ -5,7 +5,7 @@ import reactRefresh from 'eslint-plugin-react-refresh'
 import tseslint from 'typescript-eslint'
 import { globalIgnores } from 'eslint/config'
 export default tseslint.config([
-  globalIgnores(['dist']),
+  globalIgnores(['dist', '**/*.png', '**/*.jpg', '**/*.jpeg', '**/*.svg', '**/*.gif', '**/*.webp', '**/*.ico']),
   {
     files: ['**/*.{ts,tsx}'],
     extends: [

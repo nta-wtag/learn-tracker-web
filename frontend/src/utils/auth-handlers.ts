@@ -23,6 +23,6 @@ export const handleRegister = (username: string, email: string, password: string
   const newUser: AuthData = { username, email, password, role: "USER" };
   saveUser(newUser);
   setCurrentUser(newUser);
-  alert("Registration successful!");
+  alert("Registration successful!\nLogin to continue.");
   return true;
 };
