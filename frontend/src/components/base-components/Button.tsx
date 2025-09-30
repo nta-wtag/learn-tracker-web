@@ -17,7 +17,7 @@ const Button: React.FC<ButtonProps> = ({
   variant = "primary",
 }) => {
   const buttonClass = classNames(
-    "w-full p-2 rounded-lg transition-colors",
+    "px-4 py-2 rounded-lg transition-colors",
     {
       "bg-primaryColor text-white hover:bg-darkPrimaryColor": variant === "primary",
       "bg-gray-200 text-gray-700 hover:bg-gray-300": variant === "secondary",
