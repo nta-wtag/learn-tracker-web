@@ -21,7 +21,6 @@
     "react-final-form": "^7.0.0",
     "react-hot-toast": "^2.6.0",
     "react-router-dom": "^7.9.1",
-    "tailwindcss": "^4.1.13",
     "validator": "^13.15.15"
   },
   "devDependencies": {
