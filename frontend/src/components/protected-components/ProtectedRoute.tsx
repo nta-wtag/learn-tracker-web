@@ -2,7 +2,7 @@ import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
 import LoadingScreen from "components/base-components/LoadingScreen";
-import AppLayout from "./layout/AppLayout";
+import AppLayout from "components/protected-components/layout/AppLayout";
 
 interface Props {
   allowedRoles?: string[];
