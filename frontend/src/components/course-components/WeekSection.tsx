@@ -1,11 +1,6 @@
 import React from "react";
 import ModuleItem from "components/course-components/ModuleItem";
-
-interface Module {
-  title: string;
-  estDays: number;
-  resources: string[];
-}
+import type { Module } from "utils/course-storage";
 
 interface Props {
   week: number;

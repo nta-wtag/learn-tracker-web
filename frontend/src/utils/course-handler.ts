@@ -1,48 +1,27 @@
-import { getUsers, setCurrentUser, getCurrentUser } from "utils/auth-storage";
+import type { Course } from "utils/course-storage";
 
-export interface EnrolledCourse {
-  courseName: string;
-  enrolledAt: string; 
-}
-
-export const isEnrolled = (courseName: string) => {
-  const user = getCurrentUser();
-  return user?.courses?.some((c: EnrolledCourse) => c.courseName === courseName) || false;
+export const getTotalLessons = (course: Course): number => {
+  return course.lessons.reduce((sum, week) => sum + week.modules.length, 0);
 };
 
-export const enrollCourseForCurrentUser = (courseName: string) => {
-  const user = getCurrentUser();
-  if (!user) return "No user logged in";
-
-  if (!user.courses) user.courses = [];
-
-  const alreadyEnrolled = user.courses.find(
-    (c: EnrolledCourse) => c.courseName === courseName
+export const getTotalDays = (course: Course): number => {
+  return course.lessons.reduce(
+    (sum, week) => sum + week.modules.reduce((s, m) => s + m.estDays, 0),
+    0
   );
-  
-  if (alreadyEnrolled) {
-    return `You are already enrolled in ${courseName} (since ${alreadyEnrolled.enrolledAt})`;
-  }
-
-  const enrollment = {
-    courseName,
-    enrolledAt: new Date().toISOString(),
-  };
-  user.courses.push(enrollment);
-
-  setCurrentUser(user);
-
-  const users = getUsers();
-  const idx = users.findIndex((u) => u.email === user.email);
-  if (idx !== -1) {
-    users[idx] = user;
-    localStorage.setItem("users", JSON.stringify(users));
-  }
-
-  return `You are now enrolled in ${courseName}!`;
 };
 
-export const getEnrolledCourses = (): EnrolledCourse[] => {
-  const user = getCurrentUser();
-  return user?.courses || [];
+export const calculateDeadline = (enrolledAt: string, totalDays: number): string => {
+  let currentDate = new Date(enrolledAt);
+  let addedDays = 0;
+
+  while (addedDays < totalDays) {
+    currentDate.setDate(currentDate.getDate() + 1);
+    const day = currentDate.getDay(); 
+    if (day !== 5 && day !== 6) {
+      addedDays++;
+    }
+  }
+
+  return currentDate.toISOString().split("T")[0]; 
 };

@@ -1,9 +1,9 @@
 import React from "react";
-import { useParams, useNavigate } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import coursesData from "data/Courses.json";
 import Button from "components/base-components/Button";
 import WeekSection from "components/course-components/WeekSection";
-import { enrollCourseForCurrentUser } from "utils/course-handler";
+import { enrollCourseForCurrentUser } from "utils/course-storage";
 
 const Lesson: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
