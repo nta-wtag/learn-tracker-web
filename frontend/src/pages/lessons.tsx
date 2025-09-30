@@ -12,14 +12,7 @@ const Lesson: React.FC = () => {
   if (!course) return <p className="p-6 text-red-500">Course not found</p>;
 
   const handleStartLearning = () => {
-    const enrolledCourses = JSON.parse(
-      localStorage.getItem("enrolledCourses") || "[]"
-
-    );
-    if (!enrolledCourses.includes(course.course)) {
-      enrolledCourses.push(course.course);
-      localStorage.setItem("enrolledCourses", JSON.stringify(enrolledCourses));
-    }
+    alert(`Enrolled in  ${course.course}`)
     navigate("/");
   };
 
