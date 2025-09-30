@@ -5,7 +5,7 @@ function Courses(props) {
         <div>
             Courses
         </div>
-  );
+    );
 }
 
 export default Courses;
