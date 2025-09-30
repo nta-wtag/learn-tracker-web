@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { getCurrentUser, AuthData } from "utils/auth-storage";
+import { getCurrentUser, type AuthData } from "utils/auth-storage";
 
 export const useAuth = () => {
   const [user, setUser] = useState<AuthData | null>(null);

@@ -4,4 +4,6 @@
 @theme {
   --font-rubik-glitch: "Rubik Glitch", system-ui; 
   --font-poppins: "Poppins", sans;
+  --color-primaryColor: #6b3dcb;
+  --color-darkPrimaryColor: #5a31b3;
 }

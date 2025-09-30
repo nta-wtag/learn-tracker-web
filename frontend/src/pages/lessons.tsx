@@ -1,11 +1,11 @@
 import React from 'react';
 
-function Lesson(props) {
+function Lessons(props) {
     return (
         <div>
-            Lesson
+            Lessons
         </div>
     );
 }
 
-export default Lesson;
+export default Lessons;

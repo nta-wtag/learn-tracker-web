@@ -14,14 +14,14 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ label, active, onClick }) =
       className={classNames(
         "relative px-2 transition-colors lg:text-xl text-lg",
         {
-          "text-[#6b3dcb] font-extrabold": active,
+          "text-primaryColor font-extrabold": active,
           "text-gray-400 font-light": !active,
         }
       )}
     >
       {label}
       {active && (
-        <div className="absolute left-0 right-0 -bottom-1 h-[3px] bg-[#6b3dcb] rounded" />
+        <div className="absolute left-0 right-0 -bottom-1 h-[3px] bg-primaryColor rounded" />
       )}
     </button>
   );
