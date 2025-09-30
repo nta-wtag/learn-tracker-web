@@ -10,7 +10,7 @@ const SidebarNav: React.FC = () => {
   ];
 
   return (
-    <nav className="flex-grow px-4 py-8 space-y-6 text-gray-400">
+    <nav className="flex-grow p-4 space-y-4 text-gray-400">
       {links.map((link) => (
         <SidebarLink
           key={link.to}

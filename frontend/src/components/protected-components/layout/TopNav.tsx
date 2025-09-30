@@ -8,8 +8,9 @@ function TopNav() {
   const user = getCurrentUser();
 
   const handleLogout = () => {
+    console.log("logout")
     logout();
-    navigate("/");
+    navigate("/auth");
   };
 
   return (
@@ -17,7 +18,7 @@ function TopNav() {
       <p className="text-gray-400">Hey there, {user?.username.toUpperCase()}</p>
       <div className="flex gap-4">
         <Button text="Enroll on a course" onClick={() => navigate("/courses")} />
-        <Button text="Logout" onClick={() => handleLogout} variant="danger" />
+        <Button text="Log out" onClick={handleLogout} variant="danger" />
       </div>
     </div>
   );
