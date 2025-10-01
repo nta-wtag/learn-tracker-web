@@ -17,7 +17,7 @@ const Lessons: React.FC = () => {
   if (!course) return <p className="p-6 text-red-500">Course not found</p>;
 
   return (
-    <div className="flex flex-col h-screen overflow-none">
+    <div className="flex flex-col h-screen overflow-none bg-white shadow-lg rounded-lg p-4">
       <div className="sticky top-0 z-10 flex flex-col-reverse sm:flex-row justify-between gap-8 px-4 py-8 ">
         <h1 className="text-3xl font-bold">{course.course} - Lesson Plan</h1>
         <Button text="Start Learning" onClick={handleEnrollClick} />

@@ -22,7 +22,7 @@ const CourseActions: React.FC<Props> = ({
       <Button
         text="Lesson Plan"
         variant="primary"
-        onClick={() => navigate(`/enroll/${courseName}`)}
+        onClick={() => navigate(`/${context}/${courseName}`)}
       />
 
       {context === "enroll" && (

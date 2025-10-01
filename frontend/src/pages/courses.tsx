@@ -2,6 +2,7 @@ import React from "react";
 import coursesData from "data/Courses.json";
 import CourseGrid from "components/course-components/CourseGrid";
 import { getEnrolledCourses } from "utils/course-storage";
+import { Outlet } from "react-router-dom";
 
 const Courses: React.FC = () => {
     const enrolledCourses = getEnrolledCourses();
@@ -18,6 +19,7 @@ const Courses: React.FC = () => {
         <div className="p-6 gap-8 flex flex-col">
             <h1 className="text-2xl font-bold">My Courses</h1>
             <CourseGrid courses={coursesToShow} context="courses" />
+            <Outlet/>
         </div>
     );
 };
