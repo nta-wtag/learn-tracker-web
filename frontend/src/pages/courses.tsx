@@ -3,6 +3,7 @@ import coursesData from "data/Courses.json";
 import CourseGrid from "components/course-components/CourseGrid";
 import { getEnrolledCourses } from "utils/course-storage";
 import { Outlet } from "react-router-dom";
+import { CardProvider } from "hooks/useCardContext";
 
 const Courses: React.FC = () => {
     const enrolledCourses = getEnrolledCourses();
@@ -18,7 +19,9 @@ const Courses: React.FC = () => {
     return (
         <div className="py-4 gap-8 flex flex-col">
             <h1 className="text-2xl font-bold">My Courses</h1>
-            <CourseGrid courses={coursesToShow} context="courses" />
+            <CardProvider key={coursesToShow} context="courses" >
+                <CourseGrid courses={coursesToShow} />
+            </CardProvider>
             <Outlet/>
         </div>
     );

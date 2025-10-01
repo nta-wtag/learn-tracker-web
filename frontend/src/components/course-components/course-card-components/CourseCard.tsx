@@ -4,14 +4,14 @@ import CourseCardInfo from "components/course-components/course-card-components/
 import CourseCardAction from "components/course-components/course-card-components/CourseCardAction";
 import { calculateDeadline, calculateDaysLessons } from "utils/course-handler";
 import { enrollCourseForCurrentUser, getEnrolledCourses, isEnrolled, type Course } from "utils/course-storage";
+import { CourseCardProvider } from "hooks/useCourseCardValues";
 
 interface Props {
   course: Course;
-  context: "enroll" | "courses";
 }
 
-const CourseCard: React.FC<Props> = ({ course, context }) => {
-  const {totalLessons, totalDays} = calculateDaysLessons(course.lessons);
+const CourseCard: React.FC<Props> = ({ course }) => {
+  const { totalLessons, totalDays } = calculateDaysLessons(course.lessons);
 
   const enrolledCourses = getEnrolledCourses();
   const enrolledCourse = enrolledCourses.find(
@@ -29,30 +29,22 @@ const CourseCard: React.FC<Props> = ({ course, context }) => {
 
   const isDeadlineOver = deadline ? new Date() > new Date(deadline) : false;
 
+  const cardValues = {
+    totalLessons,
+    totalDays,
+    deadline,
+    isDeadlineOver,
+    courseName: course.course,
+  };
+
   return (
+    <CourseCardProvider values={cardValues}>
     <div className="bg-white p-6 flex flex-col gap-8 shadow-lg rounded-lg">
-      <CourseCardHeader
-        title={course.course}
-        deadline={deadline}
-        isDeadlineOver={isDeadlineOver}
-        context={context}
-      />
-
-      <CourseCardInfo
-        lessonsCount={totalLessons}
-        totalDays={totalDays}
-        context={context}
-        deadline={deadline}
-        isDeadlineOver={isDeadlineOver}
-      />
-
-      <CourseCardAction
-        courseName={course.course}
-        context={context}
-        isEnrolled={isEnrolled(course.course)}
-        onEnrollClick={handleEnrollClick}
-      />
+      <CourseCardHeader />
+      <CourseCardInfo />
+      <CourseCardAction onEnrollClick={handleEnrollClick} />
     </div>
+  </CourseCardProvider>
   );
 };
 

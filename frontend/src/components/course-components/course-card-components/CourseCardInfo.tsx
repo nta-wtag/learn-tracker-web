@@ -1,23 +1,13 @@
+import { useCardContext } from "hooks/useCardContext";
+import { useCourseCardValues } from "hooks/useCourseCardValues";
 import React from "react";
 
-interface Props {
-  lessonsCount: number;
-  totalDays: number;
-  context: "enroll" | "courses";
-  deadline?: string | null;
-  isDeadlineOver: boolean;
-}
-
-const CourseInfo: React.FC<Props> = ({
-  lessonsCount,
-  totalDays,
-  context,
-  deadline,
-  isDeadlineOver,
-}) => {
+const CourseInfo: React.FC = () => {
+  const context = useCardContext();
+  const { totalLessons, totalDays, deadline, isDeadlineOver } = useCourseCardValues();;
   return (
     <div className="flex flex-col gap-2">
-      <p className="text-gray-600">Lessons: {lessonsCount}</p>
+      <p className="text-gray-600">Lessons: {totalLessons}</p>
 
       {context === "enroll" ? (
         <p className="text-gray-600">Estimated Time: {totalDays} day(s)</p>

@@ -1,17 +1,15 @@
 import React from "react";
 import classNames from "classnames";
+import { useCardContext } from "hooks/useCardContext";
+import { useCourseCardValues } from "hooks/useCourseCardValues";
 
-interface Props {
-  title: string;
-  deadline?: string | null;
-  isDeadlineOver: boolean;
-  context: "enroll" | "courses";
-}
 
-const CourseHeader: React.FC<Props> = ({ title, deadline, isDeadlineOver, context }) => {
+const CourseHeader: React.FC = () => {
+  const context = useCardContext()
+  const { courseName, deadline, isDeadlineOver } = useCourseCardValues();
   return (
     <div className="flex justify-between items-center">
-      <h2 className="text-xl font-bold mb-2">{title}</h2>
+      <h2 className="text-xl font-bold mb-2">{courseName}</h2>
 
       {context === "courses" && deadline && (
         <p
