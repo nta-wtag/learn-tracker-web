@@ -1,11 +1,6 @@
 import React from "react";
 import ModuleItem from "components/course-components/ModuleItem";
-
-interface Module {
-  title: string;
-  estDays: number;
-  resources: string[];
-}
+import type { Module } from "components/course-components/CourseCard";
 
 interface Props {
   week: number;
@@ -19,7 +14,12 @@ const WeekSection: React.FC<Props> = ({ week, modules }) => {
       <div className="h-[1px] bg-gray-300 mb-8" />
       <ul className="space-y-2">
         {modules.map((module, idx) => (
-          <ModuleItem key={idx} title={module.title} estDays={module.estDays} />
+          <ModuleItem
+            key={idx}
+            title={module.title}
+            estDays={module.estDays}
+            resources={module.resources}
+          />
         ))}
       </ul>
     </div>

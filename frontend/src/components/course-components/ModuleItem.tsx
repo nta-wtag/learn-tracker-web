@@ -1,13 +1,8 @@
 import React from "react";
 import { Play } from 'lucide-react';
+import type { Module } from "components/course-components/CourseCard";
 
-
-interface Props {
-  title: string;
-  estDays: number;
-}
-
-const ModuleItem: React.FC<Props> = ({ title, estDays }) => {
+const ModuleItem: React.FC<Module> = ({ title, estDays }) => {
   return (
     <div className="flex items-center gap-4">
       <Play/>
