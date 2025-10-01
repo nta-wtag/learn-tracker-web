@@ -1,12 +1,13 @@
+import React from "react";
 import { Routes, Route } from "react-router-dom";
 import ProtectedRoute from "components/protected-components/ProtectedRoute";
 import Dashboard from "pages/dashboard";
-import Course from "pages/course";
+import Courses from "pages/courses";
 import Profile from "pages/profile";
-import ModuleDetail from "pages/modules/ModuleDetail";
+import ModuleDetail from "pages/modules/module-detail";
 import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
-import Lessons from "pages/lesson";
+import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
 
 export default function RouteComponent() {
@@ -17,7 +18,7 @@ export default function RouteComponent() {
         <Route path="/" element={<Dashboard />} />
         <Route path="/enroll" element={<EnrollCourse />} />
         <Route path="/enroll/:courseId" element={<Lessons />} />
-        <Route path="/courses" element={<Course />}>
+        <Route path="/courses" element={<Courses />}>
           <Route
             path=":courseId/modules/:moduleId"
             element={<ModuleDetail />}

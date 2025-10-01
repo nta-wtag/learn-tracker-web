@@ -1,7 +1,6 @@
 import React from "react";
 import ModuleItem from "components/course-components/ModuleItem";
-import type { Lesson , Module } from "utils/course-handler";
-
+import type { Lesson, Module } from "utils/course-handler";
 
 const WeekSection: React.FC<Lesson> = ({ week, modules }) => {
   return (
@@ -10,7 +9,12 @@ const WeekSection: React.FC<Lesson> = ({ week, modules }) => {
       <div className="h-[1px] bg-gray-300 mb-8" />
       <ul className="space-y-2">
         {modules.map((module: Module, idx: number) => (
-          <ModuleItem key={idx} title={module.title} estDays={module.estDays} />
+          <ModuleItem
+            key={idx}
+            title={module.title}
+            estDays={module.estDays}
+            resources={module.resources}
+          />
         ))}
       </ul>
     </div>

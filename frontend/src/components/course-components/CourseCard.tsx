@@ -5,9 +5,8 @@ import {
   enrollCourseForCurrentUser,
   isEnrolled,
   type Course,
-  calculateDaysLessons
-}
-  from "utils/course-handler";
+  calculateDaysLessons,
+} from "utils/course-handler";
 
 interface CourseCardProps {
   course: Course;
@@ -16,7 +15,7 @@ interface CourseCardProps {
 const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
   const navigate = useNavigate();
 
-  const { totalLessons, totalDays } = calculateDaysLessons(course.lessons)
+  const { totalLessons, totalDays } = calculateDaysLessons(course.lessons);
 
   const handleEnrollClick = () => {
     const message = enrollCourseForCurrentUser(course.course);
@@ -28,7 +27,7 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
       <div className="flex flex-col gap-2">
         <h2 className="text-xl font-bold mb-2">{course.course}</h2>
         <p className="text-gray-600">Lessons: {totalLessons}</p>
-        <p className="text-gray-600">Estimated Time: {totalDays} day(s)</p>
+        <p className="text-gray-600">Estimated Time: {totalDays} day{totalDays === 1 ? "" : "s"}</p>
       </div>
       <div className="flex gap-4">
         <Button

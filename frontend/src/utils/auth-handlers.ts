@@ -1,4 +1,4 @@
-import { AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
+import {type AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
 
 export const handleLogin = (email: string, password: string) => {
   const user = findUserByEmail(email);
@@ -23,6 +23,6 @@ export const handleRegister = (username: string, email: string, password: string
   const newUser: AuthData = { username, email, password, role: "USER" };
   saveUser(newUser);
   setCurrentUser(newUser);
-  alert("Registration successful!");
+  alert("Registration successful!\nLogin to continue.");
   return true;
 };

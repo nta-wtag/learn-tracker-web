@@ -13,7 +13,7 @@ const AuthToggleButton: React.FC<AuthToggleButtonProps> = ({ isLoginMode, setIsL
       active={isLoginMode} 
       onClick={() => setIsLoginMode(true)} 
     />
-    <div className="border-l border-gray-400 h-5" />
+    <div className="border-l-2 border-gray-400 h-5" />
     <ToggleButton 
       label="Sign Up" 
       active={!isLoginMode} 
