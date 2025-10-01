@@ -1,8 +1,24 @@
 import { getUsers, setCurrentUser, getCurrentUser } from "utils/auth-storage";
+import type { AuthData } from "utils/auth-storage";
 
 export interface EnrolledCourse {
   courseName: string;
   enrolledAt: string; 
+}
+export interface Module {
+  title: string;
+  estDays: number;
+  resources: string[];
+}
+
+export interface Lesson {
+  week: number;
+  modules: Module[];
+}
+
+export interface Course {
+  course: string;
+  lessons: Lesson[];
 }
 
 export const isEnrolled = (courseName: string) => {
@@ -33,7 +49,7 @@ export const enrollCourseForCurrentUser = (courseName: string) => {
   setCurrentUser(user);
 
   const users = getUsers();
-  const idx = users.findIndex((u) => u.email === user.email);
+  const idx = users.findIndex((u:AuthData) => u.email === user.email);
   if (idx !== -1) {
     users[idx] = user;
     localStorage.setItem("users", JSON.stringify(users));
@@ -46,3 +62,16 @@ export const getEnrolledCourses = (): EnrolledCourse[] => {
   const user = getCurrentUser();
   return user?.courses || [];
 };
+
+export const calculateDaysLessons = (lessons: Lesson)=>{
+    const totalLessons = lessons.reduce(
+      (sum :number, lesson:Lesson) => sum + lesson.modules.length,
+      0
+    );
+  
+    const totalDays = lessons.reduce(
+      (sum :number, lesson:Lesson) => sum + lesson.modules.reduce((s, m) => s + m.estDays, 0),
+      0
+    );
+    return {totalLessons, totalDays}
+}

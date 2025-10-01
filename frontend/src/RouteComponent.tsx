@@ -6,7 +6,7 @@ import Profile from "pages/profile";
 import ModuleDetail from "pages/modules/ModuleDetail";
 import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
-import Lesson from "pages/lesson";
+import Lessons from "pages/lesson";
 import Authentication from "pages/authentication";
 
 export default function RouteComponent() {
@@ -16,7 +16,7 @@ export default function RouteComponent() {
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
         <Route path="/" element={<Dashboard />} />
         <Route path="/enroll" element={<EnrollCourse />} />
-        <Route path="/enroll/:courseId" element={<Lesson />} />
+        <Route path="/enroll/:courseId" element={<Lessons />} />
         <Route path="/courses" element={<Course />}>
           <Route
             path=":courseId/modules/:moduleId"

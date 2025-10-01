@@ -1,24 +1,15 @@
 import React from "react";
 import ModuleItem from "components/course-components/ModuleItem";
+import type { Lesson , Module } from "utils/course-handler";
 
-interface Module {
-  title: string;
-  estDays: number;
-  resources: string[];
-}
 
-interface Props {
-  week: number;
-  modules: Module[];
-}
-
-const WeekSection: React.FC<Props> = ({ week, modules }) => {
+const WeekSection: React.FC<Lesson> = ({ week, modules }) => {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Week {week}</h2>
       <div className="h-[1px] bg-gray-300 mb-8" />
       <ul className="space-y-2">
-        {modules.map((module, idx) => (
+        {modules.map((module: Module, idx: number) => (
           <ModuleItem key={idx} title={module.title} estDays={module.estDays} />
         ))}
       </ul>
