@@ -12,11 +12,11 @@ const Courses: React.FC = () => {
     );
 
     if (coursesToShow.length === 0) {
-        return <p className="p-6 text-gray-500">You are not enrolled in any courses yet.</p>;
+        return <p className="py-4 text-gray-500">You are not enrolled in any courses yet.</p>;
     }
 
     return (
-        <div className="p-6 gap-8 flex flex-col">
+        <div className="py-4 gap-8 flex flex-col">
             <h1 className="text-2xl font-bold">My Courses</h1>
             <CourseGrid courses={coursesToShow} context="courses" />
             <Outlet/>
