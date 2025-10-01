@@ -5,7 +5,7 @@ import { useAuth } from "hooks/useAuth";
 import image from 'assets/istockphoto-1366754976-612x612.jpg'
 
 function NotFoundComponent(props) {
-    const isAuthenticated = useAuth();
+    const {isAuthenticated} = useAuth();
     return (
         <div className="flex flex-col w-full h-screen justify-between">
             <img src={image} className="w-1/2 h-1/2 object-contain flex self-center" />
@@ -14,7 +14,7 @@ function NotFoundComponent(props) {
                 <p className="mt-4 text-xl text-gray-600">Page Not Found</p>
                 <Link
                     to={isAuthenticated ? "/" : "/auth"}
-                    className="mt-6 px-4 py-2 bg-[#6b3dcb] text-white rounded-lg hover:bg-[#5a2dbd]"
+                    className="mt-6 px-4 py-2 bg-primaryColor text-white rounded-lg hover:bg-darkPrimaryColor"
                 >
                     Go Home
                 </Link>

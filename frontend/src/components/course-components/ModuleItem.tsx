@@ -1,22 +1,17 @@
 import React from "react";
-import { Play } from 'lucide-react';
+import { Play } from "lucide-react";
+import type { Module } from "utils/course-handler";
 
-
-interface Props {
-  title: string;
-  estDays: number;
-}
-
-const ModuleItem: React.FC<Props> = ({ title, estDays }) => {
+const ModuleItem: React.FC<Module> = ({ title, estDays }) => {
   return (
     <div className="flex items-center gap-4">
-      <Play/>
+      <Play />
       <li className="p-4 flex justify-between w-full gap-1">
-      <p className="font-medium">{title}</p>
-      <p className="text-sm text-gray-500">
-        {estDays} day{estDays === 1 ? "" : "s"}
-      </p>
-    </li>
+        <p className="font-medium">{title}</p>
+        <p className="text-sm text-gray-500">
+          {estDays} day{estDays === 1 ? "" : "s"}
+        </p>
+      </li>
     </div>
   );
 };

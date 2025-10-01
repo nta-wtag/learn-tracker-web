@@ -2,7 +2,7 @@ import React from "react";
 import CourseCardHeader from "components/course-components/course-card-components/CourseCardHeader";
 import CourseCardInfo from "components/course-components/course-card-components/CourseCardInfo";
 import CourseCardAction from "components/course-components/course-card-components/CourseCardAction";
-import { calculateDeadline, getTotalDays, getTotalLessons } from "utils/course-handler";
+import { calculateDeadline, calculateDaysLessons } from "utils/course-handler";
 import { enrollCourseForCurrentUser, getEnrolledCourses, isEnrolled, type Course } from "utils/course-storage";
 
 interface Props {
@@ -11,8 +11,7 @@ interface Props {
 }
 
 const CourseCard: React.FC<Props> = ({ course, context }) => {
-  const totalLessons = getTotalLessons(course);
-  const totalDays = getTotalDays(course);
+  const {totalLessons, totalDays} = calculateDaysLessons(course.lessons);
 
   const enrolledCourses = getEnrolledCourses();
   const enrolledCourse = enrolledCourses.find(
