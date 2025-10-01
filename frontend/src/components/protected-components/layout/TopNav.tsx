@@ -18,7 +18,7 @@ const TopNav: React.FC = ()=> {
       <div className="flex gap-4">
         <Button
           text="Enroll on a course"
-          onClick={() => navigate("/courses")}
+          onClick={() => navigate("/enroll")}
         />
         <Button 
           text="Log out" 
