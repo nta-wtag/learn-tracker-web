@@ -1,11 +1,12 @@
 import React from "react";
-import { LayoutDashboard, LibraryBig, UserCircle } from "lucide-react";
+import { Book, LayoutDashboard, LibraryBig, UserCircle } from "lucide-react";
 import SidebarLink from "components/protected-components/layout/SidebarLink";
 
 const SidebarNav: React.FC = () => {
   const links = [
     { to: "/", label: "Dashboard", icon: LayoutDashboard },
-    { to: "/courses", label: "Courses", icon: LibraryBig },
+    { to: "/courses", label: "My Courses", icon: LibraryBig },
+    { to: "/enroll", label: "Available Courses", icon: Book },
     { to: "/profile", label: "Profile", icon: UserCircle },
   ];
 
