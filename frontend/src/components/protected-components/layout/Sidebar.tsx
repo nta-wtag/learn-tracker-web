@@ -8,7 +8,6 @@ const Sidebar: React.FC = () => (
       <img src={logo} alt="LearnTracker Logo" className="h-8 w-8" />
       <h1 className="text-2xl font-bold text-primaryColor">LearnTracker</h1>
     </div>
-
     <SidebarNav />
   </aside>
 );
