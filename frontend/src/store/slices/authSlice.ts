@@ -1,5 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import type { AuthData } from "utils/auth-storage";
+import { getCurrentUser, type AuthData } from "utils/auth-storage";
 
 interface AuthState {
   currentUser: AuthData | null;
@@ -33,8 +33,14 @@ const authSlice = createSlice({
       if (storedUser) state.currentUser = JSON.parse(storedUser);
       state.isAuthChecked = true;
     },
+    checkAuth: (state) => {
+      const user = getCurrentUser();
+      state.currentUser = user;
+      state.isAuthChecked = true;
+    },
   },
 });
 
-export const { setUser, logout, setAuthChecked, restoreUserFromStorage } =  authSlice.actions;
+export const { setUser, logout, setAuthChecked, restoreUserFromStorage, checkAuth } =
+  authSlice.actions;
 export default authSlice.reducer;
