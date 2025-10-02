@@ -1,6 +1,12 @@
 import validator from "validator";
 
-export const validateAuth = (values: any, isLogin: boolean) => {
+interface AuthValues {
+  email: string;
+  password: string;
+  username?: string;
+}
+
+export const validateAuth = (values: AuthValues, isLoginMode: boolean) => {
   const errors: Record<string, string> = {};
 
   if (!values.email) errors.email = "Email is required";
@@ -18,7 +24,7 @@ export const validateAuth = (values: any, isLogin: boolean) => {
     errors.password =
       "Password must be at least 8 characters, include letters, numbers and a special character";
 
-  if (!isLogin && (!values.username || values.username.length < 3))
+  if (!isLoginMode && (!values.username || values.username.length < 3))
     errors.username = "Username must be at least 3 characters";
 
   return errors;
