@@ -1,15 +1,17 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-final-form";
-import { useDispatch, useSelector } from "react-redux";
+import { useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 
 import Button from "components/base-components/Button";
 import AuthFields from "components/auth-components/AuthFields";
+
 import { validateAuth } from "utils/auth-validation";
 import { handleLogin, handleRegister } from "utils/auth-handlers";
+import { useAuthRedux } from "hooks/useAuthRedux";
 
 import { type RootState } from "store";
-import { setUser } from "store/slices/authSlice";
 
 interface AuthFormValues {
   username?: string;
@@ -19,33 +21,34 @@ interface AuthFormValues {
 
 const AuthForm: React.FC = () => {
   const navigate = useNavigate();
-  const dispatch = useDispatch();
-
+  const { login, register } = useAuthRedux();
   const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
 
-  const onSubmit = ({ username, email, password }: AuthFormValues) => {
+  const handleSubmit = ({ username, email, password }: AuthFormValues) => {
     if (isLoginMode) {
       const result = handleLogin(email, password);
       if (result.success && result.user) {
-        dispatch(setUser(result.user));
+        login(result.user)
+        toast.success(result.message || "Something went wrong");
         navigate("/");
       } else {
-        alert(result.message);
+        toast.error(result.message || "Something went wrong");
       }
     } else {
       const result = handleRegister(username!, email, password);
       if (result.success && result.user) {
-        dispatch(setUser(result.user));
-        alert(result.message);
+        register(result.user)
+        toast.success(result.message || "Something went wrong");
       } else {
-        alert(result.message);
+        toast.error(result.message || "Something went wrong");
       }
     }
   };
 
   return (
+    <div className="w-full">
       <Form<AuthFormValues>
-      onSubmit={onSubmit}
+      onSubmit={handleSubmit}
       validate={(values) => validateAuth(values, isLoginMode)}
       render={({ handleSubmit, submitting }) => (
         <form
@@ -61,6 +64,8 @@ const AuthForm: React.FC = () => {
         </form>
       )}
     />
+    <Toaster />
+    </div>
   );
 };
 
