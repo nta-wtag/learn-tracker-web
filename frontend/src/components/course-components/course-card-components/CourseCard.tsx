@@ -2,8 +2,8 @@ import React from "react";
 import CourseCardHeader from "components/course-components/course-card-components/CourseCardHeader";
 import CourseCardInfo from "components/course-components/course-card-components/CourseCardInfo";
 import CourseCardAction from "components/course-components/course-card-components/CourseCardAction";
-import { calculateDeadline, calculateDaysLessons } from "utils/course-handler";
-import { enrollCourseForCurrentUser, getEnrolledCourses, isEnrolled, type Course } from "utils/course-storage";
+import { calculateDeadline, calculateDaysLessons, type Course } from "utils/course-handler";
+import { enrollCourseForCurrentUser, getEnrolledCourses } from "utils/course-storage";
 import { CourseCardProvider } from "hooks/useCourseCardValues";
 
 interface Props {

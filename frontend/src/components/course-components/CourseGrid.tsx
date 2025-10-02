@@ -1,6 +1,6 @@
 import React from "react";
 import CourseCard from "components/course-components/course-card-components/CourseCard";
-import type { Course } from "utils/course-storage";
+import type { Course } from "utils/course-handler";
 
 interface Props {
   courses: Course[];
