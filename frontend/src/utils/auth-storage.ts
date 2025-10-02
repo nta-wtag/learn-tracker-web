@@ -3,7 +3,7 @@ export interface AuthData {
   password: string;
   username: string;
   role: "ADMIN" | "USER";
-  courses:[]
+  courses: string[]
 }
 
 export const getUsers = (): AuthData[] => {

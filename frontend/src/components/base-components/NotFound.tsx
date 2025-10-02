@@ -1,11 +1,11 @@
 import React from 'react';
 import { Link } from "react-router-dom";
-import { useAuth } from "hooks/useAuth";
+import { useAuthRedux } from "hooks/useAuthRedux";
 
 import image from 'assets/istockphoto-1366754976-612x612.jpg'
 
 function NotFoundComponent(props) {
-    const {isAuthenticated} = useAuth();
+    const {isAuthenticated} = useAuthRedux();
     return (
         <div className="flex flex-col w-full h-screen justify-between">
             <img src={image} className="w-1/2 h-1/2 object-contain flex self-center" />

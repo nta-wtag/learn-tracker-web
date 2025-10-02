@@ -1,19 +1,21 @@
 import React from "react";
+import { useSelector } from "react-redux";
+import type { RootState } from "store";
 
-interface AuthImageProps {
-  isLoginMode: boolean;
-  loginImg: string;
-  registerImg: string;
+import loginImg from "assets/Education-Isometric-Illustration.jpg";
+import registerImg from "assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
+
+const AuthImage: React.FC = () => {
+  const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
+  return (
+    <div className="w-full lg:w-1/2 h-1/3 lg:h-1/2 flex justify-center self-center">
+      <img
+        src={isLoginMode ? loginImg : registerImg}
+        className="w-full p-4 h-9/10 lg:h-4/5 object-contain flex items-center self-center"
+        alt="Auth illustration"
+      />
+    </div>
+  );
 }
-
-const AuthImage: React.FC<AuthImageProps> = ({ isLoginMode, loginImg, registerImg }) => (
-  <div className="w-full lg:w-1/2 h-1/3 lg:h-1/2 flex justify-center self-center">
-    <img
-      src={isLoginMode ? loginImg : registerImg}
-      className="w-full p-4 h-9/10 lg:h-4/5 object-contain flex items-center self-center"
-      alt="Auth illustration"
-    />
-  </div>
-);
 
 export default AuthImage;

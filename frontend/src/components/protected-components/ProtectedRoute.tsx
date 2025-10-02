@@ -1,6 +1,6 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "hooks/useAuth";
+import { useAuthRedux } from "hooks/useAuthRedux";
 import LoadingScreen from "components/base-components/LoadingScreen";
 import AppLayout from "components/protected-components/layout/AppLayout";
 
@@ -9,7 +9,7 @@ interface Props {
 }
 
 const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
-  const { isAuthenticated, isAuthChecked } = useAuth();
+  const { isAuthenticated, isAuthChecked } = useAuthRedux();
 
   if (!isAuthChecked) {
     return <LoadingScreen />;
