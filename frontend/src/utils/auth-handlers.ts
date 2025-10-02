@@ -1,4 +1,4 @@
-import { findUserByEmail, saveUser, type AuthData } from "utils/auth-storage";
+import { findUserByEmail, type AuthData } from "utils/auth-storage";
 
 export interface AuthResult {
   success: boolean;
@@ -16,6 +16,5 @@ export const handleLogin = (email: string, password: string): AuthResult => {
 export const handleRegister = (username: string, email: string, password: string): AuthResult => {
   if (findUserByEmail(email)) return { success: false, message: "Email already registered." };
   const newUser: AuthData = { username, email, password, role: "USER", courses: [] };
-  saveUser(newUser);
   return { success: true, user: newUser, message: "Registration successful! Login to continue." };
 };
