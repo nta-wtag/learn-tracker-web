@@ -1,25 +1,5 @@
 import { getUsers, setCurrentUser, getCurrentUser } from "utils/auth-storage";
-
-export interface Module {
-  title: string;
-  estDays: number;
-  resources: string[];
-}
-
-export interface Week {
-  week: number;
-  modules: Module[];
-}
-
-export interface Course {
-  course: string;
-  lessons: Week[];
-}
-
-export interface EnrolledCourse {
-  courseName: string;
-  enrolledAt: string; 
-}
+import type { EnrolledCourse } from "utils/course-handler";
 
 export const isEnrolled = (courseName: string) => {
   const user = getCurrentUser();
