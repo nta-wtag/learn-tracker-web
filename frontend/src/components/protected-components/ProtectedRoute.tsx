@@ -1,7 +1,7 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuth } from "hooks/useAuth";
-import LoadingScreen from "components/base-components/LoadingScreen";
+import Spinner from "components/base-components/Spinner";
 import AppLayout from "./layout/AppLayout";
 
 interface Props {
@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
   const { isAuthenticated, isAuthChecked } = useAuth();
 
   if (!isAuthChecked) {
-    return <LoadingScreen />;
+    return <Spinner />;
   }
 
   if (!isAuthenticated) {

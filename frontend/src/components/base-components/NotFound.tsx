@@ -16,7 +16,7 @@ function NotFoundComponent(props) {
                     to={isAuthenticated ? "/" : "/auth"}
                     className="mt-6 px-4 py-2 bg-primaryColor text-white rounded-lg hover:bg-darkPrimaryColor"
                 >
-                    Go Home
+                    Return To Home
                 </Link>
             </div>
         </div>
