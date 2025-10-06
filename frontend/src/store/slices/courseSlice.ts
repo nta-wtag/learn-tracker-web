@@ -1,28 +1,44 @@
-import { createSlice, type PayloadAction } from '@reduxjs/toolkit';
-import type { Course } from 'utils/course-storage';
+import { createSlice, PayloadAction } from '@reduxjs/toolkit';
+import type { Course, EnrolledCourse } from 'utils/course-handler';
+import coursesData from 'data/Courses.json';
 
 interface CoursesState {
-  enrolledCourses: Course[];
   availableCourses: Course[];
+  enrolledCourses: EnrolledCourse[];
 }
 
 const initialState: CoursesState = {
+  availableCourses: coursesData,
   enrolledCourses: [],
-  availableCourses: [],
 };
 
 const coursesSlice = createSlice({
   name: 'courses',
   initialState,
   reducers: {
-    setEnrolledCourses: (state, action: PayloadAction<Course[]>) => {
-      state.enrolledCourses = action.payload;
-    },
-    setAvailableCourses: (state, action: PayloadAction<Course[]>) => {
+    setAvailableCourses(state, action: PayloadAction<Course[]>) {
       state.availableCourses = action.payload;
+    },
+    enrollCourse(state, action: PayloadAction<string>) {
+      const courseName = action.payload;
+      const alreadyEnrolled = state.enrolledCourses.find(
+        (c) => c.courseName === courseName
+      );
+      if (!alreadyEnrolled) {
+        const enrollment: EnrolledCourse = {
+          courseName,
+          enrolledAt: new Date().toISOString(),
+        };
+        state.enrolledCourses.push(enrollment);
+        localStorage.setItem('enrolledCourses', JSON.stringify(state.enrolledCourses));
+      }
+    },
+    loadEnrolledCourses(state) {
+      const stored = localStorage.getItem('enrolledCourses');
+      if (stored) state.enrolledCourses = JSON.parse(stored);
     },
   },
 });
 
-export const { setEnrolledCourses, setAvailableCourses } = coursesSlice.actions;
+export const { setAvailableCourses, enrollCourse, loadEnrolledCourses } = coursesSlice.actions;
 export default coursesSlice.reducer;

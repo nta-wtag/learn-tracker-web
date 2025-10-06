@@ -9,6 +9,7 @@ export interface Module {
   title: string;
   estDays: number;
   resources: string[];
+  courseName: string;
 }
 
 export interface Lesson {
