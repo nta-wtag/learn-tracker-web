@@ -4,8 +4,10 @@ import coursesData from "data/Courses.json";
 import Button from "components/base-components/Button";
 import WeekSection from "components/course-components/WeekSection";
 import { enrollCourseForCurrentUser, type Lesson } from "utils/course-handler";
+import { useCardContext } from "hooks/useCardContext";
 
 const Lessons: React.FC = () => {
+  const context = useCardContext();
   const { courseId } = useParams<{ courseId: string }>();
   const course = coursesData.find((c) => c.course === courseId);
 
@@ -20,7 +22,7 @@ const Lessons: React.FC = () => {
     <div className="flex flex-col h-screen overflow-none bg-white shadow-lg rounded-lg p-4">
       <div className="flex flex-col-reverse sm:flex-row justify-between gap-8 px-4 py-8 ">
         <h1 className="text-3xl font-bold">{course.course} - Lesson Plan</h1>
-        <Button text="Start Learning" onClick={handleEnrollClick} />
+        {context === "enroll"  && <Button text="Start Learning" onClick={handleEnrollClick} />}
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-8">
         {course.lessons.map((lesson: Lesson) => (

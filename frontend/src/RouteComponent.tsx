@@ -9,6 +9,7 @@ import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
 import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
+import { CardProvider } from "hooks/useCardContext";
 
 export default function RouteComponent() {
   return (
@@ -16,11 +17,25 @@ export default function RouteComponent() {
       <Route path="/auth" element={<Authentication />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/enroll" element={<EnrollCourse />} >
-          <Route path=":courseId" element={<Lessons />} />
+        <Route path="/enroll" element={<EnrollCourse />}>
+          <Route
+            path=":courseId"
+            element={
+              <CardProvider context="enroll">
+                <Lessons />
+              </CardProvider>
+            }
+          />
         </Route>
         <Route path="/courses" element={<Courses />}>
-          <Route path=":courseId" element={<Lessons />} />
+          <Route
+            path=":courseId"
+            element={
+              <CardProvider context="courses">
+                <Lessons />
+              </CardProvider>
+            }
+          />
           <Route
             path=":courseId/modules/:moduleId"
             element={<ModuleDetail />}

@@ -22,7 +22,7 @@ const ModuleItem: React.FC<Props> = ({ title, estDays, resources, courseName }) 
   );
 
   const toggleComplete = () => {
-    if (context !== "courses") return; 
+    if (context !== "courses") return;
     if (isCompleted) {
       dispatch(unmarkLesson({ courseName, moduleTitle: title }));
     } else {
@@ -35,20 +35,18 @@ const ModuleItem: React.FC<Props> = ({ title, estDays, resources, courseName }) 
   return (
     <div className="flex flex-col w-full gap-2">
       <div
-        className={`flex items-center gap-4 select-none ${
-          context === "courses" ? "cursor-pointer" : "cursor-default"
-        }`}
+        className={`flex items-center gap-4 select-none ${context === "courses" ? "cursor-pointer" : "cursor-default"
+          }`}
         onClick={toggleComplete}
       >
-        {isCompleted ? (
-          <CircleDashed
-            className={`${
-              context === "courses" ? "text-gray-400" : "text-gray-600"
-            }`}
-          />
+        {context === "enroll" ? (
+          <CircleDashed className="text-gray-400" />
+        ) : isCompleted ? (
+          <CheckCircle className="text-green-600" />
         ) : (
-          <CheckCircle className="text-green-500" />
+          <CircleDashed className="text-gray-400" />
         )}
+
 
         <div className="flex justify-between items-center w-full">
           <p className="font-medium text-gray-800">{title}</p>
@@ -58,7 +56,7 @@ const ModuleItem: React.FC<Props> = ({ title, estDays, resources, courseName }) 
         </div>
       </div>
 
-      {resources?.length > 0 && (
+      {resources?.length > 0 && context === "courses" && (
         <ul className="ml-10 flex flex-col gap-1">
           {resources.map((res, idx) => (
             <li key={idx}>
