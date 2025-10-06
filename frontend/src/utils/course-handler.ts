@@ -91,3 +91,25 @@ export const calculateDeadline = (enrolledAt: string, totalDays: number): string
 
   return currentDate.toISOString().split("T")[0]; 
 };
+
+export const calculateCourseProgress = (
+  course: Course,
+  completedLessons: CompletedLesson[]
+) => {
+  const totalModules = course.lessons.reduce(
+    (sum, lesson) => sum + lesson.modules.length,
+    0
+  );
+
+  const completedModules = completedLessons.filter(
+    (l) => l.courseName === course.course
+  ).length;
+
+  const progressPercent = totalModules ? (completedModules / totalModules) * 100 : 0;
+
+  return {
+    totalModules,
+    completedModules,
+    progressPercent,
+  };
+};

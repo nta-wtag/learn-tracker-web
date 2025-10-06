@@ -8,7 +8,7 @@ import CourseCardInfo from "./CourseCardInfo";
 import CourseCardAction from "./CourseCardAction";
 import { CourseCardProvider } from "hooks/useCourseCardValues";
 import ProgressBar from "components/base-components/ProgressBar";
-import { calculateCourseProgress } from "utils/calculate-progress";
+import { calculateCourseProgress } from "utils/course-handler";
 
 interface Props {
   course: Course;

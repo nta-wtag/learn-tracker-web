@@ -7,7 +7,7 @@ import WeekSection from "components/course-components/WeekSection";
 import { enrollCourseForCurrentUser, type Lesson } from "utils/course-handler";
 import { useCardContext } from "hooks/useCardContext";
 import type { RootState } from "store";
-import { calculateCourseProgress } from "utils/calculate-progress";
+import { calculateCourseProgress } from "utils/course-handler";
 import ProgressBar from "components/base-components/ProgressBar";
 
 const Lessons: React.FC = () => {
@@ -26,7 +26,6 @@ const Lessons: React.FC = () => {
     alert(message);
   };
 
-  
   const { progressPercent, completedModules, totalModules } = calculateCourseProgress(course, completedLessons);
 
   return (
