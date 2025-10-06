@@ -1,22 +1,30 @@
 import React from "react";
-import CourseCardHeader from "components/course-components/course-card-components/CourseCardHeader";
-import CourseCardInfo from "components/course-components/course-card-components/CourseCardInfo";
-import CourseCardAction from "components/course-components/course-card-components/CourseCardAction";
-import { calculateDeadline, calculateDaysLessons, type Course } from "utils/course-handler";
-import { enrollCourseForCurrentUser, getEnrolledCourses } from "utils/course-storage";
+import { useSelector } from "react-redux";
+import {  calculateDaysLessons, calculateDeadline, enrollCourseForCurrentUser, type Course } from "utils/course-handler";
+import { getEnrolledCourses } from "utils/course-storage";
+import { type RootState } from "store";
+import CourseCardHeader from "./CourseCardHeader";
+import CourseCardInfo from "./CourseCardInfo";
+import CourseCardAction from "./CourseCardAction";
 import { CourseCardProvider } from "hooks/useCourseCardValues";
+import ProgressBar from "components/base-components/ProgressBar";
+import { calculateCourseProgress } from "utils/calculate-progress";
 
 interface Props {
   course: Course;
 }
 
 const CourseCard: React.FC<Props> = ({ course }) => {
-  const { totalLessons, totalDays } = calculateDaysLessons(course.lessons);
-
   const enrolledCourses = getEnrolledCourses();
+  const completedLessons = useSelector(
+    (state: RootState) => state.lesson.completedLessons
+  );
+
   const enrolledCourse = enrolledCourses.find(
     (c) => c.courseName === course.course
   );
+
+  const { totalLessons, totalDays } = calculateDaysLessons(course.lessons);
 
   const deadline = enrolledCourse
     ? calculateDeadline(enrolledCourse.enrolledAt, totalDays)
@@ -29,22 +37,30 @@ const CourseCard: React.FC<Props> = ({ course }) => {
 
   const isDeadlineOver = deadline ? new Date() > new Date(deadline) : false;
 
+
   const cardValues = {
     totalLessons,
     totalDays,
     deadline,
     isDeadlineOver,
-    courseName: course.course,
+    courseName: course.course, 
   };
+
+  const { totalModules,
+    completedModules,
+    progressPercent } = calculateCourseProgress(course, completedLessons);
 
   return (
     <CourseCardProvider values={cardValues}>
-    <div className="bg-white p-6 flex flex-col gap-8 shadow-lg rounded-lg">
-      <CourseCardHeader />
-      <CourseCardInfo />
+    <div className="bg-white p-6 flex flex-col gap-4 shadow-lg rounded-lg">
+      <CourseCardHeader/>
+      <CourseCardInfo/>
+
+      {enrolledCourse && <ProgressBar progressPercent={progressPercent} completedModules = {completedModules} totalModules = {totalModules} />}
+
       <CourseCardAction onEnrollClick={handleEnrollClick} />
     </div>
-  </CourseCardProvider>
+    </CourseCardProvider>
   );
 };
 
