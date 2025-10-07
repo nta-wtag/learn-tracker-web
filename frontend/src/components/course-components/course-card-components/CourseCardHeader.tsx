@@ -2,43 +2,49 @@ import React from "react";
 import classNames from "classnames";
 import { useCardContext } from "hooks/useCardContext";
 import { useCourseCardValues } from "hooks/useCourseCardValues";
-import { CheckCircle, Clock, XCircle } from "lucide-react"; // icons
 
 const CourseHeader: React.FC = () => {
   const context = useCardContext();
-  const { courseName, deadline, isDeadlineOver, isCompleted } = useCourseCardValues();
+  const { courseName, deadline, isDeadlineOver, isCompleted, image } = useCourseCardValues();
 
+  // Determine status text and color
   let status = {
-    icon: <Clock className="w-5 h-5" />, 
-    color: "bg-primaryColor",
-    text: "On Time"
+    text: "On Time",
+    bgColor: "bg-sky-100",
+    textColor: "text-sky-500",
   };
 
   if (isCompleted) {
-    status = { icon: <CheckCircle className="w-5 h-5" />, color: "bg-green-500", text: "Completed" };
+    status = { text: "Completed", 
+    bgColor: "bg-green-200",
+    textColor: "text-green-800", };
   } else if (isDeadlineOver) {
-    status = { icon: <XCircle className="w-5 h-5" />, color: "bg-red-500", text: "Deadline Passed" };
+    status = { text: "Delayed", 
+    bgColor: "bg-red-200",
+    textColor: "text-red-800", };
   }
 
   return (
-    <div className="flex justify-between items-center">
-      <h2 className="text-xl font-bold mb-2">{courseName}</h2>
+    <div className="flex flex-col">
+      <img
+        src={image}
+        alt={courseName}
+        className="w-full h-40 object-fit mb-4"
+      />
 
-      {context === "courses" && deadline && (
-        <div
-          className={classNames(
-            "px-3 py-2 rounded-3xl text-white transition-colors flex items-center justify-center relative group",
-            status.color
-          )}
-        >
-          {status.icon}
-
-          {/* Tooltip text */}
-          <span className="absolute bottom-full mb-2 opacity-0 group-hover:opacity-100 bg-gray-800 text-white text-xs rounded py-1 px-2 whitespace-nowrap transition-opacity">
+      <div className="flex justify-between items-center">
+        <h2 className="text-xl font-bold mb-2">{courseName}</h2>
+        {context === "courses" && deadline && (
+          <div
+            className={classNames(
+              "px-4 py-1.5 rounded-3xl text-sm font-medium transition-colors",
+              status.bgColor, status.textColor
+            )}
+          >
             {status.text}
-          </span>
-        </div>
-      )}
+          </div>
+        )}
+      </div>
     </div>
   );
 };

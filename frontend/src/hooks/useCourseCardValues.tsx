@@ -8,6 +8,7 @@ interface CourseCardValues {
   courseName: string;
   daysLeft?: number;
   isCompleted?: boolean;
+  image: string;
 }
 
 const CourseCardContext = createContext<CourseCardValues | undefined>(undefined);

@@ -20,6 +20,7 @@ export interface Lesson {
 
 export interface Course {
   course: string;
+  image: string;
   lessons: Lesson[];
 }
 

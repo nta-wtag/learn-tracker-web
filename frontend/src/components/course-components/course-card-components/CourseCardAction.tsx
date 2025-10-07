@@ -17,7 +17,7 @@ const CourseActions: React.FC<Props> = ({
   const { courseName} = useCourseCardValues();
   
   return (
-    <div className="flex gap-4">
+    <div className="flex gap-4 mt-4">
       <Button
         text="Lesson Plan"
         variant="primary"

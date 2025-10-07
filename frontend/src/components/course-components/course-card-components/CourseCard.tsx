@@ -16,12 +16,14 @@ import CourseCardAction from "./CourseCardAction";
 import { CourseCardProvider } from "hooks/useCourseCardValues";
 import ProgressBar from "components/base-components/ProgressBar";
 import { calculateCourseProgress } from "utils/course-handler";
+import { useCardContext } from "hooks/useCardContext";
 
 interface Props {
   course: Course;
 }
 
 const CourseCard: React.FC<Props> = ({ course }) => {
+  const context = useCardContext();
   const enrolledCourses = getEnrolledCourses();
   const completedLessons = useSelector(
     (state: RootState) => state.lesson.completedLessons
@@ -58,9 +60,10 @@ const CourseCard: React.FC<Props> = ({ course }) => {
     isDeadlineOver,
     daysLeft,
     courseName: course.course,
+    image: course.image
   };
 
-  const { totalModules, completedModules, progressPercent } =
+  const { progressPercent } =
     calculateCourseProgress(course, completedLessons);
 
   return (
@@ -69,11 +72,9 @@ const CourseCard: React.FC<Props> = ({ course }) => {
       <div className="bg-white p-6 flex flex-col gap-2 shadow-lg rounded-lg text-sm w-full ">
         <CourseCardHeader />
         <CourseCardInfo />
-        {enrolledCourse && (
+        {enrolledCourse && (context==="courses") && (
           <ProgressBar
             progressPercent={progressPercent}
-            completedModules={completedModules}
-            totalModules={totalModules}
           />
         )}
         <CourseCardAction onEnrollClick={handleEnrollClick} />
