@@ -1,5 +1,5 @@
 import React from "react";
-import ModuleItem from "components/course-components/ModuleItem";
+import ModuleItem from "components/lesson-components/ModuleItem";
 import type { Lesson, Module } from "utils/course-handler";
 
 interface Props extends Lesson {
