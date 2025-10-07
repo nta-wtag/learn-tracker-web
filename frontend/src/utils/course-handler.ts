@@ -56,7 +56,7 @@ export const enrollCourseForCurrentUser = (courseName: string) => {
     localStorage.setItem("users", JSON.stringify(users));
   }
 
-  return { success: false, message: `You are now enrolled in ${courseName}!`};
+  return { success: true, message: `You are now enrolled in ${courseName}!`};
 };
 
 export const getEnrolledCourses = (): EnrolledCourse[] => {
