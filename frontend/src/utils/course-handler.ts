@@ -113,3 +113,13 @@ export const calculateCourseProgress = (
     progressPercent,
   };
 };
+
+export const calculateDaysLeft = (enrolledAt: string, totalDays: number): number => {
+  const enrolledDate = new Date(enrolledAt);
+  const deadline = new Date(enrolledDate);
+  deadline.setDate(deadline.getDate() + totalDays);
+
+  const today = new Date();
+  const diffTime = deadline.getTime() - today.getTime();
+  return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
+};

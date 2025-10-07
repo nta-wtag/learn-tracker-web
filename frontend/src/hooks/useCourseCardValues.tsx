@@ -6,6 +6,7 @@ interface CourseCardValues {
   deadline: string | null;
   isDeadlineOver: boolean;
   courseName: string;
+  daysLeft?: number;
 }
 
 const CourseCardContext = createContext<CourseCardValues | undefined>(undefined);

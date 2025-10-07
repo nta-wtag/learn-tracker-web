@@ -10,7 +10,7 @@ interface Props {
 
 const ProgressBar: React.FC<Props> = ({ progressPercent, className = "", height = 6, completedModules,  totalModules}) => {
     return (
-        <div className="mb-4">
+        <div>
             <div className="flex justify-between items-center mb-4">
                 <p className="text-gray-600">
                     Overall Progress: {Math.round(progressPercent)}%
@@ -24,7 +24,7 @@ const ProgressBar: React.FC<Props> = ({ progressPercent, className = "", height 
                 style={{ height }}
             >
                 <div
-                    className="bg-green-500 rounded-full transition-all duration-300"
+                    className="bg-primaryColor rounded-full transition-all duration-300"
                     style={{ width: `${progressPercent}%`, height }}
                 />
             </div>

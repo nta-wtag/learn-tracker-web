@@ -4,18 +4,22 @@ import React from "react";
 
 const CourseInfo: React.FC = () => {
   const context = useCardContext();
-  const { totalLessons, totalDays, deadline, isDeadlineOver } = useCourseCardValues();;
+  const { totalDays, deadline, isDeadlineOver, daysLeft } = useCourseCardValues();;
   return (
-    <div className="flex flex-col gap-2">
-      <p className="text-gray-600">Lessons: {totalLessons}</p>
-
-      {context === "enroll" ? (
+    <div className="flex flex-col gap-2 w-full">
+      <div className="flex justify-between ">
+        {context === "enroll" ? (
         <p className="text-gray-600">Estimated Time: {totalDays} day(s)</p>
       ) : deadline ? (
         <p className={isDeadlineOver ? "text-red-600" : "text-gray-600"}>
           Deadline: {deadline}
         </p>
       ) : null}
+
+      {daysLeft !== undefined && (
+        <p className="text-gray-600">Days left: {daysLeft}</p>
+      )}
+      </div>
     </div>
   );
 };
