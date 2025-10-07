@@ -1,6 +1,7 @@
 [
   {
     "course": "Javascript",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
     "lessons": [
       {
         "week": 1,
@@ -51,6 +52,7 @@
   },
   {
     "course": "React",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
     "lessons": [
       {
         "week": 1,
@@ -123,6 +125,7 @@
   },
   {
     "course": "Python",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
     "lessons": [
       {
         "week": 1,
@@ -160,6 +163,7 @@
   },
   {
     "course": "HTML & CSS",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
     "lessons": [
       {
         "week": 1,
@@ -197,6 +201,7 @@
   },
   {
     "course": "Node.js",
+    "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
     "lessons": [
       {
         "week": 1,
