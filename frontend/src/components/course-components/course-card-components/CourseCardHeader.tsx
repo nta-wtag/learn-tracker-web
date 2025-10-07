@@ -29,9 +29,8 @@ const CourseHeader: React.FC = () => {
       <img
         src={image}
         alt={courseName}
-        className="w-full h-40 object-fit mb-4"
+        className="w-full h-30 object-fit mb-4"
       />
-
       <div className="flex justify-between items-center">
         <h2 className="text-xl font-bold mb-2">{courseName}</h2>
         {context === "courses" && deadline && (

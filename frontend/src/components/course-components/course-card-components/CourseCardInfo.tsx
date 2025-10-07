@@ -21,7 +21,7 @@ const CourseInfo: React.FC = () => {
         {context === "enroll" ? (
           <div className="flex items-center gap-2">
             <Clock className="w-4 h-4 text-sky-600" />
-            <p className="text-gray-600">Estimated Time: {totalDays} day(s)</p>
+            <p className="text-gray-600">Duration: {totalDays} day(s)</p>
           </div>
         ) : deadline ? (
           <div className="flex items-center gap-2">
