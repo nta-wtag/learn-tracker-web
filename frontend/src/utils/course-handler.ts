@@ -1,4 +1,5 @@
-import { getUsers, setCurrentUser, getCurrentUser } from "utils/auth-storage";
+import { updateCurrentUser, updateUsersArray } from "store/useUserStore";
+import { getUsers,  getCurrentUser } from "utils/auth-storage";
 import type { AuthData } from "utils/auth-storage";
 
 export interface EnrolledCourse {
@@ -28,40 +29,26 @@ export const isEnrolled = (courseName: string) => {
 };
 
 export const enrollCourseForCurrentUser = (courseName: string) => {
-  const user = getCurrentUser();
+  const user = updateCurrentUser.get?.() || JSON.parse(localStorage.getItem("currentUser") || "null") as AuthData;
   if (!user) return { success: false, message: "No user logged in" };
 
   if (!user.courses) user.courses = [];
 
-  const alreadyEnrolled = user.courses.find(
-    (c: EnrolledCourse) => c.courseName === courseName
-  );
-
+  const alreadyEnrolled = user.courses.find(c => c.courseName === courseName);
   if (alreadyEnrolled) {
-    return { success: false, message: `You are already enrolled in ${courseName} (since ${alreadyEnrolled.enrolledAt})` };
+    return { success: false, message: `Already enrolled in ${courseName}` };
   }
 
-  const enrollment = {
+  const enrollment: EnrolledCourse = {
     courseName,
     enrolledAt: new Date().toISOString(),
   };
-  user.courses.push(enrollment);
 
-  setCurrentUser(user);
+  const updatedUser = { ...user, courses: [...user.courses, enrollment] };
+  updateCurrentUser(updatedUser);
+  updateUsersArray(updatedUser);
 
-  const users = getUsers();
-  const idx = users.findIndex((u:AuthData) => u.email === user.email);
-  if (idx !== -1) {
-    users[idx] = user;
-    localStorage.setItem("users", JSON.stringify(users));
-  }
-
-  return { success: true, message: `You are now enrolled in ${courseName}!`};
-};
-
-export const getEnrolledCourses = (): EnrolledCourse[] => {
-  const user = getCurrentUser();
-  return user?.courses || [];
+  return { success: true, message: `Enrolled in ${courseName}` };
 };
 
 export const calculateDaysLessons = (lessons: Lesson)=>{

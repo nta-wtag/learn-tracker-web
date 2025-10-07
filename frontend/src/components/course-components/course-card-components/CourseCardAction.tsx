@@ -15,6 +15,7 @@ const CourseActions: React.FC<Props> = ({
   const navigate = useNavigate();
   const context = useCardContext()
   const { courseName} = useCourseCardValues();
+  
   return (
     <div className="flex gap-4">
       <Button
