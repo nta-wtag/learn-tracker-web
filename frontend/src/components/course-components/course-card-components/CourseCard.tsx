@@ -1,5 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
+import toast, { Toaster } from "react-hot-toast";
 import {
   calculateDaysLeft,
   calculateDaysLessons,
@@ -37,8 +38,12 @@ const CourseCard: React.FC<Props> = ({ course }) => {
     : null;
 
   const handleEnrollClick = () => {
-    const message = enrollCourseForCurrentUser(course.course);
-    alert(message);
+    const result = enrollCourseForCurrentUser(course.course);
+    if (result.success) {
+      toast.success(result.message || "Something went wrong");
+    } else {
+      toast.error(result.message || "Something went wrong");
+    }
   };
 
   const isDeadlineOver = deadline ? new Date() > new Date(deadline) : false;
@@ -59,7 +64,8 @@ const CourseCard: React.FC<Props> = ({ course }) => {
     calculateCourseProgress(course, completedLessons);
 
   return (
-    <CourseCardProvider values={cardValues}>
+    <div>
+      <CourseCardProvider values={cardValues}>
       <div className="bg-white p-6 flex flex-col gap-2 shadow-lg rounded-lg text-sm w-full ">
         <CourseCardHeader />
         <CourseCardInfo />
@@ -73,6 +79,8 @@ const CourseCard: React.FC<Props> = ({ course }) => {
         <CourseCardAction onEnrollClick={handleEnrollClick} />
       </div>
     </CourseCardProvider>
+    <Toaster />
+    </div>
   );
 };
 

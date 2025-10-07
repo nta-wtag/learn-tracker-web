@@ -29,7 +29,7 @@ export const isEnrolled = (courseName: string) => {
 
 export const enrollCourseForCurrentUser = (courseName: string) => {
   const user = getCurrentUser();
-  if (!user) return "No user logged in";
+  if (!user) return { success: false, message: "No user logged in" };
 
   if (!user.courses) user.courses = [];
 
@@ -38,7 +38,7 @@ export const enrollCourseForCurrentUser = (courseName: string) => {
   );
 
   if (alreadyEnrolled) {
-    return `You are already enrolled in ${courseName} (since ${alreadyEnrolled.enrolledAt})`;
+    return { success: false, message: `You are already enrolled in ${courseName} (since ${alreadyEnrolled.enrolledAt})` };
   }
 
   const enrollment = {
@@ -56,7 +56,7 @@ export const enrollCourseForCurrentUser = (courseName: string) => {
     localStorage.setItem("users", JSON.stringify(users));
   }
 
-  return `You are now enrolled in ${courseName}!`;
+  return { success: false, message: `You are now enrolled in ${courseName}!`};
 };
 
 export const getEnrolledCourses = (): EnrolledCourse[] => {
