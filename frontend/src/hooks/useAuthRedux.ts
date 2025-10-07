@@ -1,7 +1,7 @@
 import { useSelector, useDispatch } from 'react-redux';
 import { type RootState } from 'store';
 import { setUser, logout, restoreUserFromStorage } from 'store/slices/authSlice';
-import { type AuthData } from 'utils/auth-storage';
+import { saveUser, type AuthData } from 'utils/auth-storage';
 
 export const useAuthRedux = () => {
   const dispatch = useDispatch();
@@ -13,6 +13,7 @@ export const useAuthRedux = () => {
   };
 
   const register = (userData: AuthData) => {
+    saveUser(userData);
     dispatch(setUser(userData));
   };
 
