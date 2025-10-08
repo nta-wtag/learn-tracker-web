@@ -1,7 +1,14 @@
 {
   "files": [],
   "compilerOptions": {
-    "declarationMap": false,
+    "declaration": true,
+    "declarationMap": true,
+    "noEmit": false,
+    "isolatedModules": false, 
+    "jsx": "react-jsx",
+    "moduleResolution": "node",
+    "strict": true,
+    "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "composite": true,
