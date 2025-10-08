@@ -9,7 +9,6 @@ import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
 import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
-import type React from "react";
 
 const RouteComponent:React.FC = () => {
   return (

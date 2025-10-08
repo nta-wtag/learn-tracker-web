@@ -4,7 +4,7 @@ import { useAuth } from "hooks/useAuth";
 
 import image from 'assets/istockphoto-1366754976-612x612.jpg'
 
-function NotFoundComponent(props) {
+const NotFoundComponent: React.FC = () => {
     const {isAuthenticated} = useAuth();
     return (
         <div className="flex flex-col w-full h-screen justify-between">
