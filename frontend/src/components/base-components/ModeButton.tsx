@@ -1,13 +1,13 @@
 import React from "react";
 import classNames from "classnames";
 
-interface ToggleButtonProps {
+interface ModeButtonProps {
   label: string;
   active: boolean;
   onClick: () => void;
 }
 
-const ToggleButton: React.FC<ToggleButtonProps> = ({ label, active, onClick }) => {
+const ModeButton: React.FC<ModeButtonProps> = ({ label, active, onClick }) => {
   return (
     <button
       onClick={onClick}
@@ -27,4 +27,4 @@ const ToggleButton: React.FC<ToggleButtonProps> = ({ label, active, onClick }) =
   );
 };
 
-export default ToggleButton;
+export default ModeButton;
