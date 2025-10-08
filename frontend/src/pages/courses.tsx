@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Courses(props) {
+const Courses: React.FC = () =>{
     return (
         <div>
             Courses

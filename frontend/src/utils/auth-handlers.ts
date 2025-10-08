@@ -1,28 +1,57 @@
-import {type AuthData, findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
+import { findUserByEmail, saveUser, setCurrentUser, type AuthData } from "utils/auth-storage";
 
-export const handleLogin = (email: string, password: string) => {
+export interface AuthResult {
+  success: boolean;
+  user?: AuthData;
+  message?: string;
+}
+
+export const handleLogin = (email: string, password: string): AuthResult => {
   const user = findUserByEmail(email);
+
   if (!user) {
-    alert("User not found. Please sign up first.");
-    return false;
+    return { 
+      success: false, 
+      message: "User not found. Please sign up first." 
+    };
   }
+
   if (user.password !== password) {
-    alert("Incorrect password.");
-    return false;
+    return { 
+      success: false, 
+      message: "Incorrect password." 
+    };
   }
+
   setCurrentUser(user);
-  alert("Login successful!");
-  return true;
+
+  return { 
+    success: true, user, 
+    message: "Login successful!" 
+  };
 };
 
-export const handleRegister = (username: string, email: string, password: string) => {
+export const handleRegister = (username: string, email: string, password: string): AuthResult => {
   if (findUserByEmail(email)) {
-    alert("Email already registered.");
-    return false;
+    return { 
+      success: false, 
+      message: "Email already registered." 
+    };
   }
-  const newUser: AuthData = { username, email, password, role: "USER" };
+
+  const newUser: AuthData = { 
+    username, 
+    email, 
+    password, 
+    role: "USER" 
+  };
+  
   saveUser(newUser);
   setCurrentUser(newUser);
-  alert("Registration successful!\nLogin to continue.");
-  return true;
+
+  return { 
+    success: true, 
+    user: newUser, 
+    message: "Registration successful! Login to continue." 
+  };
 };

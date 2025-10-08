@@ -1,6 +1,6 @@
 import React from 'react';
 
-function EnrollCourse(props) {
+const EnrollCourse: React.FC = () => {
     return (
         <div>
             
