@@ -1,7 +1,7 @@
 import React from 'react';
 import { useParams } from 'react-router-dom';
 
-function ModuleDetail(props) {
+const ModuleDetail: React.FC = () => {
     const {courseId, moduleId} = useParams()
     return (
         <div>

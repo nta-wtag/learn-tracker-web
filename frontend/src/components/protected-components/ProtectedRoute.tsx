@@ -1,8 +1,8 @@
 import React from "react";
 import { Navigate } from "react-router-dom";
 import { useAuthRedux } from "hooks/useAuthRedux";
-import LoadingScreen from "components/base-components/LoadingScreen";
-import AppLayout from "components/protected-components/layout/AppLayout";
+import Spinner from "components/base-components/Spinner";
+import AppLayout from "./layout/AppLayout";
 
 interface Props {
   allowedRoles?: string[];
@@ -12,7 +12,7 @@ const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
   const { isAuthenticated, isAuthChecked } = useAuthRedux();
 
   if (!isAuthChecked) {
-    return <LoadingScreen />;
+    return <Spinner />;
   }
 
   if (!isAuthenticated) {

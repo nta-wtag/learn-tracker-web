@@ -4,7 +4,7 @@ import { useAuthRedux } from "hooks/useAuthRedux";
 
 import image from 'assets/istockphoto-1366754976-612x612.jpg'
 
-function NotFoundComponent(props) {
+const NotFoundComponent: React.FC = () => {
     const {isAuthenticated} = useAuthRedux();
     return (
         <div className="flex flex-col w-full h-screen justify-between">
@@ -16,7 +16,7 @@ function NotFoundComponent(props) {
                     to={isAuthenticated ? "/" : "/auth"}
                     className="mt-6 px-4 py-2 bg-primaryColor text-white rounded-lg hover:bg-darkPrimaryColor"
                 >
-                    Go Home
+                    Return To Home
                 </Link>
             </div>
         </div>

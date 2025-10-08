@@ -1,6 +1,6 @@
 import React from 'react';
 
-function Profile(props) {
+const Profile: React.FC = () => {
     return (
         <div>
            Profile 

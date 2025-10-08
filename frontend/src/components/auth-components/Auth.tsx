@@ -5,7 +5,7 @@ import AuthHeader from "components/auth-components/AuthHeader";
 import AuthImage from "components/auth-components/AuthImage";
 import AuthToggleButton from "components/auth-components/AuthToggleButton";
 
-const Auth = () => {
+const Auth: React.FC = () => {
   return (
     <div className="w-full h-screen relative flex lg:px-16 xl:px-32 3xl:px-64 font-[poppins]">
       <div className="w-full h-full flex flex-col lg:flex-row">
