@@ -9,8 +9,9 @@ import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
 import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
+import type React from "react";
 
-export default function RouteComponent() {
+const RouteComponent:React.FC = () => {
   return (
     <Routes>
       <Route path="/auth" element={<Authentication />} />
@@ -30,3 +31,5 @@ export default function RouteComponent() {
     </Routes>
   );
 }
+
+export default RouteComponent;

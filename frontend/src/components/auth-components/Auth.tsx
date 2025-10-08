@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import  React, { useState } from "react";
 import AuthForm from "components/auth-components/AuthForm";
 import AuthHeader from "components/auth-components/AuthHeader";
 import AuthImage from "components/auth-components/AuthImage";
@@ -7,7 +7,7 @@ import AuthToggleButton from "components/auth-components/AuthToggleButton";
 import loginImg from "assets/Education-Isometric-Illustration.jpg";
 import registerImg from "assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
 
-const Auth = () => {
+const Auth:React.FC = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
 
   return (
