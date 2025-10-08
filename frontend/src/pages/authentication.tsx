@@ -1,11 +1,11 @@
-import React from 'react';
+import type React from 'react';
 
-function Authentication(props) {
-    return (
-        <div>
-            Authentication
-        </div>
-    );
+const Authentication:React.FC= ()=> {
+  return (
+    <div>
+      Authentication
+    </div>
+  );
 }
 
 export default Authentication;
