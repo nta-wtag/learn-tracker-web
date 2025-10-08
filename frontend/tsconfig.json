@@ -1,6 +1,7 @@
 {
   "files": [],
   "compilerOptions": {
+    "declarationMap": false,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
     "composite": true,
