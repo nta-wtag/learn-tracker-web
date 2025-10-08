@@ -1,30 +1,52 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuth } from "hooks/useAuth";
+import toast, { Toaster } from "react-hot-toast";
+
+import { useCurrentUserAuth } from "hooks/useCurrentUserAuth";
 import Spinner from "components/base-components/Spinner";
-import AppLayout from "./layout/AppLayout";
+import AppLayout from "components/protected-components/layout/AppLayout";
 
 interface Props {
   allowedRoles?: string[];
 }
 
 const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
-  const { isAuthenticated, isAuthChecked } = useAuth();
+  const { isAuthenticated, isAuthChecked, currentUser } = useCurrentUserAuth();
+
+  useEffect(() => {
+    if (isAuthChecked && !isAuthenticated) {
+      toast.error("Please log in to access this page.");
+    }
+
+    if (
+      isAuthChecked &&
+      isAuthenticated &&
+      allowedRoles &&
+      currentUser &&
+      !allowedRoles.includes(currentUser.role)
+    ) {
+      toast.error("Login to access this page.");
+    }
+  }, [isAuthChecked, isAuthenticated, currentUser, allowedRoles]);
 
   if (!isAuthChecked) {
     return <Spinner />;
   }
 
   if (!isAuthenticated) {
-    alert("Please log in to access this page.");
     return <Navigate to="/auth" replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes("USER")) {
+  if (allowedRoles && currentUser && !allowedRoles.includes(currentUser.role)) {
     return <Navigate to="/unauthorized" replace />;
   }
 
-  return <AppLayout />;
+  return (
+    <>
+      <AppLayout />
+      <Toaster />
+    </>
+  );
 };
 
 export default ProtectedRoute;
