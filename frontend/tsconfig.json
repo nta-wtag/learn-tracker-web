@@ -1,15 +1,17 @@
 {
   "files": [],
   "compilerOptions": {
+    "esModuleInterop": true,
+    "allowSyntheticDefaultImports": true,
     "composite": true,
-   "baseUrl": "src",       // This allows imports starting from 'src'
+    "baseUrl": "src", // This allows imports starting from 'src'
     "paths": {
       "components/*": ["components/*"],
       "pages/*": ["pages/*"],
       "utils/*": ["utils/*"],
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
-      "hooks/*": ["hooks/*"],
+      "hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"],
