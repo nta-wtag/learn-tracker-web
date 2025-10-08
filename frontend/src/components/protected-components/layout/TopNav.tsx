@@ -2,6 +2,7 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import Button from "components/base-components/Button";
 import { getCurrentUser, logout } from "utils/auth-storage";
+import { LogOut, UserPlus } from "lucide-react";
 
 const TopNav: React.FC = ()=> {
   const navigate = useNavigate();
@@ -17,11 +18,13 @@ const TopNav: React.FC = ()=> {
       <p className="text-gray-400">Hey there, {user?.username.toUpperCase()}</p>
       <div className="flex gap-4">
         <Button
-          text="Enroll on a course"
+          text="Enroll"
+          icon = {<UserPlus/>}
           onClick={() => navigate("/enroll")}
         />
         <Button 
           text="Log out" 
+          icon = {<LogOut/>}
           onClick={handleLogout} 
           variant="danger" 
         />

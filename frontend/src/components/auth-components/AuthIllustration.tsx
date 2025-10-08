@@ -1,12 +1,12 @@
 import React from "react";
+import loginImg from "assets/login-illustration.jpg";
+import registerImg from "assets/register-illustration.jpeg";
 
-interface AuthImageProps {
+interface AuthIllustrationProps {
   isLoginMode: boolean;
-  loginImg: string;
-  registerImg: string;
 }
 
-const AuthImage: React.FC<AuthImageProps> = ({ isLoginMode, loginImg, registerImg }) => (
+const AuthIllustration: React.FC<AuthIllustrationProps> = ({ isLoginMode }) => (
   <div className="w-full lg:w-1/2 h-1/3 lg:h-1/2 flex justify-center self-center">
     <img
       src={isLoginMode ? loginImg : registerImg}
@@ -16,4 +16,4 @@ const AuthImage: React.FC<AuthImageProps> = ({ isLoginMode, loginImg, registerIm
   </div>
 );
 
-export default AuthImage;
+export default AuthIllustration;
