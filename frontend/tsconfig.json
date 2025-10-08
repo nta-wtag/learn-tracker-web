@@ -1,9 +1,13 @@
 {
   "files": [],
   "compilerOptions": {
-    "declaration": true,
-    "declarationMap": true,
-    "noEmit": false,
+    "target": "ESNext",
+    "module": "ESNext",
+    "outDir": "dist/types",    
+    "forceConsistentCasingInFileNames": true,
+    "composite": false,
+    "declaration": false,
+    "noEmit": true,
     "isolatedModules": false, 
     "jsx": "react-jsx",
     "moduleResolution": "node",
@@ -11,7 +15,6 @@
     "skipLibCheck": true,
     "esModuleInterop": true,
     "allowSyntheticDefaultImports": true,
-    "composite": true,
     "baseUrl": "src", // This allows imports starting from 'src'
     "paths": {
       "components/*": ["components/*"],
