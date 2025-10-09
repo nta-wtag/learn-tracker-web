@@ -8,15 +8,10 @@ import AuthInputFields from "components/auth-components/AuthInputFields";
 
 import { validateAuth } from "utils/auth-validation";
 import { handleLogin, handleRegister } from "utils/auth-handlers";
+import { AuthFormValues } from "types/auth-types";
 
 interface AuthFormProps {
   isLoginMode: boolean;
-}
-
-interface AuthFormValues {
-  username?: string;
-  email: string;
-  password: string;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
@@ -29,12 +24,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
       // Login failed
       if (!result.success || !result.user) { 
         toast.error(result.message || "Something went wrong");
+
         return;
       }
 
       // Login successful
       toast.success(result.message || "Login successful");
       navigate("/", {replace: true});
+
       return;
     }
 
@@ -43,11 +40,13 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
     // Registration failed
     if (!result.success || !result.user) {
       toast.error(result.message || "Something went wrong");
+
       return;
     }
 
     // Registration successful
     toast.success(result.message || "Registration successful");
+    
     navigate("/", {replace: true});
   };
 

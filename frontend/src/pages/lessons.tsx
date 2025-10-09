@@ -1,8 +1,10 @@
 import React from "react";
 import { useParams, useNavigate } from "react-router-dom";
-import coursesData from "data/Courses.json";
+import { ROUTES } from "routes/paths";
 import Button from "components/base-components/Button";
 import WeekSection from "components/course-components/WeekSection";
+import coursesData from "data/Courses.json";
+import toast from "react-hot-toast";
 
 const Lessons: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
@@ -12,8 +14,8 @@ const Lessons: React.FC = () => {
   if (!course) return <p className="p-6 text-red-500">Course not found</p>;
 
   const handleStartLearning = () => {
-    alert(`Enrolled in  ${course.course}`)
-    navigate("/");
+    toast.success(`Enrolled in  ${course.course}`)
+    navigate(ROUTES.DASHBOARD.path);
   };
 
   return (
@@ -24,7 +26,7 @@ const Lessons: React.FC = () => {
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-8">
         {course.lessons.map((week) => (
-          <WeekSection key={week.week} week={week.week} modules={week.modules} />
+          <WeekSection key={week.week} week={week}  />
         ))}
       </div>
     </div>

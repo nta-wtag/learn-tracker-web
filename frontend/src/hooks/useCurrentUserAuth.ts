@@ -1,5 +1,6 @@
 import { useEffect, useState } from "react";
-import { getCurrentUser, type AuthData } from "utils/auth-storage";
+import { AuthData } from "types/auth-types";
+import { getCurrentUser } from "utils/auth-storage";
 
 export const useCurrentUserAuth = () => {
   const [currentUser, setCurrentUser] = useState<AuthData | null>(null);
@@ -7,11 +8,7 @@ export const useCurrentUserAuth = () => {
 
   useEffect(() => {
     const storedUser = getCurrentUser();
-
-    if (storedUser) {
-      setCurrentUser(storedUser);
-    }
-    
+    setCurrentUser(storedUser);    
     setIsAuthChecked(true);
   }, []);
 

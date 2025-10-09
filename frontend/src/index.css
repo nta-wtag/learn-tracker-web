@@ -1,9 +1,28 @@
-@import url('https://fonts.googleapis.com/css2?family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Rubik+Glitch&display=swap');
+@import url('https://fonts.googleapis.com/css2?amily=Lato:ital,wght@0,100;0,300;0,400;0,700;0,900;1,100;1,300;1,400;1,700;1,900&family=Montserrat:ital,wght@0,100..900;1,100..900&family=Poppins:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900');
 @import "tailwindcss";
 
 @theme {
-  --font-rubik-glitch: "Rubik Glitch", system-ui; 
+  --font-montserrat: "Montserrat", sans-serif; 
   --font-poppins: "Poppins", sans;
-  --color-primaryColor: #6b3dcb;
-  --color-darkPrimaryColor: #5a31b3;
+  --font-lato: "Lato", sans-serif;
+  --color-primaryColor: #5A4FCF;
+  --color-darkPrimaryColor: #433B9F;
+  --color-lightPrimaryColor: #E0DDFF;
+  --color-lightPrimaryColorHover: #D6D3FF;
+  --color-danger: #FF004F;
+  --color-success: #9ACD32;
 }
+
+body {
+  font-family: var(--font-montserrat);
+  background-color: #fff;
+  margin: 0;
+  padding: 0;
+  box-sizing: border-box;
+}
+
+h1, h2, h3, h4, h5, h6 {
+  font-family: var(--font-poppins);
+  margin: 0;
+}
+

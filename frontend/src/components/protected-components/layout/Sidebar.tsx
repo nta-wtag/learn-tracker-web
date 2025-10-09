@@ -1,6 +1,6 @@
 import React from "react";
-import logo from "/image-removebg-preview.png";
-import SidebarNav from "./SidebarNav";
+import logo from "/logo.png";
+import SidebarNav from "components/protected-components/layout/SidebarNav";
 
 const Sidebar: React.FC = () => (
   <aside className="fixed top-0 left-0 h-screen w-64 flex flex-col shadow-lg rounded-lg bg-white z-500">
