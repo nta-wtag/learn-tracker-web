@@ -1,13 +1,14 @@
 import React from "react";
 import { Book, LayoutDashboard, LibraryBig, UserCircle } from "lucide-react";
 import SidebarLink from "components/protected-components/layout/SidebarLink";
+import { ROUTES } from "routes/paths";
 
 const SidebarNav: React.FC = () => {
   const links = [
-    { to: "/", label: "Dashboard", icon: LayoutDashboard },
-    { to: "/courses", label: "My Courses", icon: LibraryBig },
-    { to: "/enroll", label: "Available Courses", icon: Book },
-    { to: "/profile", label: "Profile", icon: UserCircle },
+    { to: ROUTES.DASHBOARD, label: "Dashboard", icon: LayoutDashboard },
+    { to: ROUTES.COURSES, label: "My Courses", icon: LibraryBig },
+    { to: ROUTES.ENROLL, label: "Available Courses", icon: Book },
+    { to: ROUTES.PROFILE, label: "Profile", icon: UserCircle },
   ];
 
   return (

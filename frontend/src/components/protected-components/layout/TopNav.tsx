@@ -3,6 +3,7 @@ import { useNavigate } from "react-router-dom";
 import Button from "components/base-components/Button";
 import { getCurrentUser, logout } from "utils/auth-storage";
 import { LogOut, UserPlus } from "lucide-react";
+import { ROUTES } from "routes/paths";
 
 const TopNav: React.FC = ()=> {
   const navigate = useNavigate();
@@ -20,7 +21,7 @@ const TopNav: React.FC = ()=> {
         <Button
           text="Enroll"
           icon = {<UserPlus/>}
-          onClick={() => navigate("/enroll")}
+          onClick={() => navigate(ROUTES.ENROLL)}
         />
         <Button 
           text="Log out" 
