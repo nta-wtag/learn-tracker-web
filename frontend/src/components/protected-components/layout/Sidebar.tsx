@@ -1,5 +1,5 @@
 import React from "react";
-import logo from "/image-removebg-preview.png";
+import logo from "/logo.png";
 import SidebarNav from "components/protected-components/layout/SidebarNav";
 
 const Sidebar: React.FC = () => (
