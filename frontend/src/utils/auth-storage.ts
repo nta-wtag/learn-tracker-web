@@ -1,9 +1,4 @@
-export interface AuthData {
-  email: string;
-  password: string;
-  username: string;
-  role: "ADMIN" | "USER";
-}
+import { AuthData } from "types/auth-types";
 
 // Storage keys
 const STORAGE_KEYS = {

@@ -1,10 +1,5 @@
-import { findUserByEmail, saveUser, setCurrentUser, type AuthData } from "utils/auth-storage";
-
-export interface AuthResult {
-  success: boolean;
-  user?: AuthData;
-  message?: string;
-}
+import { AuthData, AuthResult } from "types/auth-types";
+import { findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
 
 // Error messages
 const AUTH_MESSAGES = {

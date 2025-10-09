@@ -8,15 +8,10 @@ import AuthInputFields from "components/auth-components/AuthInputFields";
 
 import { validateAuth } from "utils/auth-validation";
 import { handleLogin, handleRegister } from "utils/auth-handlers";
+import { AuthFormValues } from "types/auth-types";
 
 interface AuthFormProps {
   isLoginMode: boolean;
-}
-
-interface AuthFormValues {
-  username?: string;
-  email: string;
-  password: string;
 }
 
 const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
