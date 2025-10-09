@@ -1,9 +1,10 @@
 import React from 'react';
+import { ROUTES } from 'routes/paths';
 
 const EnrollCourse: React.FC = () => {
     return (
         <div>
-            Enroll
+            {ROUTES.ENROLL.label}
         </div>
     );
 }

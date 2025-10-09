@@ -18,7 +18,7 @@ const NotFoundComponent: React.FC = () => {
         <h1 className="text-9xl font-black text-gray-600 font-poppins">404</h1>
         <p className="mt-4 text-xl text-gray-600">Page Not Found</p>
         <Link
-          to={isAuthenticated ? ROUTES.DASHBOARD : ROUTES.AUTH}
+          to={isAuthenticated ? ROUTES.DASHBOARD.path : ROUTES.AUTH.path}
           className="inline-block mt-6 px-6 py-3 bg-primaryColor text-white rounded-lg hover:bg-darkPrimaryColor transition-colors"
         >
           Return to Home

@@ -40,12 +40,12 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
 
   // Redirect to auth if not logged in
   if (!isAuthenticated) {
-    return <Navigate to={ROUTES.AUTH} replace />;
+    return <Navigate to={ROUTES.AUTH.path} replace />;
   }
 
   // Redirect to unauthorized if role doesn't match
   if (!isAuthorized) {
-    return <Navigate to={ROUTES.UNAUTHORIZED} replace />;
+    return <Navigate to={ROUTES.UNAUTHORIZED.path} replace />;
   }
 
   return (

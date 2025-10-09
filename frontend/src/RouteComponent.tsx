@@ -15,20 +15,20 @@ import { ROUTES } from "routes/paths";
 const RouteComponent: React.FC = () => {
   return (
     <Routes>
-      <Route path={ROUTES.AUTH} element={<Authentication />} />
+      <Route path={ROUTES.AUTH.path} element={<Authentication />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
-        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
-        <Route path={ROUTES.ENROLL} element={<EnrollCourse />} />
-        <Route path={ROUTES.ENROLL_COURSE} element={<Lessons />} />
-        <Route path={ROUTES.COURSES} element={<Courses />}>
+        <Route path={ROUTES.DASHBOARD.path} element={<Dashboard />} />
+        <Route path={ROUTES.ENROLL.path} element={<EnrollCourse />} />
+        <Route path={ROUTES.ENROLL_COURSE.path} element={<Lessons />} />
+        <Route path={ROUTES.COURSES.path} element={<Courses />}>
           <Route
-            path={ROUTES.COURSE_MODULE}
+            path={ROUTES.COURSE_MODULE.path}
             element={<ModuleDetail />}
           />
         </Route>
-        <Route path={ROUTES.PROFILE} element={<Profile />} />
+        <Route path={ROUTES.PROFILE.path} element={<Profile />} />
       </Route>
-      <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
+      <Route path={ROUTES.NOT_FOUND.path} element={<NotFound />} />
     </Routes>
   );
 };
