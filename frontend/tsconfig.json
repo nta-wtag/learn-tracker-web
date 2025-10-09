@@ -21,9 +21,7 @@
       "utils/*": ["utils/*"],
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
-      "hooks/*": ["hooks/*"],
-      "routes/*": ["routes/*"],
-      "data/*": ["data/*"]
+      "hooks/*": ["hooks/*"]
     }
   },
   "include": ["src"],
