@@ -10,23 +10,25 @@ import EnrollCourse from "pages/enroll-course";
 import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
 
+import { ROUTES } from "routes/paths";
+
 const RouteComponent: React.FC = () => {
   return (
     <Routes>
-      <Route path="/auth" element={<Authentication />} />
+      <Route path={ROUTES.AUTH} element={<Authentication />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
-        <Route path="/" element={<Dashboard />} />
-        <Route path="/enroll" element={<EnrollCourse />} />
-        <Route path="/enroll/:courseId" element={<Lessons />} />
-        <Route path="/courses" element={<Courses />}>
+        <Route path={ROUTES.DASHBOARD} element={<Dashboard />} />
+        <Route path={ROUTES.ENROLL} element={<EnrollCourse />} />
+        <Route path={ROUTES.ENROLL_COURSE} element={<Lessons />} />
+        <Route path={ROUTES.COURSES} element={<Courses />}>
           <Route
-            path=":courseId/modules/:moduleId"
+            path={ROUTES.COURSE_MODULE}
             element={<ModuleDetail />}
           />
         </Route>
-        <Route path="/profile" element={<Profile />} />
+        <Route path={ROUTES.PROFILE} element={<Profile />} />
       </Route>
-      <Route path="*" element={<NotFound />} />
+      <Route path={ROUTES.NOT_FOUND} element={<NotFound />} />
     </Routes>
   );
 };

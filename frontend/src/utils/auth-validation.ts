@@ -1,25 +1,18 @@
-import validator from 'validator';
+import validator from "validator";
+import type { AuthFormValues } from "types/auth-types";
 
-interface AuthValues {
-  email: string;
-  password: string;
-  username?: string;
-}
-
-export const validateAuth = (values: AuthValues, isLoginMode: boolean) => {
+export const validateAuth = (values: AuthFormValues, isLoginMode: boolean) => {
   const errors: Record<string, string> = {};
 
   if (!values.email) {
-    errors.email = 'Email is required';
-  }
-  else if (!validator.isEmail(values.email)) {
-    errors.email = 'Invalid email format';
+    errors.email = "Email is required";
+  } else if (!validator.isEmail(values.email)) {
+    errors.email = "Invalid email format";
   }
 
   if (!values.password) {
-    errors.password = 'Password is required';
-  }
-  else if (
+    errors.password = "Password is required";
+  } else if (
     !validator.isStrongPassword(values.password, {
       minLength: 8,
       minLowercase: 1,
@@ -27,12 +20,12 @@ export const validateAuth = (values: AuthValues, isLoginMode: boolean) => {
       minNumbers: 1,
       minSymbols: 1,
     })
-  ){
-    errors.password = 'Password must be at least 8 characters, include letters, numbers and a special character';
+  ) {
+    errors.password = "Password must be at least 8 characters, include letters, numbers and a special character";
   }
 
-  if (!isLoginMode && (!values.username || values.username.length < 3)){
-    errors.username = 'Username must be at least 3 characters';
+  if (!isLoginMode && (!values.username || values.username.length < 3)) {
+    errors.username = "Username must be at least 3 characters";
   }
 
   return errors;

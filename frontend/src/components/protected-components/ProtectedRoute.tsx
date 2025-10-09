@@ -3,42 +3,49 @@ import { Navigate } from "react-router-dom";
 import toast, { Toaster } from "react-hot-toast";
 
 import { useCurrentUserAuth } from "hooks/useCurrentUserAuth";
+import { ROUTES } from "routes/paths";
 import Spinner from "components/base-components/Spinner";
 import AppLayout from "components/protected-components/layout/AppLayout";
 
-interface Props {
+interface ProtectedRouteProps {
   allowedRoles?: string[];
 }
 
-const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
+const AUTH_MESSAGES = {
+  LOGIN_REQUIRED: "Please log in to access this page.",
+  UNAUTHORIZED: "You don't have permission to access this page.",
+} as const;
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
   const { isAuthenticated, isAuthChecked, currentUser } = useCurrentUserAuth();
 
+  const isAuthorized = 
+    !allowedRoles || 
+    (currentUser && allowedRoles.includes(currentUser.role));
+
   useEffect(() => {
-    if (isAuthChecked && !isAuthenticated) {
-      toast.error("Please log in to access this page.");
-    }
+    if (!isAuthChecked) return;
 
-    if (
-      isAuthChecked &&
-      isAuthenticated &&
-      allowedRoles &&
-      currentUser &&
-      !allowedRoles.includes(currentUser.role)
-    ) {
-      toast.error("Login to access this page.");
+    if (!isAuthenticated) {
+      toast.error(AUTH_MESSAGES.LOGIN_REQUIRED);
+    } else if (!isAuthorized) {
+      toast.error(AUTH_MESSAGES.UNAUTHORIZED);
     }
-  }, [isAuthChecked, isAuthenticated, currentUser, allowedRoles]);
+  }, [isAuthChecked, isAuthenticated, isAuthorized]);
 
+  // Show loading spinner while checking auth
   if (!isAuthChecked) {
     return <Spinner />;
   }
 
+  // Redirect to auth if not logged in
   if (!isAuthenticated) {
-    return <Navigate to="/auth" replace />;
+    return <Navigate to={ROUTES.AUTH} replace />;
   }
 
-  if (allowedRoles && currentUser && !allowedRoles.includes(currentUser.role)) {
-    return <Navigate to="/unauthorized" replace />;
+  // Redirect to unauthorized if role doesn't match
+  if (!isAuthorized) {
+    return <Navigate to={ROUTES.UNAUTHORIZED} replace />;
   }
 
   return (

@@ -27,9 +27,9 @@ const Button: React.FC<ButtonProps> = ({
       // Primary button
       "bg-primaryColor text-white hover:bg-darkPrimaryColor cursor-pointer": variant === "primary" && !disabled,
       // Secondary button: light purple
-      "bg-purple-100 text-primaryColor hover:bg-purple-200 cursor-pointer": variant === "secondary" && !disabled,
+      "bg-lightPrimaryColor text-primaryColor hover:bg-lightPrimaryColorHover cursor-pointer": variant === "secondary" && !disabled,
       // Danger button
-      "bg-red-500 text-white hover:bg-red-600 cursor-pointer": variant === "danger" && !disabled,
+      "bg-danger text-white hover:bg-red-600 cursor-pointer": variant === "danger" && !disabled,
       // Disabled state (gray, no hover)
       "bg-gray-300 text-gray-500 cursor-not-allowed": disabled,
     }
