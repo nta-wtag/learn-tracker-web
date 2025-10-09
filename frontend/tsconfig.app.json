@@ -29,8 +29,7 @@
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
       "hooks/*": ["hooks/*"],
-      "data/*": ["data/*"],
-      "routes/*": ["routes/*"],
+      "data/*": ["data/*"]
     }
   },
   "include": ["src"]
