@@ -1,7 +1,7 @@
 import React from "react";
 import { Book, LayoutDashboard, LibraryBig, UserCircle } from "lucide-react";
-import SidebarLink from "components/protected-components/layout/SidebarLink";
 import { ROUTES } from "routes/paths";
+import SidebarLink from "components/protected-components/layout/SidebarLink";
 
 const SidebarNav: React.FC = () => {
   const links = [
