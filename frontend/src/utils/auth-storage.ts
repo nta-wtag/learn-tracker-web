@@ -5,45 +5,41 @@ export interface AuthData {
   role: "ADMIN" | "USER";
 }
 
+// Storage keys
+const STORAGE_KEYS = {
+  USERS: "users",
+  CURRENT_USER: "currentUser",
+} as const;
+
+// Get all users
 export const getUsers = (): AuthData[] => {
-  return JSON.parse(
-    localStorage.getItem("users") || "[]"
-  ) as AuthData[];
+  const users = localStorage.getItem(STORAGE_KEYS.USERS);
+  return users ? JSON.parse(users) : [];
 };
 
-export const findUserByEmail = (email: string) => {
-  const users = getUsers();
-
-  return users.find((u) => u.email === email);
-}
-
-export const setCurrentUser = (user: AuthData) => {
-  localStorage.setItem(
-    "currentUser", 
-    JSON.stringify(user)
-  );
+// Find user by email
+export const findUserByEmail = (email: string): AuthData | undefined => {
+  return getUsers().find((user) => user.email === email);
 };
 
-export const clearUser = () => {
-  localStorage.removeItem("user");
-};
-
-export const logout = () => {
-  localStorage.removeItem("currentUser");
-};
-
-export const saveUser = (user: AuthData) => {
-  const users = getUsers();
-  users.push(user);
-
-  localStorage.setItem(
-    "users", 
-    JSON.stringify(users)
-  );
-};
-
-export const getCurrentUser = () : AuthData | null => {
-  const user = localStorage.getItem("currentUser");
-  
+// Get current logged-in user
+export const getCurrentUser = (): AuthData | null => {
+  const user = localStorage.getItem(STORAGE_KEYS.CURRENT_USER);
   return user ? JSON.parse(user) : null;
+};
+
+// Set current logged-in user
+export const setCurrentUser = (user: AuthData): void => {
+  localStorage.setItem(STORAGE_KEYS.CURRENT_USER, JSON.stringify(user));
+};
+
+// Save new user to users list
+export const saveUser = (user: AuthData): void => {
+  const users = getUsers();
+  localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify([...users, user]));
+};
+
+// Logout current user
+export const logout = (): void => {
+  localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
 };

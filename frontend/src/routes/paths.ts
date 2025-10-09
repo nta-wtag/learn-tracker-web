@@ -2,6 +2,7 @@ export const ROUTES = {
   // Public routes
   AUTH: '/auth',
   NOT_FOUND: '*',
+  UNAUTHORIZED: '/unauthorized',
   
   // Protected routes
   DASHBOARD: '/',
