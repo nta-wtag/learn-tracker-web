@@ -29,12 +29,14 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
       // Login failed
       if (!result.success || !result.user) { 
         toast.error(result.message || "Something went wrong");
+
         return;
       }
 
       // Login successful
       toast.success(result.message || "Login successful");
       navigate("/", {replace: true});
+
       return;
     }
 
@@ -43,11 +45,13 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
     // Registration failed
     if (!result.success || !result.user) {
       toast.error(result.message || "Something went wrong");
+
       return;
     }
 
     // Registration successful
     toast.success(result.message || "Registration successful");
+    
     navigate("/", {replace: true});
   };
 
