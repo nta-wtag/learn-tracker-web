@@ -8,6 +8,7 @@ export const useCurrentUserAuth = () => {
 
   useEffect(() => {
     const storedUser = getCurrentUser();
+    
     setCurrentUser(storedUser);    
     setIsAuthChecked(true);
   }, []);
