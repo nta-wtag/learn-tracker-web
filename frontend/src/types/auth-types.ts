@@ -1,8 +1,14 @@
+export interface EnrolledCourse {
+  courseName: string;
+  enrolledAt: string;
+}
+
 export interface AuthData {
   email: string;
   password: string;
   username: string;
   role: "ADMIN" | "USER";
+  courses?: EnrolledCourse[];
 }
 
 export interface AuthResult {

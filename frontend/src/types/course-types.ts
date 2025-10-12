@@ -14,3 +14,8 @@ export interface Course {
   lessons: Week[];
   image: string;
 }
+
+export interface CourseStats {
+  totalLessons: number;
+  totalDays: number;
+}
