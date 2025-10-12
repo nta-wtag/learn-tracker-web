@@ -2,11 +2,11 @@ import React from "react";
 import { Field } from "react-final-form";
 import Input from "components/fields/Input";
 
-interface AuthFieldsProps {
+interface AuthInputFieldsProps {
   isLoginMode: boolean;
 }
 
-const AuthFields: React.FC<AuthFieldsProps> = ({ isLoginMode }) => (
+const AuthInputFields: React.FC<AuthInputFieldsProps> = ({ isLoginMode }) => (
   <>
     {!isLoginMode && (
       <Field name="username">
@@ -47,4 +47,4 @@ const AuthFields: React.FC<AuthFieldsProps> = ({ isLoginMode }) => (
   </>
 );
 
-export default AuthFields;
+export default AuthInputFields;
