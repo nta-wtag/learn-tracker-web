@@ -1,26 +1,22 @@
 import React from "react";
-import { useLocation, useParams } from "react-router-dom";
-import type { Course } from "types/course-types";
+import { useParams, useLocation } from "react-router-dom";
 import coursesData from "data/Courses.json";
+import { Course } from "types/course-types";
+import LessonWeeks from "components/protected-components/lesson-components/LessonWeeks";
 import LessonHeader from "components/protected-components/lesson-components/LessonHeader";
-import LessonWeek from "components/protected-components/lesson-components/LessonWeeks";
 
 const Lessons: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
   const location = useLocation();
-
-  const course =
-    location.state?.course ||
+  const course = location.state?.course || 
     (coursesData as Course[]).find((c) => c.course === courseId);
 
-  if (!course) {
-    return <p className="p-6 text-red-500">Course not found</p>;
-  }
+  if (!course) return <p className="p-6 text-red-500">Course not found</p>;
 
   return (
-    <div className="flex flex-col h-screen bg-white rounded-lg shadow">
+    <div className="flex flex-col h-screen overflow-none z-0">
       <LessonHeader course={course} />
-      <LessonWeek weeks={course.lessons} />
+      <LessonWeeks weeks={course.lessons} />
     </div>
   );
 };

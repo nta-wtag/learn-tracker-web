@@ -1,6 +1,6 @@
 import React from "react";
 import { Week } from "types/course-types";
-import WeekSection from "./WeekSection";
+import WeekSection from "components/protected-components/lesson-components/WeekSection";
 
 interface LessonWeeksProps {
   weeks: Week[];
@@ -15,4 +15,3 @@ const LessonWeeks: React.FC<LessonWeeksProps> = ({ weeks }) => (
 );
 
 export default LessonWeeks;
-

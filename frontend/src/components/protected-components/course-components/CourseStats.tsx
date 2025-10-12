@@ -4,7 +4,11 @@ import { Course } from 'types/course-types';
 import { useCourseStats } from 'hooks/useCourseStats';
 import StatItem from 'components/base-components/StatItem';
 
-function CourseStats({course}: {course: Course}) {
+interface CourseStatsProps {
+    course: Course;
+}
+
+const CourseStats: React.FC<CourseStatsProps> = ({course}) => {
   const { totalLessons, totalDays } = useCourseStats(course.lessons);
 
     return (
