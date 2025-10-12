@@ -16,7 +16,7 @@ const TopNav: React.FC = ()=> {
   };
 
   return (
-    <div className="py-4 px-8 flex justify-between items-center sticky top-0 z-10 shadow bg-white m-2 rounded-lg">
+    <div className="py-4 px-8 flex justify-between items-center sticky top-0 z-100 shadow bg-white m-2 rounded-lg">
       <p className="text-gray-400">Hey there, {user?.username.toUpperCase()}</p>
       <div className="flex gap-4">
         <Button

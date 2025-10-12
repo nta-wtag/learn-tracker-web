@@ -1,5 +1,6 @@
 import React from "react";
-import CourseCard, { type Course } from "components/course-components/CourseCard";
+import CourseCard from "components/course-components/CourseCard";
+import { Course } from "types/course-types";
 
 interface CourseGridProps {
   courses: Course[];

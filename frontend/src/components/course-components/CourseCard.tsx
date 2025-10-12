@@ -40,7 +40,9 @@ const CourseCard: React.FC<CourseCardProps> = ({ course }) => {
         <Button
           text="Lesson Plan"
           variant="secondary"
-          onClick={() => navigate(getEnrollCoursePath(course.course))}
+          onClick={() => navigate(getEnrollCoursePath(course.course), {
+    state: { course }
+  })}
         />
         <Button
           text="Enroll"

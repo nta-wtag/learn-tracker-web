@@ -2,11 +2,11 @@ import React from "react";
 import ModuleItem from "components/course-components/ModuleItem";
 import { Week } from "types/course-types";
 
-interface Props {
+interface WeekSectionProps {
   week: Week;
 }
 
-const WeekSection: React.FC<Props> = ({ week }) => {
+const WeekSection: React.FC<WeekSectionProps> = ({ week }) => {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Week {week.week}</h2>
