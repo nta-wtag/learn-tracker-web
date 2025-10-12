@@ -24,7 +24,9 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
     (currentUser && allowedRoles.includes(currentUser.role));
 
   useEffect(() => {
-    if (!isAuthChecked) return;
+    if (!isAuthChecked) {
+      return;
+    }
 
     if (!isAuthenticated) {
       toast.error(AUTH_MESSAGES.LOGIN_REQUIRED);
@@ -33,17 +35,14 @@ const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
     }
   }, [isAuthChecked, isAuthenticated, isAuthorized]);
 
-  // Show loading spinner while checking auth
   if (!isAuthChecked) {
     return <Spinner />;
   }
 
-  // Redirect to auth if not logged in
   if (!isAuthenticated) {
     return <Navigate to={ROUTES.AUTH.path} replace />;
   }
 
-  // Redirect to unauthorized if role doesn't match
   if (!isAuthorized) {
     return <Navigate to={ROUTES.UNAUTHORIZED.path} replace />;
   }
