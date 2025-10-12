@@ -1,28 +1,42 @@
 import React from "react";
 import coursesData from "data/Courses.json";
-import CourseGrid from "components/course-components/CourseGrid";
-import { getEnrolledCourses } from "utils/course-storage";
 import { Outlet } from "react-router-dom";
-import { CardProvider } from "hooks/useCardContext";
+import CourseGrid from "components/protected-components/course-components/CourseGrid";
+import EmptyState from "components/base-components/EmptyState";
+import PageHeader from "components/base-components/PageHeader";
+import { useEnrolledCourses } from "hooks/useEnrolledCourses";
+import { useFilteredCourses } from "hooks/useFilteredCourses";
 
 const Courses: React.FC = () => {
-    const enrolledCourses = getEnrolledCourses();
+    const { enrolledCourses, loading } = useEnrolledCourses();
+    const filteredCourses = useFilteredCourses(coursesData, enrolledCourses);
 
-    const coursesToShow = coursesData.filter(course =>
-        enrolledCourses.some(c => c.courseName === course.course)
-    );
+    if (loading) {
+        return <div className="p-6">Loading...</div>;
+    }
 
-    if (coursesToShow.length === 0) {
-        return <p className="py-4 text-gray-500">You are not enrolled in any courses yet.</p>;
+    if (filteredCourses.length === 0) {
+        return (
+            <div className="p-6">
+                <PageHeader title="My Courses" subtitle="0 courses enrolled" />
+                <EmptyState
+                    title="No courses yet"
+                    description="You are not enrolled in any courses yet."
+                    actionText="Browse Courses"
+                    actionLink="/enroll"
+                />
+            </div>
+        );
     }
 
     return (
-        <div className="py-4 gap-8 flex flex-col">
-            <h1 className="text-2xl font-bold">My Courses</h1>
-            <CardProvider key={coursesToShow} context="courses" >
-                <CourseGrid courses={coursesToShow} />
-            </CardProvider>
-            <Outlet/>
+        <div className="flex flex-col gap-8 py-4">
+            <PageHeader
+                title="My Courses"
+                subtitle={`${filteredCourses.length} course${filteredCourses.length === 1 ? "" : "s"} enrolled`}
+            />
+            <CourseGrid courses={filteredCourses} />
+            <Outlet />
         </div>
     );
 };

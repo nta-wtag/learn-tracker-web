@@ -1,6 +1,6 @@
 import { useState, useEffect } from "react";
 import { EnrolledCourse } from "types/auth-types";
-import { getEnrolledCourses } from "utils/course-handler";
+import { getEnrolledCourses } from "utils/course-storage";
 
 export const useEnrolledCourses = () => {
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
@@ -8,12 +8,14 @@ export const useEnrolledCourses = () => {
 
   useEffect(() => {
     const courses = getEnrolledCourses();
+
     setEnrolledCourses(courses);
     setLoading(false);
   }, []);
 
   const refresh = () => {
     const courses = getEnrolledCourses();
+
     setEnrolledCourses(courses);
   };
 

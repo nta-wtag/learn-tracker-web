@@ -1,5 +1,5 @@
+import { EnrolledCourse } from "types/auth-types";
 import { getUsers, setCurrentUser, getCurrentUser } from "utils/auth-storage";
-import type { EnrolledCourse } from "utils/course-handler";
 
 export const isEnrolled = (courseName: string) => {
   const user = getCurrentUser();
@@ -36,7 +36,7 @@ export const enrollCourseForCurrentUser = (courseName: string) => {
     localStorage.setItem("users", JSON.stringify(users));
   }
 
-  return `You are now enrolled in ${courseName}!`;
+  return `You are successfully enrolled in ${courseName}!`;
 };
 
 export const getEnrolledCourses = (): EnrolledCourse[] => {

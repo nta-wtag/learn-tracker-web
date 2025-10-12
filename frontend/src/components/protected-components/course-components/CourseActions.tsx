@@ -1,34 +1,40 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import Button from 'components/base-components/Button';
 import { Course } from 'types/course-types';
-import { getEnrollCoursePath } from 'routes/paths';
+import { useCourseCardVariant } from 'hooks/useCourseCardVariant';
+import { useEnrollment } from 'hooks/useEnrollment';
+import { useCourseNavigation } from 'hooks/useCourseNavigation';
+import toast from 'react-hot-toast';
 
 interface CourseActionsProps {
     course: Course;
 }
 
 const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
-    const navigate = useNavigate();
+    const { isEnrolled, enroll } = useEnrollment(course.course);
+    const { goToLessons } = useCourseNavigation(course);
+    const variant = useCourseCardVariant();
 
-    const handleStartLearning = () => {
-        toast.success(`You are now enrolled in ${course.course}!`);
-    };
+    const handleEnroll = () => {
+        const { success, message } = enroll();
+
+        if (success) {
+            toast.success(message);
+        }
+        else {
+            toast.error(message);
+        }
+    }
 
     return (
         <div className="flex gap-4">
-            <Button
-                text="Lesson Plan"
-                variant="secondary"
-                onClick={() => navigate(getEnrollCoursePath(course.course), {
-                    state: { course }
-                })}
+            <Button text="Lesson Plan" variant="secondary" onClick={goToLessons} />
+            {variant === 'enroll' && <Button
+                text={isEnrolled ? "Enrolled" : "Enroll Now"}
+                onClick={handleEnroll}
+                disabled={isEnrolled}
             />
-            <Button
-                text="Enroll"
-                onClick={handleStartLearning}
-            />
+            }
         </div>
     );
 }
