@@ -9,14 +9,10 @@ export const ROUTES = {
   ENROLL: { path: "/enroll", label: "Enroll" },
   ENROLL_COURSE: { path: "/enroll/:courseId", label: "Enroll Course" },
   COURSES: { path: "/courses", label: "Courses" },
-  COURSE_MODULE: { path: "/courses/:courseId/modules/:moduleId", label: "Course Module" },
+  COURSE_MODULE: { path: "/courses/:courseId", label: "Courses" },
   PROFILE: { path: "/profile", label: "Profile" },
 } as const;
 
-export const getEnrollCoursePath = (courseId: string | number) =>
-  `/enroll/${courseId}`;
+export const getEnrollCoursePath = (courseId: string | number) => `/enroll/${courseId}`;
 
-export const getCourseModulePath = (
-  courseId: string | number,
-  moduleId: string | number
-) => `/courses/${courseId}/modules/${moduleId}`;
+export const getCoursePath = (courseId: string | number) => `/courses/${courseId}`;
