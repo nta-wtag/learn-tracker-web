@@ -1,6 +1,6 @@
 import React from "react";
-import ModuleItem from "components/course-components/ModuleItem";
 import { Week } from "types/course-types";
+import ModuleItem from "components/protected-components/lesson-components/ModuleItem";
 
 interface WeekSectionProps {
   week: Week;

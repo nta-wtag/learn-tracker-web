@@ -1,6 +1,6 @@
 import React from "react";
 import coursesData from "data/Courses.json";
-import CourseGrid from "components/course-components/CourseGrid";
+import CourseGrid from "components/protected-components/course-components/CourseGrid";
 
 const EnrollCourse: React.FC = () => {
     return (
