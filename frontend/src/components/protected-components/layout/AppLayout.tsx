@@ -1,6 +1,6 @@
 import React from "react";
 import { Outlet } from "react-router-dom";
-import Sidebar from "components/protected-components/layout/Sidebar";
+import Sidebar from "components/protected-components/layout/sidenav/Sidebar";
 import TopNav from "components/protected-components/layout/TopNav";
 import { Toaster } from "react-hot-toast";
 

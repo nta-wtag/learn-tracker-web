@@ -1,7 +1,7 @@
 import React from "react";
 import { Book, LayoutDashboard, LibraryBig, UserCircle } from "lucide-react";
 import { ROUTES } from "routes/paths";
-import SidebarLink from "components/protected-components/layout/SidebarLink";
+import SidebarLink from "components/protected-components/layout/sidenav/SidebarLink";
 
 const SidebarNav: React.FC = () => {
   const links = [
@@ -13,12 +13,12 @@ const SidebarNav: React.FC = () => {
 
   return (
     <nav className="flex-grow p-4 space-y-4 text-gray-400">
-      {links.map(({ to, label, icon: Icon}) => (
+      {links.map(({ to, label, icon }) => (
         <SidebarLink
           key={to}
           to={to}
           label={label}
-          icon={Icon}
+          icon={icon}
         />
       ))}
     </nav>

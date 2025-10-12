@@ -6,29 +6,35 @@ import Button from "components/base-components/Button";
 import { getCurrentUser, logout } from "utils/auth-storage";
 import { ROUTES } from "routes/paths";
 
-const TopNav: React.FC = ()=> {
+const TopNav: React.FC = () => {
   const navigate = useNavigate();
   const user = getCurrentUser();
 
+  const handleEnroll = () => {
+    navigate(ROUTES.ENROLL.path);
+  };
+
   const handleLogout = () => {
     logout();
-    navigate(ROUTES.AUTH.path, {replace: true});
+    navigate(ROUTES.AUTH.path, { replace: true });
   };
 
   return (
     <div className="py-4 px-8 flex justify-between items-center sticky top-0 z-100 shadow bg-white m-2 rounded-lg">
-      <p className="text-gray-400">Hey there, {user?.username.toUpperCase()}</p>
+      <p className="text-gray-400">
+        Hey there, <span className="font-semibold">{user?.username}</span>
+      </p>
       <div className="flex gap-4">
         <Button
           text="Enroll"
-          icon = {<UserPlus/>}
-          onClick={() => navigate(ROUTES.ENROLL.path)}
+          icon={<UserPlus />}
+          onClick={handleEnroll}
         />
-        <Button 
-          text="Log out" 
-          icon = {<LogOut/>}
-          onClick={handleLogout} 
-          variant="danger" 
+        <Button
+          text="Log out"
+          icon={<LogOut />}
+          onClick={handleLogout}
+          variant="danger"
         />
       </div>
     </div>
