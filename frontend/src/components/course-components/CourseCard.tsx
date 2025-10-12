@@ -9,6 +9,7 @@ import {
 } from "utils/course-handler";
 import { Book, Clock } from "lucide-react";
 import { getEnrollCoursePath } from "routes/paths";
+import toast from "react-hot-toast";
 
 interface CourseCardProps {
   course: Course;
