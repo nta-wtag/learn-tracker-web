@@ -2,6 +2,7 @@ import React from "react";
 import { Outlet } from "react-router-dom";
 import Sidebar from "components/protected-components/layout/Sidebar";
 import TopNav from "components/protected-components/layout/TopNav";
+import { Toaster } from "react-hot-toast";
 
 const AppLayout: React.FC = () => {
   return (
@@ -13,6 +14,7 @@ const AppLayout: React.FC = () => {
           <Outlet />
         </main>
       </div>
+      <Toaster/>
     </div>
   );
 };
