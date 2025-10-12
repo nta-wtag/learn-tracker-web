@@ -1,7 +1,7 @@
-import React from 'react';
 import Auth from 'components/auth-components/Auth';
+import type React from 'react';
 
-function Authentication(props) {
+const Authentication:React.FC= ()=> {
   return (
     <Auth/>
   );

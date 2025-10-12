@@ -1,20 +1,20 @@
 import React from "react";
-import ToggleButton from "components/base-components/ToggleButton";
+import ModeButton from "components/base-components/ModeButton";
 
-interface AuthToggleButtonProps {
+interface AuthModeSwitcherProps {
   isLoginMode: boolean;
   setIsLoginMode: (val: boolean) => void;
 }
 
-const AuthToggleButton: React.FC<AuthToggleButtonProps> = ({ isLoginMode, setIsLoginMode }) => (
+const AuthModeSwitcher: React.FC<AuthModeSwitcherProps> = ({ isLoginMode, setIsLoginMode }) => (
   <div className="flex items-baseline mt-16 w-full justify-evenly">
-    <ToggleButton 
+    <ModeButton 
       label="Sign In" 
       active={isLoginMode} 
       onClick={() => setIsLoginMode(true)} 
     />
     <div className="border-l-2 border-gray-400 h-5" />
-    <ToggleButton 
+    <ModeButton 
       label="Sign Up" 
       active={!isLoginMode} 
       onClick={() => setIsLoginMode(false)} 
@@ -22,4 +22,4 @@ const AuthToggleButton: React.FC<AuthToggleButtonProps> = ({ isLoginMode, setIsL
   </div>
 );
 
-export default AuthToggleButton;
+export default AuthModeSwitcher;

@@ -1,11 +1,12 @@
 import React from "react";
 import { NavLink } from "react-router-dom";
 import classNames from "classnames";
+import { LucideIcon } from "lucide-react";
 
 interface SidebarLinkProps {
   to: string;
   label: string;
-  icon: React.ElementType;
+  icon: LucideIcon;
 }
 
 const SidebarLink: React.FC<SidebarLinkProps> = ({ to, label, icon: Icon }) => {
