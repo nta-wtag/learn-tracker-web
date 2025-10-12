@@ -5,7 +5,7 @@ import { ROUTES } from "routes/paths";
 import Button from "components/base-components/Button";
 import WeekSection from "components/course-components/WeekSection";
 import coursesData from "data/Courses.json";
-import { Course } from "types/course-types";
+import { Course, Week } from "types/course-types";
 
 const Lessons: React.FC = () => {
   const { courseId } = useParams<{ courseId: string }>();
@@ -28,7 +28,7 @@ const Lessons: React.FC = () => {
         <Button text="Start Learning" onClick={handleStartLearning} />
       </div>
       <div className="flex-1 overflow-y-auto p-4 space-y-8">
-        {course.lessons.map((week) => (
+        {course.lessons.map((week: Week) => (
           <WeekSection key={week.week} week={week}  />
         ))}
       </div>
