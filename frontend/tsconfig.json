@@ -13,8 +13,8 @@
     "strict": true,
     "skipLibCheck": true,
     "esModuleInterop": true,
-    "allowSyntheticDefaultImports": true,
     "resolveJsonModule": true,
+    "allowSyntheticDefaultImports": true,
     "baseUrl": "src", 
     "paths": {
       "components/*": ["components/*"],
