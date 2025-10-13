@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import { EnrolledCourse } from "types/auth-types";
 import { Course } from "types/course-types";
 
-export const useFilteredCourses = (
+export const useUserFilteredCourses = (
   allCourses: Course[],
   enrolledCourses: EnrolledCourse[]
 ) => {

@@ -1,14 +1,14 @@
 import React from "react";
 import { Play } from 'lucide-react';
 import { Module } from "types/course-types";
-import { useCourseCardVariant } from "hooks/useCourseCardVariant";
+import { useCourseContext } from "hooks/useCourseContext";
 
 interface ModuleItemProps {
   module: Module;
 }
 
 const ModuleItem: React.FC<ModuleItemProps> = ({ module }) => {
-  const variant = useCourseCardVariant();
+  const variant = useCourseContext();
 
   return (
     <li className="flex items-start gap-4 p-4 hover:bg-gray-50 rounded transition-colors">

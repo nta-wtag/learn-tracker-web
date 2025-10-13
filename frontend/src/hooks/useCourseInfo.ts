@@ -11,7 +11,7 @@ interface EnrolledCourseData {
   enrolledAt?: string;
 }
 
-export const useEnrolledCourseData = (
+export const useCourseInfo = (
   course: Course,
   enrollment: EnrolledCourse | undefined
 ): EnrolledCourseData | null => {

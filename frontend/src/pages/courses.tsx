@@ -4,12 +4,12 @@ import { Outlet } from "react-router-dom";
 import CourseGrid from "components/protected-components/course-components/CourseGrid";
 import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
-import { useEnrolledCourses } from "hooks/useEnrolledCourses";
-import { useFilteredCourses } from "hooks/useFilteredCourses";
+import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
+import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
 
 const Courses: React.FC = () => {
-    const { enrolledCourses, loading } = useEnrolledCourses();
-    const filteredCourses = useFilteredCourses(coursesData, enrolledCourses);
+    const { enrolledCourses, loading } = useUserEnrolledCourses();
+    const filteredCourses = useUserFilteredCourses(coursesData, enrolledCourses);
 
     if (loading) {
         return <div className="p-6">Loading...</div>;

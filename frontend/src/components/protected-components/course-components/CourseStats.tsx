@@ -1,22 +1,22 @@
 import React from 'react';
 import { Book, Clock } from 'lucide-react';
-import { Course, CourseCardVariant } from 'types/course-types';
+import { Course } from 'types/course-types';
 import StatItem from 'components/base-components/StatItem';
-import { useEnrolledCourses } from 'hooks/useEnrolledCourses';
-import { useEnrolledCourseData } from 'hooks/useEnrolledCourseData';
-import { useCourseCardVariant } from 'hooks/useCourseCardVariant';
+import { useUserEnrolledCourses } from 'hooks/useUserEnrolledCourses';
+import { useCourseInfo } from 'hooks/useCourseInfo';
+import { useCourseContext } from 'hooks/useCourseContext';
 
 interface CourseStatsProps {
     course: Course;
 }
 
 const CourseStats: React.FC<CourseStatsProps> = ({ course }) => {
-    const { enrolledCourses } = useEnrolledCourses();
+    const { enrolledCourses } = useUserEnrolledCourses();
     const enrollment = enrolledCourses.find((c) => c.courseName === course.course);
-    const variant = useCourseCardVariant();
+    const variant = useCourseContext();
 
     // Calculate deadline data only for enrolled courses
-    const enrolledData = useEnrolledCourseData(course, enrollment);
+    const enrolledData = useCourseInfo(course, enrollment);
 
     return (
         <div className="flex flex-col gap-4">

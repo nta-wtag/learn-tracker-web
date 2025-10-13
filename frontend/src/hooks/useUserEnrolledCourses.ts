@@ -2,7 +2,7 @@ import { useState, useEffect } from "react";
 import { EnrolledCourse } from "types/auth-types";
 import { getEnrolledCourses } from "utils/course-storage";
 
-export const useEnrolledCourses = () => {
+export const useUserEnrolledCourses = () => {
   const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
   const [loading, setLoading] = useState(true);
 

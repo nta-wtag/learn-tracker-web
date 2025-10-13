@@ -6,7 +6,7 @@ interface EnrollmentResult {
     message: string;
 }
 
-export const useEnrollment = (courseName: string) => {
+export const useCourseEnrollment = (courseName: string) => {
     const [isEnrolled, setIsEnrolled] = useState(checkEnrollment(courseName));
 
     const enroll = useCallback((): EnrollmentResult => {

@@ -1,9 +1,9 @@
 import React from 'react';
 import Button from 'components/base-components/Button';
 import { Course } from 'types/course-types';
-import { useCourseCardVariant } from 'hooks/useCourseCardVariant';
-import { useEnrollment } from 'hooks/useEnrollment';
-import { useCourseNavigation } from 'hooks/useCourseNavigation';
+import { useCourseContext } from 'hooks/useCourseContext';
+import { useCourseEnrollment } from 'hooks/useCourseEnrollment';
+import { useNavigateToCourse } from 'hooks/useNavigateToCourse';
 import toast from 'react-hot-toast';
 
 interface CourseActionsProps {
@@ -11,9 +11,9 @@ interface CourseActionsProps {
 }
 
 const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
-    const { isEnrolled, enroll } = useEnrollment(course.course);
-    const { goToLessons } = useCourseNavigation(course);
-    const variant = useCourseCardVariant();
+    const { isEnrolled, enroll } = useCourseEnrollment(course.course);
+    const { goToLessons } = useNavigateToCourse(course);
+    const variant = useCourseContext();
 
     const handleEnroll = () => {
         const { success, message } = enroll();
