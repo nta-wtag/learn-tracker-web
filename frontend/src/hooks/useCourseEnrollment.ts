@@ -1,5 +1,5 @@
 import { useState, useCallback } from "react";
-import { enrollCourseForCurrentUser, isEnrolled as checkEnrollment } from "utils/course-handler";
+import { enrollCourseForCurrentUser, isEnrolled as checkEnrollment } from "utils/course-storage";
 
 interface EnrollmentResult {
     success: boolean;
