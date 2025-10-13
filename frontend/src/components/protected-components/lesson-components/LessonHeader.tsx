@@ -1,7 +1,7 @@
 import React from 'react';
 import Button from 'components/base-components/Button';
 import { Course } from 'types/course-types';
-import { useEnrollment } from 'hooks/useEnrollment';
+import { useCourseEnrollment } from 'hooks/useCourseEnrollment';
 import toast from 'react-hot-toast';
 
 interface LessonHeaderProps {
@@ -9,7 +9,7 @@ interface LessonHeaderProps {
 }
 
 const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
-    const {enroll} = useEnrollment(course.course);
+    const {enroll} = useCourseEnrollment(course.course);
 
     const handleStartLearning = () => {
         const {success, message} = enroll();

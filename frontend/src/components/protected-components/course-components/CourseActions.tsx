@@ -4,7 +4,7 @@ import toast from 'react-hot-toast';
 import Button from 'components/base-components/Button';
 import { Course } from 'types/course-types';
 import { getEnrollCoursePath } from 'routes/paths';
-import { useEnrollment } from 'hooks/useEnrollment';
+import { useCourseEnrollment } from 'hooks/useCourseEnrollment';
 
 interface CourseActionsProps {
     course: Course;
@@ -12,7 +12,7 @@ interface CourseActionsProps {
 
 const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
     const navigate = useNavigate();
-    const { isEnrolled, enroll } = useEnrollment(course.course);
+    const { isEnrolled, enroll } = useCourseEnrollment(course.course);
 
     const handleEnrollment = () => {
         const { success, message } = enroll();

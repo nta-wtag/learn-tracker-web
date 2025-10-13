@@ -1,7 +1,7 @@
 import React from 'react';
 import { Book, Clock } from 'lucide-react';
 import { Course } from 'types/course-types';
-import { useCourseStats } from 'hooks/useCourseStats';
+import { useCourseInfo } from 'hooks/useCourseInfo';
 import StatItem from 'components/base-components/StatItem';
 
 interface CourseStatsProps {
@@ -9,7 +9,7 @@ interface CourseStatsProps {
 }
 
 const CourseStats: React.FC<CourseStatsProps> = ({course}) => {
-  const { totalLessons, totalDays } = useCourseStats(course.lessons);
+  const { totalLessons, totalDays } = useCourseInfo(course.lessons);
 
     return (
         <div className="flex flex-col gap-4">
