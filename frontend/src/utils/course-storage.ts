@@ -1,45 +1,52 @@
+import { getCurrentUser, setCurrentUser, getUsers } from "utils/auth-storage";
 import { EnrolledCourse } from "types/auth-types";
-import { getUsers, setCurrentUser, getCurrentUser } from "utils/auth-storage";
 
-export const isEnrolled = (courseName: string) => {
+export const isEnrolled = (courseName: string): boolean => {
   const user = getCurrentUser();
-  return user?.courses?.some((c: EnrolledCourse) => c.courseName === courseName) || false;
+  return user?.courses?.some((c) => c.courseName === courseName) ?? false;
 };
 
-export const enrollCourseForCurrentUser = (courseName: string) => {
+export const enrollCourseForCurrentUser = (courseName: string): string => {
   const user = getCurrentUser();
-  if (!user) return "No user logged in";
 
-  if (!user.courses) user.courses = [];
-
-  const alreadyEnrolled = user.courses.find(
-    (c: EnrolledCourse) => c.courseName === courseName
-  );
-
-  if (alreadyEnrolled) {
-    return `You are already enrolled in ${courseName} (since ${alreadyEnrolled.enrolledAt})`;
+  if (!user) {
+    return "No user logged in";
   }
 
-  const enrollment = {
+  if (!user.courses) {
+    user.courses = [];
+  }
+
+  const alreadyEnrolled = user.courses.find((c) => c.courseName === courseName);
+
+  if (alreadyEnrolled) {
+    return `Already enrolled since ${new Date(alreadyEnrolled.enrolledAt).toLocaleDateString("en-US", {
+      day: "numeric",
+      month: "short",
+      year: "numeric",
+    })}`;
+  }
+
+  const enrollment: EnrolledCourse = {
     courseName,
     enrolledAt: new Date().toISOString(),
   };
 
   user.courses.push(enrollment);
-
   setCurrentUser(user);
 
   const users = getUsers();
-  const idx = users.findIndex((u) => u.email === user.email);
-  if (idx !== -1) {
-    users[idx] = user;
+  const userIndex = users.findIndex((u) => u.email === user.email);
+
+  if (userIndex !== -1) {
+    users[userIndex] = user;
     localStorage.setItem("users", JSON.stringify(users));
   }
 
-  return `You are successfully enrolled in ${courseName}!`;
+  return `Successfully enrolled in ${courseName}!`;
 };
 
 export const getEnrolledCourses = (): EnrolledCourse[] => {
   const user = getCurrentUser();
-  return user?.courses || [];
+  return user?.courses ?? [];
 };
