@@ -1,3 +1,4 @@
+/// <reference types="vitest" />
 import { defineConfig } from 'vite'
 import react from '@vitejs/plugin-react'
 import tailwindcss from '@tailwindcss/vite'
@@ -8,7 +9,12 @@ export default defineConfig({
     tailwindcss(),
     react()
   ],
-    resolve: {
+  test: {
+    globals: true,
+    environment: "jsdom", 
+    setupFiles: "./src/setupTests.ts",
+  },
+  resolve: {
     alias: {
       'components': path.resolve(__dirname, './src/components'),
       'pages': path.resolve(__dirname, './src/pages'),
