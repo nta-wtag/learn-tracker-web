@@ -1,6 +1,6 @@
 import React from "react";
 import { Field } from "react-final-form";
-import Input from "components/fields/Input";
+import Input from "components/base-components/Input";
 
 interface AuthInputFieldsProps {
   isLoginMode: boolean;
