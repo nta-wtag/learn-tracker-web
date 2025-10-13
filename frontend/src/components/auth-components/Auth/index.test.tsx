@@ -15,7 +15,7 @@ vi.mock("components/auth-components/AuthIllustration", () => ({
 vi.mock("components/auth-components/AuthHeader", () => ({
     default: ({ isLoginMode }: { isLoginMode: boolean }) => (
         <div data-testid="auth-header">
-            {isLoginMode ? "Welcome Back" : "Create Account"}
+            {isLoginMode ? "Sign Up Text" : "Login Text"}
         </div>
     ),
 }));
@@ -68,7 +68,7 @@ describe("Auth Component", () => {
             render(<Auth />);
 
             expect(screen.getByTestId("auth-illustration")).toHaveTextContent("Login Illustration");
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
             expect(screen.getByTestId("auth-form")).toHaveTextContent("Login Form Fields");
         });
 
@@ -87,13 +87,13 @@ describe("Auth Component", () => {
             const signupButton = screen.getByTestId("signup-button");
 
             // Initially in login mode
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
 
             // Click to switch to signup
             await userEvent.click(signupButton);
 
             // Now should show signup content
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Create Account");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Login Text");
             expect(screen.getByTestId("auth-illustration")).toHaveTextContent("Signup Illustration");
             expect(screen.getByTestId("auth-form")).toHaveTextContent("Signup Form Fields");
         });
@@ -105,11 +105,11 @@ describe("Auth Component", () => {
 
             // Switch to signup
             await userEvent.click(signupButton);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Create Account");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Login Text");
 
             // Switch back to login
             await userEvent.click(loginButton);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
         });
 
         it("toggles mode multiple times correctly", async () => {
@@ -118,19 +118,19 @@ describe("Auth Component", () => {
             const loginButton = screen.getByTestId("login-button");
 
             // Initial: Login
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
 
             // Toggle 1: Signup
             await userEvent.click(signupButton);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Create Account");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Login Text");
 
             // Toggle 2: Login
             await userEvent.click(loginButton);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
 
             // Toggle 3: Signup
             await userEvent.click(signupButton);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Create Account");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Login Text");
         });
     });
 
@@ -139,9 +139,9 @@ describe("Auth Component", () => {
             render(<Auth />);
 
             // All components should reflect login mode
-            expect(screen.getByTestId("auth-illustration")).toHaveTextContent("Login");
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
-            expect(screen.getByTestId("auth-form")).toHaveTextContent("Login");
+            expect(screen.getByTestId("auth-illustration")).toHaveTextContent("Login Text");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
+            expect(screen.getByTestId("auth-form")).toHaveTextContent("Login Text");
         });
 
         it("updates all child components when mode changes", async () => {
@@ -152,7 +152,7 @@ describe("Auth Component", () => {
 
             // All components should update to signup mode
             expect(screen.getByTestId("auth-illustration")).toHaveTextContent("Signup");
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Create Account");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Login Text");
             expect(screen.getByTestId("auth-form")).toHaveTextContent("Signup");
         });
 
@@ -194,13 +194,13 @@ describe("Auth Component", () => {
             const signupButton = screen.getByTestId("signup-button");
 
             await userEvent.click(signupButton);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Create Account");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Login Text");
 
             unmount();
 
             // Re-render should reset to default login mode
             render(<Auth />);
-            expect(screen.getByTestId("auth-header")).toHaveTextContent("Welcome Back");
+            expect(screen.getByTestId("auth-header")).toHaveTextContent("Sign Up Text");
         });
     });
 });
