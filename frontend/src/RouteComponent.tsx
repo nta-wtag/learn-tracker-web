@@ -4,10 +4,9 @@ import ProtectedRoute from "components/protected-components/ProtectedRoute";
 import Dashboard from "pages/dashboard";
 import Courses from "pages/courses";
 import Profile from "pages/profile";
-import ModuleDetail from "pages/modules/module-detail";
-import Lessons from "pages/lessons";
 import NotFound from "pages/not-found";
 import EnrollCourse from "pages/enroll-course";
+import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
 
 import { ROUTES } from "routes/paths";
@@ -23,10 +22,6 @@ const RouteComponent: React.FC = () => {
         </Route>
         <Route path={ROUTES.COURSES.path} element={<Courses />}>
           <Route path={ROUTES.COURSE_MODULE.path} element={<Lessons />} />
-          <Route
-            path={ROUTES.COURSE_MODULE.path}
-            element={<ModuleDetail />}
-          />
         </Route>
         <Route path={ROUTES.PROFILE.path} element={<Profile />} />
       </Route>
