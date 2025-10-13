@@ -1,6 +1,5 @@
 import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
 import Input from "components/base-components/Input";
 
 describe("Input", () => {
@@ -55,7 +54,7 @@ describe("Input", () => {
     it("error has correct styling", () => {
       render(<Input input={mockInput} error="Error message" touched={true} />);
       const error = screen.getByText("Error message");
-      
+
       expect(error).toHaveClass("text-red-500");
       expect(error).toHaveClass("text-sm");
     });
@@ -71,7 +70,7 @@ describe("Input", () => {
     it("spreads input props correctly", () => {
       const input = { ...mockInput, value: "test value" };
       render(<Input input={input} error={null} touched={false} />);
-      
+
       expect(screen.getByRole("textbox")).toHaveValue("test value");
     });
   });
