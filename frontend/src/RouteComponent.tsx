@@ -1,8 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-
-import { ROUTES } from "routes/paths";
-
+import ProtectedRoute from "components/protected-components/ProtectedRoute";
 import Dashboard from "pages/dashboard";
 import Courses from "pages/courses";
 import Profile from "pages/profile";
@@ -11,7 +9,7 @@ import EnrollCourse from "pages/enroll-course";
 import Lessons from "pages/lessons";
 import Authentication from "pages/authentication";
 
-import ProtectedRoute from "components/protected-components/ProtectedRoute";
+import { ROUTES } from "routes/paths";
 
 const RouteComponent: React.FC = () => {
   return (
@@ -19,7 +17,7 @@ const RouteComponent: React.FC = () => {
       <Route path={ROUTES.AUTH.path} element={<Authentication />} />
       <Route element={<ProtectedRoute allowedRoles={["USER"]} />}>
         <Route path={ROUTES.DASHBOARD.path} element={<Dashboard />} />
-        <Route path={ROUTES.ENROLL.path} element={<EnrollCourse />}>
+        <Route path={ROUTES.ENROLL.path} element={<EnrollCourse />} >
           <Route path={ROUTES.ENROLL_COURSE.path} element={<Lessons />} />
         </Route>
         <Route path={ROUTES.COURSES.path} element={<Courses />}>
