@@ -4,16 +4,17 @@ import ModuleItem from "components/protected-components/lesson-components/Module
 
 interface WeekSectionProps {
   week: Week;
+  courseName: string;
 }
 
-const WeekSection: React.FC<WeekSectionProps> = ({ week }) => {
+const WeekSection: React.FC<WeekSectionProps> = ({ week, courseName }) => {
   return (
     <div className="space-y-4">
       <h2 className="text-xl font-semibold">Week {week.week}</h2>
       <div className="h-[1px] bg-gray-300 mb-8" />
       <ul className="space-y-2">
         {week.modules.map((module, idx) => (
-          <ModuleItem key={idx} module={module} />
+          <ModuleItem key={idx} module={module} courseName={courseName} />
         ))}
       </ul>
     </div>

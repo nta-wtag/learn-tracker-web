@@ -1,26 +1,33 @@
-import type { Week, CourseStats, Course } from "types/course-types";
+import type { Week, CourseStats, Course, CompletedLesson } from "types/course-types";
 
-export const calculateDeadline = (enrolledAt: string, totalDays: number): string => {
-  let currentDate = new Date(enrolledAt);
+export const calculateDeadline = (enrolledAt: string, totalDays: number) => {
+  const currentDate = new Date(enrolledAt);
   let addedDays = 0;
 
+  // Add totalDays excluding Fridays (5) and Saturdays (6)
   while (addedDays < totalDays) {
     currentDate.setDate(currentDate.getDate() + 1);
-    const day = currentDate.getDay(); 
+    const dayOfWeek = currentDate.getDay();
 
-    // Skip weekends
-    if (day !== 5 && day !== 6) {
+    if (dayOfWeek !== 5 && dayOfWeek !== 6) {
       addedDays++;
     }
   }
-  const formattedDeadline = new Date(currentDate.toISOString().split("T")[0]).toLocaleDateString("en-US", {
-      month: "short",
-      day: "numeric",
-      year: "numeric",
-    }).toString();
 
-  return formattedDeadline; 
-}
+  // Format deadline nicely
+  const deadline = currentDate.toLocaleDateString("en-US", {
+    month: "short",
+    day: "numeric",
+    year: "numeric",
+  });
+
+  // Calculate days left (0 if past deadline)
+  const today = new Date();
+  const diffTime = currentDate.getTime() - today.getTime();
+  const daysLeft = Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
+
+  return { deadline, daysLeft };
+};
 
 export const isDeadlineOver = (deadline: string): boolean => {
   return new Date() > new Date(deadline);
@@ -44,30 +51,18 @@ export const calculateCourseProgress = (
   course: Course,
   completedLessons: CompletedLesson[]
 ) => {
-  const totalModules = course.lessons.reduce(
-    (sum, lesson) => sum + lesson.modules.length,
-    0
-  );
+  const {totalLessons, totalDays} = calculateCourseStats(course.lessons);
 
   const completedModules = completedLessons.filter(
     (l) => l.courseName === course.course
   ).length;
 
-  const progressPercent = totalModules ? (completedModules / totalModules) * 100 : 0;
+  const progressPercent = totalLessons ? (completedModules / totalLessons) * 100 : 0;
 
   return {
-    totalModules,
     completedModules,
     progressPercent,
+    totalDays,
+    totalLessons
   };
-};
-
-export const calculateDaysLeft = (enrolledAt: string, totalDays: number): number => {
-  const enrolledDate = new Date(enrolledAt);
-  const deadline = new Date(enrolledDate);
-  deadline.setDate(deadline.getDate() + totalDays);
-
-  const today = new Date();
-  const diffTime = deadline.getTime() - today.getTime();
-  return Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
 };

@@ -19,7 +19,7 @@ const ProgressBar: React.FC<Props> = ({
   };
 
   return (
-    <div>
+    <div className="w-full">
       <div className="flex justify-between items-center my-2">
         <p className="text-gray-600">Progress</p>
         <p>{Math.round(progressPercent)}%</p>
