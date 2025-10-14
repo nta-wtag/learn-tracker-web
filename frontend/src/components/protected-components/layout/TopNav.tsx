@@ -2,20 +2,22 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, UserPlus } from "lucide-react";
 
-import Button from "components/base-components/Button";
-import { getCurrentUser, logout } from "utils/auth-storage";
 import { ROUTES } from "routes/paths";
+import { useAuthRedux } from "hooks/useAuthRedux";
+
+import Button from "components/base-components/Button";
 
 const TopNav: React.FC = () => {
   const navigate = useNavigate();
-  const user = getCurrentUser();
+  const {user , logoutUser } = useAuthRedux();
 
   const handleEnroll = () => {
     navigate(ROUTES.ENROLL.path);
   };
 
   const handleLogout = () => {
-    logout();
+    logoutUser();
+
     navigate(ROUTES.AUTH.path, { replace: true });
   };
 

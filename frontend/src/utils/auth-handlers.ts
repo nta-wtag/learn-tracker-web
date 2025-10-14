@@ -1,5 +1,6 @@
-import { findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
+import { findUserByEmail } from "utils/auth-storage";
 import { AuthData, AuthResult } from "types/auth-types";
+import { useAuthRedux } from "hooks/useAuthRedux";
 
 // Error messages
 const AUTH_MESSAGES = {
@@ -10,7 +11,7 @@ const AUTH_MESSAGES = {
   REGISTER_SUCCESS: "Registration successful!",
 } as const;
 
-export const handleLogin = (email: string, password: string): AuthResult => {
+export const validateLogin = (email: string, password: string): AuthResult => {
   const user = findUserByEmail(email);
 
   if (!user) {
@@ -21,19 +22,19 @@ export const handleLogin = (email: string, password: string): AuthResult => {
     return { success: false, message: AUTH_MESSAGES.INCORRECT_PASSWORD };
   }
 
-  setCurrentUser(user);
   return { success: true, user, message: AUTH_MESSAGES.LOGIN_SUCCESS };
 };
 
-export const handleRegister = (username: string, email: string, password: string): AuthResult => {
+export const validateRegistration = (
+  username: string,
+  email: string,
+  password: string
+): AuthResult => {
   if (findUserByEmail(email)) {
     return { success: false, message: AUTH_MESSAGES.EMAIL_EXISTS };
   }
 
   const newUser: AuthData = { username, email, password, role: "USER" };
-
-  saveUser(newUser);
-  setCurrentUser(newUser);
 
   return { success: true, user: newUser, message: AUTH_MESSAGES.REGISTER_SUCCESS };
 };

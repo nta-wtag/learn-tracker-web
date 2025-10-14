@@ -4,14 +4,15 @@ import { Form } from "react-final-form";
 import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
+import { ROUTES } from "routes/paths";
+
 import { type RootState } from "store";
+import { useAuthRedux } from "hooks/useAuthRedux";
 
 import { validateAuth } from "utils/auth-validation";
-import { handleLogin, handleRegister } from "utils/auth-handlers";
 
 import Button from "components/base-components/Button";
 import AuthInputFields from "components/auth-components/AuthInputFields";
-import { ROUTES } from "routes/paths";
 
 interface AuthFormValues {
   username?: string;
@@ -22,10 +23,11 @@ interface AuthFormValues {
 const AuthForm: React.FC = () => {
   const navigate = useNavigate();
   const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
+  const { login, register } = useAuthRedux();
 
   const handleSubmit = ({ username, email, password }: AuthFormValues) => {
     if (isLoginMode) {
-      const result = handleLogin(email, password);
+      const result = login(email, password);
 
       // Login failed
       if (!result.success || !result.user) { 
@@ -41,7 +43,7 @@ const AuthForm: React.FC = () => {
       return;
     }
 
-    const result = handleRegister(username!, email, password);
+    const result = register(username!, email, password);
 
     // Registration failed
     if (!result.success || !result.user) {

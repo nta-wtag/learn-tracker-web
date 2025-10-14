@@ -1,7 +1,7 @@
 import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthRedux } from "hooks/useAuthRedux";
-import image from "assets/images/not-found.png";
+import image from "assets/not-found.jpg";
 
 const NotFoundComponent: React.FC = () => {
     const {isAuthenticated} = useAuthRedux();

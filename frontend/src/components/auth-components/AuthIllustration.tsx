@@ -2,8 +2,8 @@ import React from "react";
 import { useSelector } from "react-redux";
 import type { RootState } from "store";
 
-import loginImg from "assets/Education-Isometric-Illustration.jpg";
-import registerImg from "assets/42B2E4EC-58E6-4E91-9CA5-B570A5634F8F_1_201_a.jpeg";
+import loginImg from "assets/login-illustration.jpg";
+import registerImg from "assets/register-illustration.jpeg";
 
 const AuthIllustration: React.FC = () => {
   const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);

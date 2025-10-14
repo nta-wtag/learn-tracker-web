@@ -3,7 +3,7 @@ import React from "react";
 import { useSelector, useDispatch } from "react-redux";
 
 import { type RootState } from "store";
-import { setLoginMode } from "store/slices/authUiSlice";
+import { toggleMode } from "store/slices/authUiSlice";
 
 const AuthModeSwitcher: React.FC = () => {
   const dispatch = useDispatch();
@@ -14,13 +14,13 @@ const AuthModeSwitcher: React.FC = () => {
       <ModeButton
         label="Sign In" 
         active={isLoginMode} 
-        onClick={() => dispatch(setLoginMode(true))} 
+        onClick={() => dispatch(toggleMode())} 
       />
       <div className="border-l-2 border-gray-400 h-5" />
       <ModeButton
         label="Sign Up" 
         active={!isLoginMode} 
-        onClick={() => dispatch(setLoginMode(false))} 
+        onClick={() => dispatch(toggleMode())} 
       />
     </div>
   );

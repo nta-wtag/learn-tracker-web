@@ -17,11 +17,11 @@ const AUTH_MESSAGES = {
 } as const;
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
-  const { isAuthenticated, isAuthChecked, currentUser } = useAuthRedux();
+  const { isAuthenticated, isAuthChecked, user } = useAuthRedux();
 
   const isAuthorized = 
     !allowedRoles || 
-    (currentUser && allowedRoles.includes(currentUser.role));
+    (user && allowedRoles.includes(user.role));
 
   useEffect(() => {
     if (!isAuthChecked) {

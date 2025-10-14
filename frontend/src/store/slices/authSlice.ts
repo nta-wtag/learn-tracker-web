@@ -1,5 +1,6 @@
-import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-import { getCurrentUser, type AuthData } from "utils/auth-storage";
+import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { AuthData } from "types/auth-types";
+import { getCurrentUser, setCurrentUser, logout as clearStorage } from "utils/auth-storage";
 
 interface AuthState {
   currentUser: AuthData | null;
@@ -18,22 +19,13 @@ const authSlice = createSlice({
     setUser: (state, action: PayloadAction<AuthData>) => {
       state.currentUser = action.payload;
       state.isAuthChecked = true;
-      localStorage.setItem("currentUser", JSON.stringify(action.payload));
+      setCurrentUser(action.payload); // Sync with localStorage
     },
     logout: (state) => {
       state.currentUser = null;
-      state.isAuthChecked = true;
-      localStorage.removeItem("currentUser");
-    },
-    setAuthChecked: (state, action: PayloadAction<boolean>) => {
-      state.isAuthChecked = action.payload;
+      clearStorage();
     },
     restoreUserFromStorage: (state) => {
-      const storedUser = localStorage.getItem("currentUser");
-      if (storedUser) state.currentUser = JSON.parse(storedUser);
-      state.isAuthChecked = true;
-    },
-    checkAuth: (state) => {
       const user = getCurrentUser();
       state.currentUser = user;
       state.isAuthChecked = true;
@@ -41,6 +33,5 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, logout, setAuthChecked, restoreUserFromStorage, checkAuth } =
-  authSlice.actions;
+export const { setUser, logout, restoreUserFromStorage } = authSlice.actions;
 export default authSlice.reducer;
