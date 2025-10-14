@@ -2,25 +2,19 @@ import React from 'react';
 import { Book, BookCheck, Clock, AlertCircle, CheckCircle } from 'lucide-react';
 import { Course } from 'types/course-types';
 import StatItem from 'components/base-components/StatItem';
-import { useUserEnrolledCourses } from 'hooks/useUserEnrolledCourses';
-import { useCourseInfo } from 'hooks/useCourseInfo';
-import { useCourseContext } from 'hooks/useCourseContext';
+import { useCourse } from 'hooks/useCourse';
 
 interface CourseStatsProps {
   course: Course;
 }
 
 const CourseStats: React.FC<CourseStatsProps> = ({ course }) => {
-  const { enrolledCourses } = useUserEnrolledCourses();
-  const enrollment = enrolledCourses.find((c) => c.courseName === course.course);
-  const variant = useCourseContext();
-  const enrolledData = useCourseInfo(course, enrollment);
+  const { variant, courseInfo, enrollment } = useCourse(course);
 
-  // 🧮 Determine course status (only relevant if user is enrolled)
   const getCourseStatus = () => {
-    if (!enrolledData || !enrollment) return null;
+    if (!courseInfo || !enrollment) return null;
 
-    const { completedModules, totalLessons, isDeadlineOver } = enrolledData;
+    const { completedModules, totalLessons, isDeadlineOver } = courseInfo;
 
     if (completedModules === totalLessons && totalLessons > 0) {
       return { label: "Completed", color: "bg-green-100 text-green-700", icon: CheckCircle };
@@ -59,24 +53,24 @@ const CourseStats: React.FC<CourseStatsProps> = ({ course }) => {
         <div className="flex gap-8">
           <StatItem
             icon={BookCheck}
-            label={`${enrolledData?.completedModules}/${enrolledData?.totalLessons} Lesson${
-              enrolledData?.totalLessons === 1 ? "" : "s"
+            label={`${courseInfo?.completedModules}/${courseInfo?.totalLessons} Lesson${
+              courseInfo?.totalLessons === 1 ? "" : "s"
             }`}
           />
-          <StatItem icon={Clock} label={`Due: ${enrolledData?.deadline}`} />
+          <StatItem icon={Clock} label={`Due: ${courseInfo?.deadline}`} />
         </div>
       ) : (
         <div className="flex gap-8">
           <StatItem
             icon={Book}
-            label={`${enrolledData?.totalLessons} Lesson${
-              enrolledData?.totalLessons === 1 ? "" : "s"
+            label={`${courseInfo?.totalLessons} Lesson${
+              courseInfo?.totalLessons === 1 ? "" : "s"
             }`}
           />
           <StatItem
             icon={Clock}
-            label={`Duration: ${enrolledData?.totalDays} day${
-              enrolledData?.totalDays === 1 ? "" : "s"
+            label={`Duration: ${courseInfo?.totalDays} day${
+              courseInfo?.totalDays === 1 ? "" : "s"
             }`}
           />
         </div>

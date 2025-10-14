@@ -3,8 +3,8 @@ import { CircleDashed, ExternalLink, CheckCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
 import type { RootState } from "store";
 import { markLessonComplete, unmarkLesson } from "store/slices/lessonSlice";
-import { useCourseContext } from "hooks/useCourseContext";
 import { Module } from "types/course-types";
+import { useCourseContext } from "hooks/useCourseContext";
 
 interface ModuleItemProps {
   module: Module;

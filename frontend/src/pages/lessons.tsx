@@ -13,7 +13,7 @@ const Lessons: React.FC = () => {
   return (
     <div className="flex flex-col h-screen overflow-none z-0">
       <LessonHeader course={course} />
-      <LessonWeeks courseName={course.course} weeks={course.lessons}/>
+      <LessonWeeks course={course} weeks={course.lessons}/>
     </div>
   );
 };
