@@ -1,7 +1,7 @@
 
 import { useCourseEnrollment } from "./useCourseEnrollment";
 import type { Course } from "types/course-types";
-import { useCourseData } from "hooks/useCourseData";
+import { useCourseInfo } from "hooks/useCourseInfo";
 
 export const useCourse = (course: Course) => {
   const {
@@ -13,7 +13,7 @@ export const useCourse = (course: Course) => {
     goToLessons,
   } = useCourseEnrollment(course);
 
-  const courseInfo = useCourseData(course, enrollment);
+  const courseInfo = useCourseInfo(course, enrollment);
 
   return {
     variant,

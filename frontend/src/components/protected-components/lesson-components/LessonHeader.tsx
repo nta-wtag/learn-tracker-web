@@ -6,7 +6,7 @@ import toast from "react-hot-toast";
 import ProgressBar from "components/base-components/ProgressBar";
 import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
 import { useCourseContext } from "hooks/useCourseContext";
-import { useCourseData } from "hooks/useCourseData";
+import { useCourseInfo } from "hooks/useCourseInfo";
 
 interface LessonHeaderProps {
   course: Course;
@@ -19,7 +19,7 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
     (c) => c.courseName === course.course
   );
   const variant = useCourseContext();
-  const enrolledData = useCourseData(course, enrollment);
+  const enrolledData = useCourseInfo(course, enrollment);
 
   const handleStartLearning = () => {
     const { success, message } = enroll();

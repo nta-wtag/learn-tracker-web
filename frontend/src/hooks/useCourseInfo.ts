@@ -5,7 +5,7 @@ import type { Course } from "types/course-types";
 import type { EnrolledCourse } from "types/auth-types";
 import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
 
-export const useCourseData = (course: Course, enrollment?: EnrolledCourse) => {
+export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
   const completedLessons = useSelector(
     (state: RootState) => state.lesson.completedLessons
   );
