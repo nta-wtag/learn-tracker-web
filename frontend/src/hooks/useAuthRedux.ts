@@ -1,29 +1,52 @@
+import { useCallback } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
+
 import { type RootState } from 'store';
-import { setUser, logout, restoreUserFromStorage } from 'store/slices/authSlice';
-import { saveUser, type AuthData } from 'utils/auth-storage';
+import { setUser, restoreUserFromStorage, logout as logoutAction } from 'store/slices/authSlice';
+
+import { validateLogin, validateRegistration } from 'utils/auth-handlers';
+import { logout as clearStorage, saveUserToStorage } from 'utils/auth-storage';
 
 export const useAuthRedux = () => {
   const dispatch = useDispatch();
   const user = useSelector((state: RootState) => state.auth.currentUser);
   const isAuthChecked = useSelector((state: RootState) => state.auth.isAuthChecked);
 
-  const login = (userData: AuthData) => {
-    dispatch(setUser(userData));
-  };
+  const login = useCallback(
+    (email: string, password: string) => {
+      const result = validateLogin(email, password);
 
-  const register = (userData: AuthData) => {
-    saveUser(userData);
-    dispatch(setUser(userData));
-  };
+      if (result.success && result.user) {
+        dispatch(setUser(result.user));
+      }
 
-  const logoutUser = () => {
-    dispatch(logout());
-  };
+      return result;
+    },
+    [dispatch]
+  );
 
-  const restoreUser = () => {
+  const register = useCallback(
+    (username: string, email: string, password: string) => {
+      const result = validateRegistration(username, email, password);
+
+      if (result.success && result.user) {
+        saveUserToStorage(result.user);
+        dispatch(setUser(result.user));
+      }
+
+      return result;
+    },
+    [dispatch]
+  );
+
+  const logoutUser = useCallback(() => {
+    clearStorage();
+    dispatch(logoutAction());
+  }, [dispatch]);
+
+  const restoreUser = useCallback(() => {
     dispatch(restoreUserFromStorage());
-  };
+  }, [dispatch]);
 
   return {
     user,

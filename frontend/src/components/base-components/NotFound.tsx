@@ -1,8 +1,7 @@
-import React from 'react';
+import React from "react";
 import { Link } from "react-router-dom";
 import { useAuthRedux } from "hooks/useAuthRedux";
-
-import image from 'assets/istockphoto-1366754976-612x612.jpg'
+import image from "assets/not-found.jpg";
 
 const NotFoundComponent: React.FC = () => {
     const {isAuthenticated} = useAuthRedux();
@@ -16,7 +15,7 @@ const NotFoundComponent: React.FC = () => {
                     to={isAuthenticated ? "/" : "/auth"}
                     className="mt-6 px-4 py-2 bg-primaryColor text-white rounded-lg hover:bg-darkPrimaryColor"
                 >
-                    Return To Home
+                    Go Home
                 </Link>
             </div>
         </div>

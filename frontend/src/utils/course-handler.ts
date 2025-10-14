@@ -1,69 +1,4 @@
-import { updateCurrentUser, updateUsersArray } from "store/useUserStore";
-import { getUsers,  getCurrentUser } from "utils/auth-storage";
-import type { AuthData } from "utils/auth-storage";
-
-export interface EnrolledCourse {
-  courseName: string;
-  enrolledAt: string; 
-}
-export interface Module {
-  title: string;
-  estDays: number;
-  resources: string[];
-  courseName: string;
-}
-
-export interface Lesson {
-  week: number;
-  modules: Module[];
-}
-
-export interface Course {
-  course: string;
-  image: string;
-  lessons: Lesson[];
-}
-
-export const isEnrolled = (courseName: string) => {
-  const user = getCurrentUser();
-  return user?.courses?.some((c: EnrolledCourse) => c.courseName === courseName) || false;
-};
-
-export const enrollCourseForCurrentUser = (courseName: string) => {
-  const user = updateCurrentUser.get?.() || JSON.parse(localStorage.getItem("currentUser") || "null") as AuthData;
-  if (!user) return { success: false, message: "No user logged in" };
-
-  if (!user.courses) user.courses = [];
-
-  const alreadyEnrolled = user.courses.find(c => c.courseName === courseName);
-  if (alreadyEnrolled) {
-    return { success: false, message: `Already enrolled in ${courseName}` };
-  }
-
-  const enrollment: EnrolledCourse = {
-    courseName,
-    enrolledAt: new Date().toISOString(),
-  };
-
-  const updatedUser = { ...user, courses: [...user.courses, enrollment] };
-  updateCurrentUser(updatedUser);
-  updateUsersArray(updatedUser);
-
-  return { success: true, message: `Enrolled in ${courseName}` };
-};
-
-export const calculateDaysLessons = (lessons: Lesson)=>{
-    const totalLessons = lessons.reduce(
-      (sum :number, lesson:Lesson) => sum + lesson.modules.length,
-      0
-    );
-
-    const totalDays = lessons.reduce(
-      (sum :number, lesson:Lesson) => sum + lesson.modules.reduce((s, m) => s + m.estDays, 0),
-      0
-    );
-    return {totalLessons, totalDays}
-}
+import type { Week, CourseStats, Course } from "types/course-types";
 
 export const calculateDeadline = (enrolledAt: string, totalDays: number): string => {
   let currentDate = new Date(enrolledAt);
@@ -72,12 +7,37 @@ export const calculateDeadline = (enrolledAt: string, totalDays: number): string
   while (addedDays < totalDays) {
     currentDate.setDate(currentDate.getDate() + 1);
     const day = currentDate.getDay(); 
+
+    // Skip weekends
     if (day !== 5 && day !== 6) {
       addedDays++;
     }
   }
+  const formattedDeadline = new Date(currentDate.toISOString().split("T")[0]).toLocaleDateString("en-US", {
+      month: "short",
+      day: "numeric",
+      year: "numeric",
+    }).toString();
 
-  return currentDate.toISOString().split("T")[0]; 
+  return formattedDeadline; 
+}
+
+export const isDeadlineOver = (deadline: string): boolean => {
+  return new Date() > new Date(deadline);
+};
+
+export const calculateCourseStats = (weeks: Week[]): CourseStats => {
+  const totalLessons = weeks.reduce(
+    (sum, week) => sum + week.modules.length,
+    0
+  );
+
+  const totalDays = weeks.reduce(
+    (sum, week) => sum + week.modules.reduce((s, m) => s + m.estDays, 0),
+    0
+  );
+
+  return { totalLessons, totalDays };
 };
 
 export const calculateCourseProgress = (

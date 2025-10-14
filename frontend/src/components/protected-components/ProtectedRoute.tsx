@@ -1,30 +1,58 @@
-import React from "react";
+import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
 import { useAuthRedux } from "hooks/useAuthRedux";
-import Spinner from "components/base-components/Spinner";
-import AppLayout from "./layout/AppLayout";
+import toast, { Toaster } from "react-hot-toast";
 
-interface Props {
+import { ROUTES } from "routes/paths";
+import Spinner from "components/base-components/Spinner";
+import AppLayout from "components/protected-components/layout/AppLayout";
+
+interface ProtectedRouteProps {
   allowedRoles?: string[];
 }
 
-const ProtectedRoute: React.FC<Props> = ({ allowedRoles }) => {
-  const { isAuthenticated, isAuthChecked } = useAuthRedux();
+const AUTH_MESSAGES = {
+  LOGIN_REQUIRED: "Please log in to access this page.",
+  UNAUTHORIZED: "You don't have permission to access this page.",
+} as const;
+
+const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
+  const { isAuthenticated, isAuthChecked, user } = useAuthRedux();
+
+  const isAuthorized = 
+    !allowedRoles || 
+    (user && allowedRoles.includes(user.role));
+
+  useEffect(() => {
+    if (!isAuthChecked) {
+      return;
+    }
+
+    if (!isAuthenticated) {
+      toast.error(AUTH_MESSAGES.LOGIN_REQUIRED);
+    } else if (!isAuthorized) {
+      toast.error(AUTH_MESSAGES.UNAUTHORIZED);
+    }
+  }, [isAuthChecked, isAuthenticated, isAuthorized]);
 
   if (!isAuthChecked) {
     return <Spinner />;
   }
 
   if (!isAuthenticated) {
-    alert("Please log in to access this page.");
-    return <Navigate to="/auth" replace />;
+    return <Navigate to={ROUTES.AUTH.path} replace />;
   }
 
-  if (allowedRoles && !allowedRoles.includes("USER")) {
-    return <Navigate to="/unauthorized" replace />;
+  if (!isAuthorized) {
+    return <Navigate to={ROUTES.UNAUTHORIZED.path} replace />;
   }
 
-  return <AppLayout />;
+  return (
+    <>
+      <AppLayout />
+      <Toaster />
+    </>
+  );
 };
 
 export default ProtectedRoute;

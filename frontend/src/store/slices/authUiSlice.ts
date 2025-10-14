@@ -12,14 +12,14 @@ const authUiSlice = createSlice({
   name: "authUi",
   initialState,
   reducers: {
-    toggleLoginMode(state) {
-      state.isLoginMode = !state.isLoginMode;
-    },
-    setLoginMode(state, action: { payload: boolean }) {
+    setLoginMode: (state, action) => {
       state.isLoginMode = action.payload;
+    },
+    toggleMode: (state) => {
+      state.isLoginMode = !state.isLoginMode;
     },
   },
 });
 
-export const { toggleLoginMode, setLoginMode } = authUiSlice.actions;
+export const { toggleMode, setLoginMode } = authUiSlice.actions;
 export default authUiSlice.reducer;

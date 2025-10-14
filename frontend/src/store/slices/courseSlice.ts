@@ -1,6 +1,7 @@
 import { createSlice, PayloadAction } from '@reduxjs/toolkit';
-import type { Course, EnrolledCourse } from 'utils/course-handler';
 import coursesData from 'data/Courses.json';
+import { EnrolledCourse } from 'types/auth-types';
+import { Course } from 'types/course-types';
 
 interface CoursesState {
   availableCourses: Course[];
