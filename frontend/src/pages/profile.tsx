@@ -1,10 +1,11 @@
 import React from 'react';
+import { ROUTES } from 'routes/paths';
 
-function Profile(props) {
+const Profile: React.FC = () => {
     return (
-        <div>
-           Profile 
-        </div>
+        <>
+           {ROUTES.PROFILE.label} 
+        </>
     );
 }
 

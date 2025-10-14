@@ -1,10 +1,11 @@
 import React from 'react';
+import { ROUTES } from 'routes/paths';
 
-function Dashboard(props) {
+const Dashboard: React.FC = () => {
     return (
-        <div>
-            Dashboard
-        </div>
+        <>
+            {ROUTES.DASHBOARD.label}
+        </>
     );
 }
 
