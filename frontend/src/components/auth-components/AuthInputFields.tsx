@@ -3,7 +3,7 @@ import { Field } from "react-final-form";
 import { useSelector } from "react-redux";
 
 import { type RootState } from "store";
-import Input from "components/fields/Input";
+import Input from "components/base-components/Input";
 
 const AuthInputFields: React.FC = () => {
   const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
