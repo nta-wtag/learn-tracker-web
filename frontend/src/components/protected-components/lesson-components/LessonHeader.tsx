@@ -16,8 +16,10 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
 
         if (success) {
             toast.success(message);
+
             return;
         }
+        
         toast.error(message);
     };
 
