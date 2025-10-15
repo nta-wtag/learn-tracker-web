@@ -18,8 +18,29 @@ const lessonsSlice = createSlice({
   initialState,
   reducers: {
     markLessonComplete: (state, action: PayloadAction<CompletedLesson>) => {
+      const exists = state.completedLessons.find(
+        (l) =>
+          l.courseName === action.payload.courseName &&
+          l.moduleTitle === action.payload.moduleTitle
+      );
+      if (!exists) {
+        state.completedLessons.push(action.payload);
+        localStorage.setItem(
+          "completedLessons",
+          JSON.stringify(state.completedLessons)
+        );
+      }
     },
     unmarkLesson: (state, action: PayloadAction<CompletedLesson>) => {
+      state.completedLessons = state.completedLessons.filter(
+        (l) =>
+          l.courseName !== action.payload.courseName ||
+          l.moduleTitle !== action.payload.moduleTitle
+      );
+      localStorage.setItem(
+        "completedLessons",
+        JSON.stringify(state.completedLessons)
+      );
     },
   },
 });

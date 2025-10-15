@@ -3,10 +3,6 @@ import type { CourseCardVariant } from "types/course-types";
 
 export const useCourseContext = (): CourseCardVariant => {
   const location = useLocation();
-  
-  if (location.pathname.includes("/courses")) {
-    return "courses";
-  }
-  
-  return "enroll";
+
+  return location.pathname.includes("/courses") ? "courses" : "enroll";
 };

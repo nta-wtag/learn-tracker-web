@@ -1,37 +1,42 @@
 import { useMemo } from "react";
-import { EnrolledCourse } from "types/auth-types";
+import { useSelector } from "react-redux";
+import type { RootState } from "store";
 import type { Course } from "types/course-types";
+import type { EnrolledCourse } from "types/auth-types";
 import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
 
-interface EnrolledCourseData {
-  totalLessons: number;
-  totalDays: number;
-  deadline?: string;
-  isDeadlineOver?: boolean;
-  enrolledAt?: string;
-}
+export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
+  const completedLessons = useSelector(
+    (state: RootState) => state.lesson.completedLessons
+  );
 
-export const useCourseInfo = (
-  course: Course,
-  enrollment: EnrolledCourse | undefined
-): EnrolledCourseData | null => {
   return useMemo(() => {
     const { totalLessons, totalDays } = calculateCourseStats(course.lessons);
 
-    if (enrollment) {
-      const deadline = calculateDeadline(enrollment.enrolledAt, totalDays);
+    // 🔹 Count completed modules dynamically
+    const completedModules = completedLessons.filter(
+      (l) => l.courseName === course.course
+    ).length;
 
-      return {
-        totalLessons,
-        totalDays,
-        deadline,
-        isDeadlineOver: isDeadlineOver(deadline),
-        enrolledAt: enrollment.enrolledAt,
-      };
+    const progressPercent = totalLessons
+      ? (completedModules / totalLessons) * 100
+      : 0;
+
+    if (!enrollment) {
+      return { completedModules, progressPercent, totalLessons, totalDays };
     }
 
-    return { 
-      totalLessons, totalDays 
-    }
-  }, [course.lessons, enrollment]);
+    const { deadline, daysLeft } = calculateDeadline(enrollment.enrolledAt, totalDays);
+
+    return {
+      completedModules,
+      progressPercent,
+      totalLessons,
+      totalDays,
+      deadline,
+      daysLeft,
+      isDeadlineOver: isDeadlineOver(deadline),
+      enrolledAt: enrollment.enrolledAt,
+    };
+  }, [course, enrollment, completedLessons]);
 };
