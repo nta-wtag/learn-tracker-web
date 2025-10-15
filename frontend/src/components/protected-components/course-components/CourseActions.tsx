@@ -14,12 +14,14 @@ const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
   const handleEnroll = () => {
     const { success, message } = enroll();
 
-    if (success) {
-      toast.success(message);
-    } else {
-      toast.error(message);
-    }
-  };
+        if (success) {
+            toast.success(message);
+
+            return;
+        }
+        
+        toast.error(message);
+    };
 
   return (
     <div className="flex gap-4">
