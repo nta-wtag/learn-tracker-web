@@ -16,7 +16,7 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
   const { enroll } = useCourseEnrollment(course);
   const { enrolledCourses } = useUserEnrolledCourses();
   const enrollment = enrolledCourses.find(
-    (c) => c.courseName === course.course
+    (c: Course) => c.courseName === course.course
   );
   const variant = useCourseContext();
   const enrolledData = useCourseInfo(course, enrollment);
