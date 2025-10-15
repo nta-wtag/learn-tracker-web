@@ -1,19 +1,22 @@
 import { describe, it, expect } from "vitest";
 import { render } from "@testing-library/react";
-import Spinner from "."; 
+import Spinner from "components/base-components/Spinner";
 
-describe("Spinner Component", () => {
-  it("renders a container div with full screen height and centered content", () => {
-    const { container } = render(<Spinner />);
-    const outerDiv = container.firstChild as HTMLElement;
+describe("Spinner", () => {
+  describe("Rendering", () => {
+    it("renders spinner element", () => {
+      const { container } = render(<Spinner />);
+      const spinner = container.querySelector(".animate-spin");
+      expect(spinner).toBeInTheDocument();
+    });
 
-    expect(outerDiv).toBeInTheDocument();
-  });
-
-  it("renders the inner spinning div", () => {
-    const { container } = render(<Spinner />);
-    const spinnerDiv = container.querySelector("div > div");
-
-    expect(spinnerDiv).toBeInTheDocument();
+    it("centers spinner on screen", () => {
+      const { container } = render(<Spinner />);
+      const wrapper = container.firstChild;
+      expect(wrapper).toHaveClass("flex");
+      expect(wrapper).toHaveClass("items-center");
+      expect(wrapper).toHaveClass("justify-center");
+      expect(wrapper).toHaveClass("h-screen");
+    });
   });
 });
