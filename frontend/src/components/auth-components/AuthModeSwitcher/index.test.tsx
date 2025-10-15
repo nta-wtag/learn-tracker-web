@@ -88,7 +88,7 @@ describe("AuthModeSwitcher", () => {
       );
       const signInButton = screen.getByText("Sign In");
       const signUpButton = screen.getByText("Sign Up");
-      
+
       expect(signInButton).toHaveAttribute("data-active", "true");
       expect(signUpButton).toHaveAttribute("data-active", "false");
     });
@@ -98,7 +98,7 @@ describe("AuthModeSwitcher", () => {
     it("dispatches toggleMode when Sign In clicked", async () => {
       const store = createMockStore(false);
       const dispatchSpy = vi.spyOn(store, "dispatch");
-      
+
       render(
         <Provider store={store}>
           <AuthModeSwitcher />
@@ -112,7 +112,7 @@ describe("AuthModeSwitcher", () => {
     it("dispatches toggleMode when Sign Up clicked", async () => {
       const store = createMockStore(true);
       const dispatchSpy = vi.spyOn(store, "dispatch");
-      
+
       render(
         <Provider store={store}>
           <AuthModeSwitcher />

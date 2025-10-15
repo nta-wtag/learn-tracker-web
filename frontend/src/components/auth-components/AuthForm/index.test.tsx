@@ -77,7 +77,9 @@ describe("AuthForm", () => {
           </BrowserRouter>
         </Provider>
       );
-      expect(screen.getByRole("button", { name: "Sign In" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Sign In" })
+      ).toBeInTheDocument();
     });
 
     it("renders Sign Up button in signup mode", () => {
@@ -89,7 +91,9 @@ describe("AuthForm", () => {
           </BrowserRouter>
         </Provider>
       );
-      expect(screen.getByRole("button", { name: "Sign Up" })).toBeInTheDocument();
+      expect(
+        screen.getByRole("button", { name: "Sign Up" })
+      ).toBeInTheDocument();
     });
   });
 
