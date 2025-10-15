@@ -20,7 +20,9 @@ export const enrollCourseForCurrentUser = (courseName: string): string => {
   const alreadyEnrolled = user.courses.find((c) => c.courseName === courseName);
 
   if (alreadyEnrolled) {
-    return `Already enrolled since ${new Date(alreadyEnrolled.enrolledAt).toLocaleDateString("en-US", {
+    return `Already enrolled since ${new Date(
+      alreadyEnrolled.enrolledAt
+    ).toLocaleDateString("en-US", {
       day: "numeric",
       month: "short",
       year: "numeric",
@@ -33,6 +35,7 @@ export const enrollCourseForCurrentUser = (courseName: string): string => {
   };
 
   user.courses.push(enrollment);
+
   setCurrentUser(user);
 
   const users = getUsers();
@@ -40,6 +43,7 @@ export const enrollCourseForCurrentUser = (courseName: string): string => {
 
   if (userIndex !== -1) {
     users[userIndex] = user;
+
     localStorage.setItem("users", JSON.stringify(users));
   }
 
@@ -48,5 +52,6 @@ export const enrollCourseForCurrentUser = (courseName: string): string => {
 
 export const getEnrolledCourses = (): EnrolledCourse[] => {
   const user = getCurrentUser();
+  
   return user?.courses ?? [];
 };
