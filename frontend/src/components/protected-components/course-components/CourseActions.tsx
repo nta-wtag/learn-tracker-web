@@ -20,11 +20,12 @@ const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
 
         if (success) {
             toast.success(message);
+
+            return;
         }
-        else {
-            toast.error(message);
-        }
-    }
+        
+        toast.error(message);
+    };
 
     return (
         <div className="flex gap-4">
