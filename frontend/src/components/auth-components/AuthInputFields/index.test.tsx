@@ -76,7 +76,7 @@ describe("AuthInputFields", () => {
     it("username field appears first", () => {
       renderWithForm(false);
       const inputs = screen.getAllByRole("textbox");
-      
+
       // Username should be first textbox
       expect(inputs[0]).toHaveAttribute("placeholder", "Username");
     });
@@ -86,7 +86,7 @@ describe("AuthInputFields", () => {
     it("maintains correct field order in signup", () => {
       renderWithForm(false);
       const allInputs = document.querySelectorAll("input");
-      
+
       expect(allInputs[0]).toHaveAttribute("placeholder", "Username");
       expect(allInputs[1]).toHaveAttribute("placeholder", "Email");
       expect(allInputs[2]).toHaveAttribute("placeholder", "Password");

@@ -44,7 +44,10 @@ describe("AuthIllustration", () => {
         </Provider>
       );
       const img = screen.getByAltText("Auth illustration");
-      expect(img).toHaveAttribute("src", expect.stringContaining("login-illustration"));
+      expect(img).toHaveAttribute(
+        "src",
+        expect.stringContaining("login-illustration")
+      );
     });
 
     it("shows register image in signup mode", () => {
@@ -55,7 +58,10 @@ describe("AuthIllustration", () => {
         </Provider>
       );
       const img = screen.getByAltText("Auth illustration");
-      expect(img).toHaveAttribute("src", expect.stringContaining("register-illustration"));
+      expect(img).toHaveAttribute(
+        "src",
+        expect.stringContaining("register-illustration")
+      );
     });
   });
 });

@@ -5,7 +5,6 @@ import { BrowserRouter } from "react-router-dom";
 import { configureStore } from "@reduxjs/toolkit";
 import Auth from "components/auth-components/Auth";
 
-// Mock child components
 vi.mock("components/auth-components/AuthIllustration", () => ({
   default: () => <div data-testid="auth-illustration">Illustration</div>,
 }));

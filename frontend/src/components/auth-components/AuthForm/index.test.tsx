@@ -6,19 +6,19 @@ import { configureStore } from "@reduxjs/toolkit";
 import AuthForm from "components/auth-components/AuthForm";
 
 vi.mock("components/base-components/Button", () => ({
-  default: ({ text, type, disabled }: any) => (
-    <button type={type} disabled={disabled}>
-      {text}
-    </button>
-  ),
+    default: ({ text, type, disabled }: any) => (
+        <button type={type} data-testid={`button-${text.replace(/\s+/g, "-").toLowerCase()}`} disabled={disabled}>
+            {text}
+        </button>
+    ),
 }));
 
 vi.mock("components/auth-components/AuthInputFields", () => ({
-  default: () => <div data-testid="auth-input-fields" />,
+    default: () => <div data-testid="auth-input-fields" />,
 }));
 
 vi.mock("utils/auth-validation", () => ({
-  validateAuth: vi.fn(() => ({})),
+    validateAuth: vi.fn(() => ({})),
 }));
 
 const mockLogin = vi.fn();
@@ -26,84 +26,87 @@ const mockRegister = vi.fn();
 const mockNavigate = vi.fn();
 
 vi.mock("hooks/useAuthRedux", () => ({
-  useAuthRedux: () => ({
-    login: mockLogin,
-    register: mockRegister,
-  }),
+    useAuthRedux: () => ({
+        login: mockLogin,
+        register: mockRegister,
+    }),
 }));
 
 vi.mock("react-router-dom", async () => {
-  const actual = await vi.importActual("react-router-dom");
-  return {
-    ...actual,
-    useNavigate: () => mockNavigate,
-  };
+    const actual = await vi.importActual("react-router-dom");
+    return {
+        ...actual,
+        useNavigate: () => mockNavigate,
+    };
 });
 
 const createMockStore = (isLoginMode: boolean) => {
-  return configureStore({
-    reducer: {
-      authUi: () => ({ isLoginMode }),
-    },
-  });
+    return configureStore({
+        reducer: {
+            authUi: () => ({ isLoginMode }),
+        },
+    });
 };
 
 describe("AuthForm", () => {
-  beforeEach(() => {
-    mockLogin.mockClear();
-    mockRegister.mockClear();
-    mockNavigate.mockClear();
-  });
-
-  describe("Rendering", () => {
-    it("renders form", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <AuthForm />
-          </BrowserRouter>
-        </Provider>
-      );
-      expect(screen.getByTestId("auth-input-fields")).toBeInTheDocument();
+    beforeEach(() => {
+        mockLogin.mockClear();
+        mockRegister.mockClear();
+        mockNavigate.mockClear();
     });
 
-    it("renders Sign In button in login mode", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <AuthForm />
-          </BrowserRouter>
-        </Provider>
-      );
-      expect(screen.getByRole("button", { name: "Sign In" })).toBeInTheDocument();
+    describe("Rendering", () => {
+        it("renders form", () => {
+            const store = createMockStore(true);
+            render(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <AuthForm />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(screen.getByTestId("auth-input-fields")).toBeInTheDocument();
+        });
+
+        it("renders Sign In button in login mode", () => {
+            const store = createMockStore(true);
+            render(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <AuthForm />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(
+                screen.getByTestId("button-sign-in")).toBeInTheDocument();
+        });
+
+        it("renders Sign Up button in signup mode", () => {
+            const store = createMockStore(false);
+            render(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <AuthForm />
+                    </BrowserRouter>
+                </Provider>
+            );
+            expect(
+                screen.getByTestId("button-sign-up")).toBeInTheDocument();
+        });
     });
 
-    it("renders Sign Up button in signup mode", () => {
-      const store = createMockStore(false);
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <AuthForm />
-          </BrowserRouter>
-        </Provider>
-      );
-      expect(screen.getByRole("button", { name: "Sign Up" })).toBeInTheDocument();
+    describe("Form Submission", () => {
+        it("submit button has correct type", () => {
+            const store = createMockStore(true);
+            render(
+                <Provider store={store}>
+                    <BrowserRouter>
+                        <AuthForm />
+                    </BrowserRouter>
+                </Provider>
+            );
+            const submitButton = screen.getByTestId("button-sign-in"); // use login button for test
+            expect(submitButton).toHaveAttribute("type", "submit");
+        });
     });
-  });
-
-  describe("Form Submission", () => {
-    it("submit button has correct type", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <BrowserRouter>
-            <AuthForm />
-          </BrowserRouter>
-        </Provider>
-      );
-      expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
-    });
-  });
 });
