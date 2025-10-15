@@ -109,34 +109,4 @@ describe("NotFoundComponent", () => {
       expect(link).toHaveAttribute("href", "/");
     });
   });
-
-  describe("Styling", () => {
-    it("has correct styling classes on 404 text", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
-        isAuthenticated: false,
-        user: null,
-        isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
-      });
-
-      renderWithRouter(<NotFoundComponent />);
-    });
-
-    it("has correct button styling", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
-        isAuthenticated: false,
-        user: null,
-        isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
-      });
-
-      renderWithRouter(<NotFoundComponent />);
-    });
-  });
 });
