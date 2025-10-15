@@ -1,23 +1,15 @@
-import { useState, useEffect } from "react";
-import { EnrolledCourse } from "types/auth-types";
-import { getEnrolledCourses } from "utils/course-storage";
+import { useEffect } from "react";
+import { useDispatch } from "react-redux";
+import { loadEnrollments } from "store/slices/enrollmentSlice";
+import { useEnrollmentData } from "./useEnrollmentData";
 
 export const useUserEnrolledCourses = () => {
-  const [enrolledCourses, setEnrolledCourses] = useState<EnrolledCourse[]>([]);
-  const [loading, setLoading] = useState(true);
+  const dispatch = useDispatch();
+  const { enrolledCourses, loading } = useEnrollmentData();
 
   useEffect(() => {
-    const courses = getEnrolledCourses();
+    dispatch(loadEnrollments());
+  }, [dispatch]);
 
-    setEnrolledCourses(courses);
-    setLoading(false);
-  }, []);
-
-  const refresh = () => {
-    const courses = getEnrolledCourses();
-
-    setEnrolledCourses(courses);
-  };
-
-  return { enrolledCourses, loading, refresh };
+  return { enrolledCourses, loading };
 };

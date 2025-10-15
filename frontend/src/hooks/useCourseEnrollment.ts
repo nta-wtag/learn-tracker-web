@@ -1,24 +1,48 @@
-import { useState, useCallback } from "react";
-import { enrollCourseForCurrentUser, isEnrolled as checkEnrollment } from "utils/course-storage";
+import { useEffect, useCallback } from "react";
+import { useDispatch, useSelector } from "react-redux";
+import { useNavigate } from "react-router-dom";
+import type { RootState } from "store";
+import { enrollCourse, loadEnrollments } from "store/slices/enrollmentSlice";
+import { getCoursePath, getEnrollCoursePath } from "routes/paths";
+import type { Course } from "types/course-types";
+import { useCourseContext } from "hooks/useCourseContext";
 
-interface EnrollmentResult {
-    success: boolean;
-    message: string;
-}
+export const useCourseEnrollment = (course: Course) => {
+  const dispatch = useDispatch();
+  const navigate = useNavigate();
+  const variant = useCourseContext();
 
-export const useCourseEnrollment = (courseName: string) => {
-    const [isEnrolled, setIsEnrolled] = useState(checkEnrollment(courseName));
+  const enrolledCourses = useSelector(
+    (state: RootState) => state.enrollment.enrolledCourses
+  );
+  const enrollment = enrolledCourses.find((c) => c.courseName === course.course);
+  const isEnrolled = !!enrollment;
 
-    const enroll = useCallback((): EnrollmentResult => {
-        const message = enrollCourseForCurrentUser(courseName);
+  useEffect(() => {
+    dispatch(loadEnrollments());
+  }, [dispatch]);
 
-        if (message.includes("successfully")) {
-            setIsEnrolled(true);
-            return { success: true, message };
-        }
+  const enroll = useCallback(() => {
+    if (isEnrolled) {
+      return {
+        success: false,
+        message: `Already enrolled in ${course.course}`,
+      };
+    }
+    dispatch(enrollCourse(course.course));
+    return {
+      success: true,
+      message: `Successfully enrolled in ${course.course}!`,
+    };
+  }, [dispatch, course, isEnrolled]);
 
-        return { success: false, message };
-    }, [courseName]);
+  const goToLessons = useCallback(() => {
+    const path =
+      variant === "courses"
+        ? getCoursePath(course.course)
+        : getEnrollCoursePath(course.course);
+    navigate(path, { state: { course } });
+  }, [navigate, course, variant]);
 
-    return { isEnrolled, enroll };
+  return { variant, enroll, enrollment, isEnrolled, enrolledCourses, goToLessons };
 };
