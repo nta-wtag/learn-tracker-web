@@ -7,6 +7,7 @@ import ProgressBar from "components/base-components/ProgressBar";
 import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
 import { useCourseContext } from "hooks/useCourseContext";
 import { useCourseInfo } from "hooks/useCourseInfo";
+import { EnrolledCourse } from "types/auth-types";
 
 interface LessonHeaderProps {
   course: Course;
@@ -16,7 +17,7 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
   const { enroll } = useCourseEnrollment(course);
   const { enrolledCourses } = useUserEnrolledCourses();
   const enrollment = enrolledCourses.find(
-    (c) => c.courseName === course.course
+    (c: EnrolledCourse) => c.courseName === course.course
   );
   const variant = useCourseContext();
   const enrolledData = useCourseInfo(course, enrollment);
