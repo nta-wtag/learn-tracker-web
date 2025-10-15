@@ -6,8 +6,8 @@ import Button from "components/base-components/Button";
 describe("Button", () => {
     describe("Rendering", () => {
         it("renders button with text", () => {
-            render(<Button text="Click me" data-testid="button-click" />);
-            expect(screen.getByTestId("button-click")).toBeInTheDocument();
+            render(<Button text="Click me" data-testid="main-button" />);
+            expect(screen.getByTestId("main-button")).toBeInTheDocument();
         });
 
         it("renders with icon", () => {
@@ -19,18 +19,18 @@ describe("Button", () => {
         });
 
         it("has default type of button", () => {
-            render(<Button text="Test" data-testid="button-default" />);
-            expect(screen.getByTestId("button-default")).toHaveAttribute("type", "button");
+            render(<Button text="Test" />);
+            expect(screen.getByRole("button")).toHaveAttribute("type", "button");
         });
 
         it("can have submit type", () => {
-            render(<Button text="Submit" type="submit" data-testid="button-submit" />);
-            expect(screen.getByTestId("button-submit")).toHaveAttribute("type", "submit");
+            render(<Button text="Submit" type="submit" />);
+            expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
         });
 
         it("can have reset type", () => {
-            render(<Button text="Reset" type="reset" data-testid="button-reset" />);
-            expect(screen.getByTestId("button-reset")).toHaveAttribute("type", "reset");
+            render(<Button text="Reset" type="reset" />);
+            expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
         });
     });
 
