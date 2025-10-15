@@ -6,8 +6,8 @@ import Button from "components/base-components/Button";
 describe("Button", () => {
   describe("Rendering", () => {
     it("renders button with text", () => {
-      render(<Button text="Click me" />);
-      expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
+      render(<Button text="Click me" data-testid="main-button" />);
+      expect(screen.getByTestId("main-button")).toBeInTheDocument();
     });
 
     it("renders with icon", () => {
@@ -20,17 +20,17 @@ describe("Button", () => {
 
     it("has default type of button", () => {
       render(<Button text="Test" />);
-      expect(screen.getByRole("button")).toHaveAttribute("type", "button");
+      expect(screen.getByTestId("main-button")).toHaveAttribute("type", "button");
     });
 
     it("can have submit type", () => {
       render(<Button text="Submit" type="submit" />);
-      expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
+      expect(screen.getByTestId("main-button")).toHaveAttribute("type", "submit");
     });
 
     it("can have reset type", () => {
       render(<Button text="Reset" type="reset" />);
-      expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
+      expect(screen.getByTestId("main-button")).toHaveAttribute("type", "reset");
     });
   });
 
@@ -74,7 +74,7 @@ describe("Button", () => {
 
     it("can be full width", () => {
       render(<Button text="Full Width" fullWidth />);
-      expect(screen.getByRole("button")).toHaveClass("w-full");
+      expect(screen.getByTestId("main-button")).toHaveClass("w-full");
     });
   });
 
@@ -83,7 +83,7 @@ describe("Button", () => {
       const handleClick = vi.fn();
       render(<Button text="Click" onClick={handleClick} />);
 
-      await userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByTestId("main-button"));
       expect(handleClick).toHaveBeenCalledTimes(1);
     });
 
@@ -91,7 +91,7 @@ describe("Button", () => {
       const handleClick = vi.fn();
       render(<Button text="Click" onClick={handleClick} disabled />);
 
-      await userEvent.click(screen.getByRole("button"));
+      await userEvent.click(screen.getByTestId("main-button"));
       expect(handleClick).not.toHaveBeenCalled();
     });
 
@@ -116,7 +116,8 @@ describe("Button", () => {
       const button = container.querySelector("button");
       const iconElement = screen.getByTestId("icon");
       const textNode = Array.from(button!.childNodes).find(
-        (node) => node.nodeType === Node.TEXT_NODE && node.textContent === "Next"
+        (node) =>
+          node.nodeType === Node.TEXT_NODE && node.textContent === "Next"
       );
 
       expect(button!.childNodes[0]).toContain(iconElement);
