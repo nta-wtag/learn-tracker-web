@@ -2,7 +2,7 @@ import  React from "react";
 import AuthForm from "components/auth-components/AuthForm";
 import AuthHeader from "components/auth-components/AuthHeader";
 import AuthIllustration from "components/auth-components/AuthIllustration";
-import AuthToggleButton from "components/auth-components/AuthModeSwitcher";
+import AuthModeSwitcher from "components/auth-components/AuthModeSwitcher";
 
 const Auth:React.FC = () => {
   return (
@@ -13,7 +13,7 @@ const Auth:React.FC = () => {
           <div className="w-full sm:w-2/3 lg:w-full rounded-lg px-8 lg:px-16 2xl:px-32 py-8 lg:py-16 flex flex-col items-start justify-center lg:space-y-4">
             <AuthHeader />
             <AuthForm />
-            <AuthToggleButton />
+            <AuthModeSwitcher />
           </div>
         </div>
       </div>
