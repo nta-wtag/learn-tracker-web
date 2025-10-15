@@ -14,7 +14,7 @@ interface LessonHeaderProps {
 }
 
 const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
-    const { enroll } = useCourseEnrollment(course);
+    const { enroll, isEnrolled } = useCourseEnrollment(course);
     const { enrolledCourses } = useUserEnrolledCourses();
     const enrollment = enrolledCourses.find(
         (c: EnrolledCourse) => c.courseName === course.course
@@ -46,7 +46,7 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
                         {enrolledData.daysLeft} Days Remaining
                     </span>
                 ) : (
-                    <Button text="Start Learning" onClick={handleStartLearning} />
+                    !isEnrolled && <Button text="Start Learning" onClick={handleStartLearning} />
                 )}
             </div>
 
