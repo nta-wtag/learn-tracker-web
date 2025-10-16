@@ -46,23 +46,3 @@ export const calculateCourseStats = (weeks: Week[]): CourseStats => {
 
   return { totalLessons, totalDays };
 };
-
-export const calculateCourseProgress = (
-  course: Course,
-  completedLessons: CompletedLesson[]
-) => {
-  const {totalLessons, totalDays} = calculateCourseStats(course.lessons);
-
-  const completedModules = completedLessons.filter(
-    (l) => l.courseName === course.course
-  ).length;
-
-  const progressPercent = totalLessons ? (completedModules / totalLessons) * 100 : 0;
-
-  return {
-    completedModules,
-    progressPercent,
-    totalDays,
-    totalLessons
-  };
-};
