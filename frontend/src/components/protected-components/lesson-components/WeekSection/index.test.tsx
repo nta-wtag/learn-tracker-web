@@ -12,9 +12,14 @@ describe("WeekSection", () => {
     week: 1,
     modules: [{ title: "Module 1", estDays: 1, resources: [] }],
   };
+  const course = {
+    image: "/image.png",
+    course: "React 101",
+    lessons: [],
+  };
 
   it("renders week title and modules", () => {
-    render(<WeekSection week={week} />);
+    render(<WeekSection week={week} course={course} />);
     expect(screen.getByText("Week 1")).toBeInTheDocument();
     expect(screen.getByTestId("Module 1")).toBeInTheDocument();
   });

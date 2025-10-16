@@ -4,7 +4,7 @@ import { MemoryRouter } from "react-router-dom";
 import { describe, it, expect } from "vitest";
 import SidebarLink from "components/protected-components/layout/sidenav/SidebarLink";
 
-const MockIcon = () => <svg data-testid="icon" />;
+const MockIcon = (() => <svg data-testid="icon" />) as any;
 
 describe("SidebarLink", () => {
   it("renders label text", () => {

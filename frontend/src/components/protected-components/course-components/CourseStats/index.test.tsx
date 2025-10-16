@@ -1,6 +1,7 @@
 import { render, screen } from "@testing-library/react";
 import { describe, it, vi, beforeEach } from "vitest";
 import CourseStats from "components/protected-components/course-components/CourseStats";
+import { Course } from "types/course-types";
 
 const mockUseUserEnrolledCourses = vi.fn();
 const mockUseCourseInfo = vi.fn();
@@ -11,7 +12,7 @@ vi.mock("hooks/useUserEnrolledCourses", () => ({
 }));
 
 vi.mock("hooks/useCourseInfo", () => ({
-    useCourseInfo: (course: any, enrollment: any) => mockUseCourseInfo(course, enrollment),
+    useCourseInfo: (course: Course, enrollment: any) => mockUseCourseInfo(course, enrollment),
 }));
 
 vi.mock("hooks/useCourseContext", () => ({
@@ -22,6 +23,9 @@ describe("CourseStats", () => {
     const course = {
         course: "React Basics",
         image: "/react.png",
+        lessons: [
+            
+        ]
     };
 
     beforeEach(() => {

@@ -18,8 +18,16 @@ describe("LessonWeeks", () => {
     { week: 2, modules: [] },
   ];
 
+  const course = {
+    course: "React Basics",
+    image: "/react.png",
+    lessons: [
+
+    ]
+  };
+
   it("renders correct number of WeekSection components", () => {
-    render(<LessonWeeks weeks={weeks} />);
+    render(<LessonWeeks weeks={weeks} course={course} />);
 
     expect(screen.getByTestId("week-1")).toBeInTheDocument();
     expect(screen.getByTestId("week-2")).toBeInTheDocument();
