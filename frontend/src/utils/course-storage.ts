@@ -3,6 +3,7 @@ import { EnrolledCourse } from "types/auth-types";
 
 export const isEnrolled = (courseName: string): boolean => {
   const user = getCurrentUser();
+  
   return user?.courses?.some((c) => c.courseName === courseName) ?? false;
 };
 
