@@ -1,4 +1,5 @@
 import CircularProgressBar from 'components/base-components/CircularProgressBar';
+import EmptyState from 'components/base-components/EmptyState';
 import PageHeader from 'components/base-components/PageHeader';
 import React from 'react';
 
@@ -7,9 +8,7 @@ function ActiveCourses({ courseInfos }) {
         <section>
             <PageHeader title="Active Courses" />
             {courseInfos.length === 0 ? (
-                <p className="text-gray-500">
-                    You haven’t enrolled in any courses yet.
-                </p>
+                <EmptyState title="You are not enrolled into any courses" description="Enroll in courses to show here"/>
             ) : (
                 <div className="grid grid-cols-4 gap-4 my-4">
                     {courseInfos.map((c) => (

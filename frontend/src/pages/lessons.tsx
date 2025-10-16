@@ -1,5 +1,5 @@
 import React from "react";
-import { useParams, useLocation } from "react-router-dom";
+import { useParams } from "react-router-dom";
 import coursesData from "data/Courses.json";
 import LessonHeader from "components/protected-components/lesson-components/LessonHeader";
 import LessonWeeks from "components/protected-components/lesson-components/LessonWeeks";
