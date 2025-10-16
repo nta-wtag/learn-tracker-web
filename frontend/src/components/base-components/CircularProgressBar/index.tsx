@@ -1,3 +1,5 @@
+import { CalendarClock } from "lucide-react";
+
 interface CircularProgressBarProps {
   course: string;
   progressPercent: number;
@@ -32,10 +34,12 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
       <div className="flex items-center gap-4">
         <img src={image} alt={course} className="w-16 h-16" />
         <div className="flex flex-col gap-2">
-          <h3 className="font-semibold text-2xl">{course}</h3>
+          <span className="font-bold text-gray-600 text-2xl font-poppins ">
+            {course}
+          </span>
           {deadline && (
-            <span
-              className={`text-sm font-medium ${
+            <div
+              className={`text-sm font-lato flex gap-2 items-center ${
                 daysLeft !== undefined
                   ? daysLeft < 20
                     ? "text-red-600"
@@ -45,8 +49,9 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
                   : "text-gray-600"
               }`}
             >
-              Due: {deadline}
-            </span>
+              <CalendarClock size={16} />
+              <span>{deadline}</span>
+            </div>
           )}
         </div>
       </div>

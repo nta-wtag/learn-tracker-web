@@ -11,7 +11,7 @@ function ActiveCourses({ courseInfos }) {
                     You haven’t enrolled in any courses yet.
                 </p>
             ) : (
-                <div className="grid grid-cols-3 gap-4 my-4">
+                <div className="grid grid-cols-4 gap-4 my-4">
                     {courseInfos.map((c) => (
                         <div className="flex flex-col items-center">
                             <CircularProgressBar

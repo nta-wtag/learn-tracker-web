@@ -6,7 +6,7 @@ function RecentlyEnrolled({recentCourses}) {
     return (
             <section>
                 <PageHeader title="Recently Enrolled" />
-                <ul className="flex flex-wrap gap-4 my-8">
+                <ul className="grid grid-cols-5 gap-4 my-8">
                     {recentCourses.slice(0, 5).map((c) => (
                         <TextCard
                             key={c.course}

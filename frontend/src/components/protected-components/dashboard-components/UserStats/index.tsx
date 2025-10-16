@@ -4,7 +4,7 @@ import React from 'react';
 
 function UserStats({progress, enrolledCourses, completedCourses}) {
     return (
-        <section className="flex gap-4 my-8 w-full">
+        <section className="grid grid-cols-3 gap-4 my-8">
             <StatCard
                 icon={CircleCheck}
                 text="Overall Progress"

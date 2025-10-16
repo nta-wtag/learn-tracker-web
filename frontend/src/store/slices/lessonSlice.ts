@@ -20,12 +20,11 @@ const lessonsSlice = createSlice({
           l.moduleTitle === action.payload.moduleTitle 
       );
       if (!exists) {
-        const newEntry: CompletedLesson = {
-          ...action.payload,
-          completedAt: new Date().toISOString(),
-        };
-        state.completedLessons.push(newEntry);
-        localStorage.setItem("completedLessons", JSON.stringify(state.completedLessons));
+        state.completedLessons.push(action.payload);
+        localStorage.setItem(
+          "completedLessons",
+          JSON.stringify(state.completedLessons)
+        );
       }
     },
     unmarkLesson: (state, action: PayloadAction<CompletedLesson>) => {

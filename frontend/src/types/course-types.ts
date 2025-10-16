@@ -23,7 +23,6 @@ export interface CourseStats {
 export interface CompletedLesson {
   courseName: string;
   moduleTitle: string;
-  completedAt?: string;
 }
 
 export type CourseCardVariant = "enroll" | "courses";
