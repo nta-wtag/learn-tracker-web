@@ -1,9 +1,5 @@
 import { createSlice, type PayloadAction } from "@reduxjs/toolkit";
-
-interface CompletedLesson {
-  courseName: string;
-  moduleTitle: string;
-}
+import { CompletedLesson } from "types/course-types";
 
 interface LessonsState {
   completedLessons: CompletedLesson[];
@@ -21,14 +17,15 @@ const lessonsSlice = createSlice({
       const exists = state.completedLessons.find(
         (l) =>
           l.courseName === action.payload.courseName &&
-          l.moduleTitle === action.payload.moduleTitle
+          l.moduleTitle === action.payload.moduleTitle 
       );
       if (!exists) {
-        state.completedLessons.push(action.payload);
-        localStorage.setItem(
-          "completedLessons",
-          JSON.stringify(state.completedLessons)
-        );
+        const newEntry: CompletedLesson = {
+          ...action.payload,
+          completedAt: new Date().toISOString(),
+        };
+        state.completedLessons.push(newEntry);
+        localStorage.setItem("completedLessons", JSON.stringify(state.completedLessons));
       }
     },
     unmarkLesson: (state, action: PayloadAction<CompletedLesson>) => {
