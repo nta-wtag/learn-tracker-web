@@ -37,6 +37,7 @@ const enrollmentSlice = createSlice({
       const enrollment: EnrolledCourse = {
         courseName,
         enrolledAt: new Date().toISOString(),
+        completedAt: "",
       };
       
       user.courses.push(enrollment);

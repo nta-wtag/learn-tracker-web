@@ -4,10 +4,10 @@ import { Course } from "types/course-types";
 import { useCourseEnrollment } from "hooks/useCourseEnrollment";
 import toast from "react-hot-toast";
 import ProgressBar from "components/base-components/ProgressBar";
-import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
 import { useCourseContext } from "hooks/useCourseContext";
 import { useCourseInfo } from "hooks/useCourseInfo";
 import { EnrolledCourse } from "types/auth-types";
+import { useEnrollmentData } from "hooks/useEnrollmentData";
 
 interface LessonHeaderProps {
     course: Course;
@@ -15,7 +15,7 @@ interface LessonHeaderProps {
 
 const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
     const { enroll, isEnrolled } = useCourseEnrollment(course);
-    const { enrolledCourses } = useUserEnrolledCourses();
+    const { enrolledCourses } = useEnrollmentData();
     const enrollment = enrolledCourses.find(
         (c: EnrolledCourse) => c.courseName === course.course
     );

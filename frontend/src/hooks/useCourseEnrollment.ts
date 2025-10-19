@@ -6,16 +6,18 @@ import { enrollCourse, loadEnrollments } from "store/slices/enrollmentSlice";
 import { getCoursePath, getEnrollCoursePath } from "routes/paths";
 import type { Course } from "types/course-types";
 import { useCourseContext } from "hooks/useCourseContext";
+import { useEnrollmentData } from "./useEnrollmentData";
 
 export const useCourseEnrollment = (course: Course) => {
   const dispatch = useDispatch();
   const navigate = useNavigate();
   const variant = useCourseContext();
 
-  const enrolledCourses = useSelector(
-    (state: RootState) => state.enrollment.enrolledCourses
+  const {enrolledCourses} = useEnrollmentData();
+
+  const enrollment = enrolledCourses.find(
+    (c) => c.courseName === course.course
   );
-  const enrollment = enrolledCourses.find((c) => c.courseName === course.course);
   const isEnrolled = !!enrollment;
 
   useEffect(() => {
@@ -29,7 +31,9 @@ export const useCourseEnrollment = (course: Course) => {
         message: `Already enrolled in ${course.course}`,
       };
     }
+    
     dispatch(enrollCourse(course.course));
+
     return {
       success: true,
       message: `Successfully enrolled in ${course.course}!`,
@@ -44,5 +48,12 @@ export const useCourseEnrollment = (course: Course) => {
     navigate(path, { state: { course } });
   }, [navigate, course, variant]);
 
-  return { variant, enroll, enrollment, isEnrolled, enrolledCourses, goToLessons };
+  return {
+    variant,
+    enroll,
+    enrollment,
+    isEnrolled,
+    enrolledCourses,
+    goToLessons,
+  };
 };

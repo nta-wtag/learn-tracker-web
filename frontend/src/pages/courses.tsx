@@ -8,37 +8,37 @@ import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
 import { useEnrollmentData } from "hooks/useEnrollmentData";
 
 const Courses: React.FC = () => {
-    const { enrolledCourses, loading } = useEnrollmentData();
-    const filteredCourses = useUserFilteredCourses(coursesData, enrolledCourses);
+  const { enrolledCourses, loading } = useEnrollmentData();
+  const filteredCourses = useUserFilteredCourses(coursesData, enrolledCourses);
 
-    if (loading) {
-        return <div className="p-6">Loading...</div>;
-    }
+  if (loading) {
+    return <div className="p-6">Loading...</div>;
+  }
 
-    if (filteredCourses.length === 0) {
-        return (
-            <div className="p-6">
-                <PageHeader title="My Courses" subtitle="0 courses enrolled" />
-                <EmptyState
-                    title="No courses yet"
-                    description="You are not enrolled in any courses yet."
-                    actionText="Browse Courses"
-                    actionLink="/enroll"
-                />
-            </div>
-        );
-    }
-
+  if (filteredCourses.length === 0) {
     return (
-        <div className="flex flex-col gap-8 py-4">
-            <PageHeader
-                title="My Courses"
-                subtitle={`${filteredCourses.length} course${filteredCourses.length === 1 ? "" : "s"} enrolled`}
-            />
-            <CourseGrid courses={filteredCourses} />
-            <Outlet />
-        </div>
+      <div className="p-6">
+        <PageHeader title="My Courses" subtitle="0 courses enrolled" />
+        <EmptyState
+          title="No courses yet"
+          description="You are not enrolled in any courses yet."
+          actionText="Browse Courses"
+          actionLink="/enroll"
+        />
+      </div>
     );
+  }
+
+  return (
+    <div className="flex flex-col gap-8 py-4">
+      <PageHeader
+        title="My Courses"
+        subtitle={`${filteredCourses.length} course${filteredCourses.length === 1 ? "" : "s"} enrolled`}
+      />
+      <CourseGrid courses={filteredCourses} />
+      <Outlet />
+    </div>
+  );
 };
 
 export default Courses;

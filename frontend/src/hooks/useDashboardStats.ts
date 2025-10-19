@@ -1,33 +1,60 @@
 import { useMemo } from "react";
-import { useCourseInfo } from "./useCourseInfo";
 import type { Course } from "types/course-types";
 import type { EnrolledCourse } from "types/auth-types";
+import { useSelector } from "react-redux";
+import { RootState } from "store/index";
+import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
 
 export const useDashboardStats = (
   userCourses: Course[],
   enrolledCourses: EnrolledCourse[]
 ) => {
-  const courseInfos = userCourses.map((course) => {
-    const enrollment = enrolledCourses.find(
-      (e) => e.courseName === course.course
-    );
+  const completedLessons = useSelector(
+    (state: RootState) => state.lesson.completedLessons
+  );
 
-    const info = useCourseInfo(course, enrollment);
+  return useMemo(() => {
+    const courseInfos = userCourses.map((course) => {
+      const enrollment = enrolledCourses.find(
+        (e) => e.courseName === course.course
+      );
 
-    let completedAt: string | undefined;
-    if (info.progressPercent === 100 && enrollment?.enrolledAt) {
-      const completedDate = new Date();
-      completedAt = completedDate.toLocaleDateString("en-US", {
-        year: "numeric",
-        month: "long",
-        day: "numeric",
-      });
-    }
+      const { totalLessons, totalDays } = calculateCourseStats(course.lessons);
 
-    return { ...course, ...info, completedAt };
-  });
+      const completedModules = completedLessons.filter(
+        (l) => l.courseName === course.course
+      ).length;
 
-  const stats = useMemo(() => {
+      const progressPercent = totalLessons
+        ? (completedModules / totalLessons) * 100
+        : 0;
+
+      let info = {
+        completedModules,
+        progressPercent,
+        totalLessons,
+        totalDays,
+      };
+
+      if (enrollment) {
+        const { deadline, daysLeft } = calculateDeadline(
+          enrollment.enrolledAt,
+          totalDays
+        );
+
+        info = {
+          ...info,
+          deadline,
+          daysLeft,
+          isDeadlineOver: isDeadlineOver(deadline),
+          enrolledAt: enrollment.enrolledAt,
+          completedAt: enrollment.completedAt,
+        };
+      }
+
+      return { ...course, ...info };
+    });
+    
     const totalCourses = courseInfos.length;
     const totalProgress =
       totalCourses > 0
@@ -48,13 +75,14 @@ export const useDashboardStats = (
     );
 
     return {
-      totalProgress,
-      enrolledCount: totalCourses,
-      completedCount: completedCourses.length,
-      completedCourses,
-      recentCourses,
+      courseInfos,
+      stats: {
+        totalProgress,
+        enrolledCount: totalCourses,
+        completedCount: completedCourses.length,
+        completedCourses,
+        recentCourses,
+      },
     };
-  }, [courseInfos]);
-
-  return { courseInfos, stats };
+  }, [userCourses, enrolledCourses, completedLessons]);
 };

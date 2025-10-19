@@ -23,9 +23,9 @@ const CardWithProgress: React.FC<CardWithProgressProps> = ({
     circumference - (progressPercent / 100) * circumference;
 
   let strokeColor = "#10b981"; // green
-  if (progressPercent < 30)
+  if (progressPercent < 40)
     strokeColor = "#ef4444"; // red
-  else if (progressPercent < 50) strokeColor = "#f59e0b"; // orange
+  else if (progressPercent < 70) strokeColor = "#f59e0b"; // orange
 
   return (
     <div className="p-4 shadow-lg w-full rounded-lg bg-white flex items-center justify-between gap-6 font-poppins">
@@ -39,9 +39,9 @@ const CardWithProgress: React.FC<CardWithProgressProps> = ({
             <div
               className={`text-sm font-lato flex gap-2 items-center ${
                 daysLeft !== undefined
-                  ? daysLeft < 20
+                  ? daysLeft < 7
                     ? "text-red-600"
-                    : daysLeft < 50
+                    : daysLeft < 14
                       ? "text-yellow-600"
                       : "text-green-600"
                   : "text-gray-600"

@@ -3,7 +3,11 @@ import { useSelector } from "react-redux";
 import type { RootState } from "store";
 import type { Course } from "types/course-types";
 import type { EnrolledCourse } from "types/auth-types";
-import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
+import {
+  calculateCourseStats,
+  calculateDeadline,
+  isDeadlineOver,
+} from "utils/course-handler";
 
 export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
   const completedLessons = useSelector(
@@ -26,7 +30,10 @@ export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
       return { completedModules, progressPercent, totalLessons, totalDays };
     }
 
-    const { deadline, daysLeft } = calculateDeadline(enrollment.enrolledAt, totalDays);
+    const { deadline, daysLeft } = calculateDeadline(
+      enrollment.enrolledAt,
+      totalDays
+    );
 
     return {
       completedModules,

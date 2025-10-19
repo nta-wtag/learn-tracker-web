@@ -1,7 +1,6 @@
 import React from "react";
 import coursesData from "data/Courses.json";
 import type { Course } from "types/course-types";
-import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
 import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
 import { useDashboardStats } from "hooks/useDashboardStats";
 import UserStats from "components/protected-components/dashboard-components/UserStats";
@@ -9,9 +8,10 @@ import ActiveCourses from "components/protected-components/dashboard-components/
 import RecentlyEnrolled from "components/protected-components/dashboard-components/RecentlyEnrolled";
 import CompletedCourses from "components/protected-components/dashboard-components/CompletedCourses";
 import Spinner from "components/base-components/Spinner";
+import { useEnrollmentData } from "hooks/useEnrollmentData";
 
 const Dashboard: React.FC = () => {
-  const { enrolledCourses, loading } = useUserEnrolledCourses();
+  const { enrolledCourses, loading } = useEnrollmentData();
 
   const userCourses = useUserFilteredCourses(
     coursesData as Course[],

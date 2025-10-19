@@ -4,27 +4,32 @@ export const calculateDeadline = (enrolledAt: string, totalDays: number) => {
   const currentDate = new Date(enrolledAt);
   let addedDays = 0;
 
-  // Add totalDays excluding Fridays (5) and Saturdays (6)
+  // Calculate the deadline by adding totalDays excluding Fridays (5) and Saturdays (6)
   while (addedDays < totalDays) {
     currentDate.setDate(currentDate.getDate() + 1);
     const dayOfWeek = currentDate.getDay();
-
     if (dayOfWeek !== 5 && dayOfWeek !== 6) {
       addedDays++;
     }
   }
 
-  // Format deadline nicely
   const deadline = currentDate.toLocaleDateString("en-US", {
     month: "short",
     day: "numeric",
     year: "numeric",
   });
 
-  // Calculate days left (0 if past deadline)
   const today = new Date();
-  const diffTime = currentDate.getTime() - today.getTime();
-  const daysLeft = Math.max(Math.ceil(diffTime / (1000 * 60 * 60 * 24)), 0);
+  let daysLeft = 0;
+  let tempDate = new Date(today);
+
+  while (tempDate <= currentDate) {
+    const dayOfWeek = tempDate.getDay();
+    if (dayOfWeek !== 5 && dayOfWeek !== 6) {
+      daysLeft++;
+    }
+    tempDate.setDate(tempDate.getDate() + 1);
+  }
 
   return { deadline, daysLeft };
 };

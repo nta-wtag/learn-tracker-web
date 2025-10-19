@@ -20,7 +20,6 @@ function ActiveCourses({ courseInfos }) {
                 progressPercent={c.progressPercent}
                 deadline={c.deadline}
                 daysLeft={c.daysLeft}
-                isDeadlineOver={c.isDeadlineOver}
                 image={c.image}
               />
             </div>
