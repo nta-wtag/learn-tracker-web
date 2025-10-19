@@ -33,7 +33,7 @@ const ModuleItem: React.FC<ModuleItemProps> = ({ module, courseName }) => {
       return;
     }
 
-    dispatch(markLessonComplete({ courseName, moduleTitle: module.title}));
+    dispatch(markLessonComplete({ courseName, moduleTitle: module.title }));
   };
 
   return (

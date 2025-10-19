@@ -1,5 +1,5 @@
 import React from "react";
-import coursesData from "data/courses.json";
+import coursesData from "data/Courses.json";
 import type { Course } from "types/course-types";
 import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
 import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";

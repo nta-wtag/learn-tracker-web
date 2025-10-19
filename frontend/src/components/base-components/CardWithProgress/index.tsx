@@ -1,20 +1,18 @@
 import { CalendarClock } from "lucide-react";
 
-interface CircularProgressBarProps {
+interface CardWithProgressProps {
   course: string;
   progressPercent: number;
   deadline?: string;
   daysLeft?: number;
-  isDeadlineOver?: boolean;
   image: string;
 }
 
-const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
+const CardWithProgress: React.FC<CardWithProgressProps> = ({
   course,
   progressPercent,
   deadline,
   daysLeft,
-  isDeadlineOver,
   image,
 }) => {
   const radius = 50;
@@ -86,4 +84,4 @@ const CircularProgressBar: React.FC<CircularProgressBarProps> = ({
   );
 };
 
-export default CircularProgressBar;
+export default CardWithProgress;
