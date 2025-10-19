@@ -22,7 +22,7 @@ interface AuthFormValues {
 
 const AuthForm: React.FC = () => {
   const navigate = useNavigate();
-  const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
+  const isLoginMode = useSelector((state: RootState) => state.auth.isLoginMode);
   const { login, register } = useAuthRedux();
 
   const handleSubmit = ({ username, email, password }: AuthFormValues) => {

@@ -5,17 +5,25 @@ import { getCurrentUser } from "utils/auth-storage";
 interface AuthState {
   currentUser: AuthData | null;
   isAuthChecked: boolean;
+  isLoginMode: boolean;
 }
 
 const initialState: AuthState = {
   currentUser: null,
   isAuthChecked: false,
+  isLoginMode: true,
 };
 
 const authSlice = createSlice({
   name: "auth",
   initialState,
   reducers: {
+    setLoginMode: (state, action) => {
+      state.isLoginMode = action.payload;
+    },
+    toggleLoginMode: (state) => {
+      state.isLoginMode = !state.isLoginMode;
+    },
     setUser: (state, action: PayloadAction<AuthData>) => {
       state.currentUser = action.payload;
       state.isAuthChecked = true;
@@ -42,6 +50,6 @@ const authSlice = createSlice({
   },
 });
 
-export const { setUser, logout, setAuthChecked, restoreUserFromStorage, checkAuth } =
+export const { setUser, logout, setAuthChecked, restoreUserFromStorage, checkAuth, setLoginMode, toggleLoginMode } =
   authSlice.actions;
 export default authSlice.reducer;
