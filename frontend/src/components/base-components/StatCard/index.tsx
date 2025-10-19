@@ -15,7 +15,7 @@ const StatCard: React.FC<StatCardProps> = ({ icon: Icon, text, count }) => {
         size={64}
       />
       <div className="flex flex-col text-gray-600">
-        <span className="text-xl font-poppins">{text}</span>
+        <span className="text-lg font-poppins">{text}</span>
         <span className="font-semibold text-3xl font-poppins">{count}</span>
       </div>
     </div>
