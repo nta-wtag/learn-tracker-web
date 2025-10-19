@@ -6,11 +6,13 @@ interface InputProps {
   type?: string;
   placeholder?: string;
   touched: any;
+  label?: string;
 }
 
-const Input: React.FC<InputProps> = ({ input, error, type = "text", placeholder, touched }) => {
+const Input: React.FC<InputProps> = ({ input, error, type = "text", placeholder, touched, label }) => {
   return (
-    <div className="flex flex-col w-full">
+    <div className="flex flex-col w-full gap-1">
+      {label && <label className="text-sm font-medium">{label}</label>}
       <input
         {...input}
         type={type}
