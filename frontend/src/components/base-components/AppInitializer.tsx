@@ -1,6 +1,6 @@
 import { useEffect } from "react";
-import { useAppDispatch } from "store/hooks";
-import { checkAuth } from "store/thunks/authThunk";
+import { useAppDispatch } from "redux-toolkit/store";
+import { checkAuth } from "redux-toolkit/thunks/authThunk";
 
 interface Props {
   children: React.ReactNode;

@@ -4,13 +4,13 @@ import { Form } from "react-final-form";
 import toast, { Toaster } from "react-hot-toast";
 
 import { ROUTES } from "routes/paths";
-import { useAppDispatch } from "store/hooks";
+import { useAppDispatch } from "redux-toolkit/store";
 import { validateAuth } from "utils/auth-validation";
 import { useAuth } from "hooks/useAuth";
 
 import Button from "components/base-components/Button";
 import AuthInputFields from "components/auth-components/AuthInputFields";
-import { loginUser, registerUser } from "store/thunks/authThunk";
+import { loginUser, registerUser } from "redux-toolkit/thunks/authThunk";
 
 interface AuthFormValues {
   username?: string;

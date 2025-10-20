@@ -4,7 +4,8 @@ import { validateLogin, validateRegistration } from "utils/auth-handlers";
 import { 
   getCurrentUser, 
   saveUserToStorage, 
-  removeUser 
+  removeUser, 
+  setCurrentUser
 } from "utils/auth-storage";
 
 export const checkAuth = createAsyncThunk<AuthData | null>(
@@ -29,7 +30,7 @@ export const loginUser = createAsyncThunk<
         return rejectWithValue(result.message || "Invalid credentials");
       }
 
-      saveUserToStorage(result.user);
+      setCurrentUser(result.user);
       
       return result.user;
     } catch (error) {
@@ -53,6 +54,7 @@ export const registerUser = createAsyncThunk<
       }
 
       saveUserToStorage(result.user);
+      setCurrentUser(result.user);
       
       return result.user;
     } catch (error) {

@@ -2,12 +2,12 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, UserPlus } from "lucide-react";
 
-import { logoutUser } from "store/thunks/authThunk";
+import { logoutUser } from "redux-toolkit/thunks/authThunk";
 import { useAuth } from "hooks/useAuth";
 import { ROUTES } from "routes/paths";
 
 import Button from "components/base-components/Button";
-import { useAppDispatch } from "store/hooks";
+import { useAppDispatch } from "redux-toolkit/store";
 
 const TopNav: React.FC = () => {
   const navigate = useNavigate();
