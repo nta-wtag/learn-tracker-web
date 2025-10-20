@@ -1,6 +1,6 @@
 import React from "react";
 import { useSelector } from "react-redux";
-import type { RootState } from "store";
+import type { RootState } from "redux-toolkit/store";
 
 const AuthHeader: React.FC = ()=> {
   const isLoginMode = useSelector((state: RootState) => state.auth.isLoginMode);

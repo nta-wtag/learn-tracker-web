@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser, logoutUser, restoreUser, checkAuth } from "store/thunks/authThunk";
+import { loginUser, registerUser, logoutUser, restoreUser, checkAuth } from "redux-toolkit/thunks/authThunk";
 import type { AuthData } from "types/auth-types";
 
 interface AuthState {

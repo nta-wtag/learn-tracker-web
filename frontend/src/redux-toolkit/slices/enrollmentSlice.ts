@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { enrollCourseThunk, unenrollCourseThunk, loadEnrollmentsThunk, completeCourseThunk } from "store/thunks/enrollmentThunk";
+import { enrollCourseThunk, unenrollCourseThunk, loadEnrollmentsThunk, completeCourseThunk } from "redux-toolkit/thunks/enrollmentThunk";
 import type { EnrolledCourse } from "types/auth-types";
 
 interface EnrollmentState {
