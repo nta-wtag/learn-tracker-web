@@ -13,8 +13,14 @@ const ProgressBar: React.FC<Props> = ({
 }) => {
   // Determine color based on progress
   const getProgressColor = (percent: number) => {
-    if (percent < 40) return "bg-red-500";
-    if (percent < 70) return "bg-yellow-400";
+    if (percent < 40) {
+      return "bg-red-500";
+    }
+
+    if (percent < 70) {
+      return "bg-yellow-400";
+    }
+    
     return "bg-green-500";
   };
 
