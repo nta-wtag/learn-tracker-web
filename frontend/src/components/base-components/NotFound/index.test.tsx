@@ -2,10 +2,10 @@ import { describe, it, expect, vi } from "vitest";
 import { render, screen } from "@testing-library/react";
 import { BrowserRouter } from "react-router-dom";
 import NotFoundComponent from "components/base-components/NotFound";
-import { useAuthRedux } from "hooks/useAuthRedux";
+import { useAuth } from "hooks/useAuth";
 
-vi.mock("hooks/useAuthRedux", () => ({
-    useAuthRedux: vi.fn(),
+vi.mock("hooks/useAuth", () => ({
+  useAuth: vi.fn(),
 }));
 
 const renderWithRouter = (component: React.ReactElement) => {
@@ -13,16 +13,17 @@ const renderWithRouter = (component: React.ReactElement) => {
 };
 
 describe("NotFoundComponent", () => {
+  const mockUseAuth = vi.mocked(useAuth);
+
   describe("Rendering", () => {
     it("renders 404 heading", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
+      mockUseAuth.mockReturnValue({
         isAuthenticated: false,
         user: null,
         isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
+        loading: false,
+        error: null,
+        isLoginMode: true,
       });
 
       renderWithRouter(<NotFoundComponent />);
@@ -30,14 +31,13 @@ describe("NotFoundComponent", () => {
     });
 
     it("renders 'Page Not Found' message", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
+      mockUseAuth.mockReturnValue({
         isAuthenticated: false,
         user: null,
         isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
+        loading: false,
+        error: null,
+        isLoginMode: true,
       });
 
       renderWithRouter(<NotFoundComponent />);
@@ -45,14 +45,13 @@ describe("NotFoundComponent", () => {
     });
 
     it("renders image", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
+      mockUseAuth.mockReturnValue({
         isAuthenticated: false,
         user: null,
         isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
+        loading: false,
+        error: null,
+        isLoginMode: true,
       });
 
       renderWithRouter(<NotFoundComponent />);
@@ -61,14 +60,13 @@ describe("NotFoundComponent", () => {
     });
 
     it("renders 'Go Home' link", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
+      mockUseAuth.mockReturnValue({
         isAuthenticated: false,
         user: null,
         isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
+        loading: false,
+        error: null,
+        isLoginMode: true,
       });
 
       renderWithRouter(<NotFoundComponent />);
@@ -78,14 +76,13 @@ describe("NotFoundComponent", () => {
 
   describe("Navigation", () => {
     it("links to auth page when not authenticated", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
+      mockUseAuth.mockReturnValue({
         isAuthenticated: false,
         user: null,
         isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
+        loading: false,
+        error: null,
+        isLoginMode: true,
       });
 
       renderWithRouter(<NotFoundComponent />);
@@ -94,14 +91,13 @@ describe("NotFoundComponent", () => {
     });
 
     it("links to dashboard when authenticated", () => {
-      vi.mocked(useAuthRedux).mockReturnValue({
+      mockUseAuth.mockReturnValue({
         isAuthenticated: true,
-        user: { email: "test@test.com", username: "test", password: "pass", role: "USER" },
+        user: { email: "test@test.com", username: "test", role: "USER" },
         isAuthChecked: true,
-        login: vi.fn(),
-        register: vi.fn(),
-        logoutUser: vi.fn(),
-        restoreUser: vi.fn(),
+        loading: false,
+        error: null,
+        isLoginMode: false,
       });
 
       renderWithRouter(<NotFoundComponent />);
