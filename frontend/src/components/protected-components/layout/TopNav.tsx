@@ -2,23 +2,31 @@ import React from "react";
 import { useNavigate } from "react-router-dom";
 import { LogOut, UserPlus } from "lucide-react";
 
+import { logoutUser } from "redux-toolkit/thunks/authThunk";
+import { useAuth } from "hooks/useAuth";
 import { ROUTES } from "routes/paths";
-import { useAuthRedux } from "hooks/useAuthRedux";
 
 import Button from "components/base-components/Button";
+import { useAppDispatch } from "redux-toolkit/store";
 
 const TopNav: React.FC = () => {
   const navigate = useNavigate();
-  const {user , logoutUser } = useAuthRedux();
+  const dispatch = useAppDispatch();
+
+  const { user } = useAuth();
 
   const handleEnroll = () => {
     navigate(ROUTES.ENROLL.path);
   };
 
-  const handleLogout = () => {
-    logoutUser();
+  const handleLogout = async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
 
-    navigate(ROUTES.AUTH.path, { replace: true });
+      navigate(ROUTES.AUTH.path, { replace: true });
+    } catch (error) {
+      console.error("Logout failed:", error);
+    }
   };
 
   return (
@@ -27,11 +35,7 @@ const TopNav: React.FC = () => {
         Hey there, <span className="font-semibold">{user?.username}</span>
       </p>
       <div className="flex gap-4">
-        <Button
-          text="Enroll"
-          icon={<UserPlus />}
-          onClick={handleEnroll}
-        />
+        <Button text="Enroll" icon={<UserPlus />} onClick={handleEnroll} />
         <Button
           text="Log out"
           icon={<LogOut />}
@@ -41,6 +45,6 @@ const TopNav: React.FC = () => {
       </div>
     </div>
   );
-}
+};
 
 export default TopNav;

@@ -1,12 +1,11 @@
 import React from "react";
 import { Link } from "react-router-dom";
-import { useAuthRedux } from "hooks/useAuthRedux";
+import { useAuth } from "hooks/useAuth";
 import image from "assets/not-found.jpg";
 import { ROUTES } from "routes/paths";
 
 const NotFoundComponent: React.FC = () => {
-    const {isAuthenticated} = useAuthRedux();
-    
+    const {isAuthenticated} = useAuth();
     return (
         <div className="flex flex-col w-full h-screen justify-between">
             <img src={image} className="w-1/2 h-1/2 object-contain flex self-center" />

@@ -1,6 +1,5 @@
 import { findUserByEmail } from "utils/auth-storage";
 import { AuthData, AuthResult } from "types/auth-types";
-import { useAuthRedux } from "hooks/useAuthRedux";
 
 // Error messages
 const AUTH_MESSAGES = {
