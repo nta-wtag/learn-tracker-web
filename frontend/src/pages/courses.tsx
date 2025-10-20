@@ -5,10 +5,12 @@ import CourseGrid from "components/protected-components/course-components/Course
 import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
 import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
-import { useEnrollmentData } from "hooks/useEnrollmentData";
+import { useAppSelector } from "redux-toolkit/store";
 
 const Courses: React.FC = () => {
-    const { enrolledCourses, loading } = useEnrollmentData();
+    const enrolledCourses = useAppSelector(state => state.enrollment.enrolledCourses);
+    const loading = useAppSelector(state => state.enrollment.loading);
+    
     const filteredCourses = useUserFilteredCourses(coursesData, enrolledCourses);
 
     if (loading) {

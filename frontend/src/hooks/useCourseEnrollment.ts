@@ -5,17 +5,16 @@ import {
 } from "redux-toolkit/thunks/enrollmentThunk";
 import { getCoursePath, getEnrollCoursePath } from "routes/paths";
 import { useCourseContext } from "hooks/useCourseContext";
-import { useAppDispatch, useAppSelector, RootState } from "redux-toolkit/store";
+import { useAppDispatch} from "redux-toolkit/store";
 import { useCallback, useMemo } from "react";
+import { useEnrollmentSelectors } from "hooks/useEnrollmentSelectors";
 
 export const useCourseEnrollment = (course: Course) => {
   const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const variant = useCourseContext();
 
-  const enrolledCourses = useAppSelector(
-    (state: RootState) => state.enrollment?.enrolledCourses || []
-  );
+  const { enrolledCourses } = useEnrollmentSelectors();
 
   const enrollment = useMemo(
     () => enrolledCourses.find((c) => c.courseName === course.course),
@@ -44,7 +43,7 @@ export const useCourseEnrollment = (course: Course) => {
     }
   }, [dispatch, course.course, isEnrolled]);
 
-  const goToLessons = useCallback(() => {
+  const navigateToLessons = useCallback(() => {
     const path =
       variant === "courses"
         ? getCoursePath(course.course)
@@ -58,6 +57,6 @@ export const useCourseEnrollment = (course: Course) => {
     enrollment,
     isEnrolled,
     enrolledCourses,
-    goToLessons,
+    navigateToLessons,
   };
 };
