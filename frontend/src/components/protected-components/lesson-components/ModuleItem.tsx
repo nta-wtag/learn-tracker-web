@@ -1,10 +1,9 @@
 import React from "react";
 import { CircleDashed, ExternalLink, CheckCircle } from "lucide-react";
-import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "redux-toolkit/store";
-import { markLessonComplete, unmarkLesson } from "redux-toolkit/slices/lessonSlice";
+import { useAppDispatch, useAppSelector, type RootState } from "redux-toolkit/store";
 import { Module } from "types/course-types";
 import { useCourseContext } from "hooks/useCourseContext";
+import { markLessonCompleteThunk, unmarkLessonThunk } from "redux-toolkit/thunks/lessonThunk";
 
 interface ModuleItemProps {
   module: Module;
@@ -12,9 +11,9 @@ interface ModuleItemProps {
 }
 
 const ModuleItem: React.FC<ModuleItemProps> = ({ module, courseName }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const variant = useCourseContext();
-  const completedLessons = useSelector(
+  const completedLessons = useAppSelector(
     (state: RootState) => state.lesson.completedLessons
   );
 
@@ -26,14 +25,14 @@ const ModuleItem: React.FC<ModuleItemProps> = ({ module, courseName }) => {
     if (variant !== "courses") {
       return;
     }
-
+    
     if (isCompleted) {
-      dispatch(unmarkLesson({ courseName, moduleTitle: module.title }));
+      dispatch(unmarkLessonThunk({ courseName, moduleTitle: module.title }));
 
       return;
     }
 
-    dispatch(markLessonComplete({ courseName, moduleTitle: module.title }));
+    dispatch(markLessonCompleteThunk({ courseName, moduleTitle: module.title }));
   };
 
   return (

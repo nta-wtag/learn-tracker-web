@@ -14,7 +14,6 @@ interface LessonHeaderProps {
 }
 
 const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
-    const { enroll, isEnrolled } = useCourseEnrollment(course);
     const { enrolledCourses } = useUserEnrolledCourses();
     const enrollment = enrolledCourses.find(
         (c: EnrolledCourse) => c.courseName === course.course
@@ -22,32 +21,18 @@ const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
     const variant = useCourseContext();
     const enrolledData = useCourseInfo(course, enrollment);
 
-    const handleStartLearning = () => {
-        const { success, message } = enroll();
-
-        if (success) {
-            toast.success(message);
-
-            return;
-        }
-
-        toast.error(message);
-    };
-
     return (
         <div className="sticky top-0 z-10 w-full flex flex-col justify-between items-start sm:items-center gap-4 px-4 py-8">
             <div className="flex w-full justify-between items-center">
                 <h1 className="text-3xl font-bold">{course.course} - Lesson Plan</h1>
-                {variant === "courses" && enrolledData?.daysLeft !== undefined ? (
+                {variant === "courses" && enrolledData?.daysLeft !== undefined && (
                     <span
                         className={`font-semibold ${enrolledData?.daysLeft < 7 ? "text-red-500" : "text-gray-800"
                             }`}
                     >
                         {enrolledData.daysLeft} Days Remaining
                     </span>
-                ) : (
-                    !isEnrolled && <Button text="Start Learning" onClick={handleStartLearning} />
-                )}
+                ) }
             </div>
 
             {variant === "courses" && enrollment && enrolledData && (
