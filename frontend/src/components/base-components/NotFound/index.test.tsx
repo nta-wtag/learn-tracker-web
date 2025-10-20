@@ -93,7 +93,7 @@ describe("NotFoundComponent", () => {
     it("links to dashboard when authenticated", () => {
       mockUseAuth.mockReturnValue({
         isAuthenticated: true,
-        user: { email: "test@test.com", username: "test", role: "USER" },
+        user: { email: "test@test.com", username: "test", password: "password" , role: "USER" },
         isAuthChecked: true,
         loading: false,
         error: null,
