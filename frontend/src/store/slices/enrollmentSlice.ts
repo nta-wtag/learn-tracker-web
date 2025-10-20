@@ -1,77 +1,59 @@
-import { createSlice, PayloadAction } from "@reduxjs/toolkit";
+import { createSlice } from "@reduxjs/toolkit";
+import { enrollCourseThunk, unenrollCourseThunk, loadEnrollmentsThunk, completeCourseThunk } from "store/thunks/enrollmentThunk";
 import type { EnrolledCourse } from "types/auth-types";
-import { getCurrentUser, setCurrentUser, getUsers } from "utils/auth-storage";
 
 interface EnrollmentState {
   enrolledCourses: EnrolledCourse[];
   loading: boolean;
+  error: string | null;
 }
 
 const initialState: EnrollmentState = {
-  enrolledCourses: getCurrentUser()?.courses || [],
+  enrolledCourses: [],
   loading: false,
+  error: null,
 };
 
 const enrollmentSlice = createSlice({
   name: "enrollment",
   initialState,
-  reducers: {
-    loadEnrollments: (state) => {
-      const user = getCurrentUser();
-      state.enrolledCourses = user?.courses || [];
-    },
-    
-    enrollCourse: (state, action: PayloadAction<string>) => {
-      const courseName = action.payload;
-      const user = getCurrentUser();
-      
-      if (!user) return;
-      
-      if (!user.courses) {
-        user.courses = [];
-      }
-      
-      const alreadyEnrolled = user.courses.find((c) => c.courseName === courseName);
-      if (alreadyEnrolled) return;
-      
-      const enrollment: EnrolledCourse = {
-        courseName,
-        enrolledAt: new Date().toISOString(),
-      };
-      
-      user.courses.push(enrollment);
-      state.enrolledCourses.push(enrollment);
-      
-      setCurrentUser(user);
-      const users = getUsers();
-      const userIndex = users.findIndex((u) => u.email === user.email);
-      if (userIndex !== -1) {
-        users[userIndex] = user;
-        localStorage.setItem("users", JSON.stringify(users));
-      }
-    },
-    
-    unenrollCourse: (state, action: PayloadAction<string>) => {
-      const courseName = action.payload;
-      const user = getCurrentUser();
-      
-      if (!user || !user.courses) return;
-      
-      user.courses = user.courses.filter((c) => c.courseName !== courseName);
-      state.enrolledCourses = state.enrolledCourses.filter(
-        (c) => c.courseName !== courseName
-      );
-      
-      setCurrentUser(user);
-      const users = getUsers();
-      const userIndex = users.findIndex((u) => u.email === user.email);
-      if (userIndex !== -1) {
-        users[userIndex] = user;
-        localStorage.setItem("users", JSON.stringify(users));
-      }
-    },
+  reducers: {},
+  extraReducers: (builder) => {
+    builder
+      // ✅ Load Enrollments
+      .addCase(loadEnrollmentsThunk.pending, (state) => {
+        state.loading = true;
+      })
+      .addCase(loadEnrollmentsThunk.fulfilled, (state, action) => {
+        state.loading = false;
+        state.enrolledCourses = action.payload || [];
+      })
+      .addCase(loadEnrollmentsThunk.rejected, (state, action) => {
+        state.loading = false;
+        state.error = action.error.message || "Failed to load enrollments";
+      })
+
+      // ✅ Enroll Course
+      .addCase(enrollCourseThunk.fulfilled, (state, action) => {
+        state.enrolledCourses.push(action.payload);
+      })
+
+      // ✅ Unenroll Course
+      .addCase(unenrollCourseThunk.fulfilled, (state, action) => {
+        state.enrolledCourses = state.enrolledCourses.filter(
+          (c) => c.courseName !== action.payload
+        );
+      })
+
+      // ✅ Complete Course
+      .addCase(completeCourseThunk.fulfilled, (state, action) => {
+        const updatedCourse = action.payload;
+        const existing = state.enrolledCourses.find(
+          (c) => c.courseName === updatedCourse.courseName
+        );
+        if (existing) existing.completedAt = updatedCourse.completedAt;
+      });
   },
 });
 
-export const { loadEnrollments, enrollCourse, unenrollCourse } = enrollmentSlice.actions;
 export default enrollmentSlice.reducer;

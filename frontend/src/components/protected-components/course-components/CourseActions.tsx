@@ -11,8 +11,8 @@ interface CourseActionsProps {
 const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
   const { isEnrolled, enroll, goToLessons, variant } = useCourse(course);
 
-  const handleEnroll = () => {
-    const { success, message } = enroll();
+  const handleEnroll = async () => {
+    const { success, message } = await enroll();
 
         if (success) {
             toast.success(message);

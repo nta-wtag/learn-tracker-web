@@ -1,40 +1,44 @@
-import { useEffect, useCallback } from "react";
-import { useDispatch, useSelector } from "react-redux";
+import { useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+
 import type { RootState } from "store";
-import { enrollCourse, loadEnrollments } from "store/slices/enrollmentSlice";
-import { getCoursePath, getEnrollCoursePath } from "routes/paths";
 import type { Course } from "types/course-types";
+import { enrollCourseThunk, loadEnrollmentsThunk } from "store/thunks/enrollmentThunk";
+import { getCoursePath, getEnrollCoursePath } from "routes/paths";
 import { useCourseContext } from "hooks/useCourseContext";
+import { useAppDispatch, useAppSelector } from "store/hooks";
 
 export const useCourseEnrollment = (course: Course) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
   const variant = useCourseContext();
 
-  const enrolledCourses = useSelector(
+  const enrolledCourses = useAppSelector(
     (state: RootState) => state.enrollment.enrolledCourses
   );
-  const enrollment = enrolledCourses.find((c) => c.courseName === course.course);
+
+  const enrollment = useMemo(
+    () => enrolledCourses.find((c) => c.courseName === course.course),
+    [enrolledCourses, course.course]
+  );
+
   const isEnrolled = !!enrollment;
 
   useEffect(() => {
-    dispatch(loadEnrollments());
+    dispatch(loadEnrollmentsThunk());
   }, [dispatch]);
 
-  const enroll = useCallback(() => {
-    if (isEnrolled) {
-      return {
-        success: false,
-        message: `Already enrolled in ${course.course}`,
-      };
+  const enroll = useCallback(async () => {
+    if (isEnrolled) return { success: false, message: `Already enrolled in ${course.course}` };
+
+    try {
+      const result = await dispatch(enrollCourseThunk(course.course)).unwrap();
+      
+      return { success: true, message: `Successfully enrolled in ${course.course}`, enrollment: result };
+    } catch (err: any) {
+      return { success: false, message: err.message || "Enrollment failed" };
     }
-    dispatch(enrollCourse(course.course));
-    return {
-      success: true,
-      message: `Successfully enrolled in ${course.course}!`,
-    };
-  }, [dispatch, course, isEnrolled]);
+  }, [dispatch, course.course, isEnrolled]);
 
   const goToLessons = useCallback(() => {
     const path =
