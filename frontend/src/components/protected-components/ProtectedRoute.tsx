@@ -1,6 +1,6 @@
 import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
-import { useAuthRedux } from "hooks/useAuthRedux";
+import { useAuth } from "hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 
 import { ROUTES } from "routes/paths";
@@ -17,7 +17,7 @@ const AUTH_MESSAGES = {
 } as const;
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
-  const { isAuthenticated, isAuthChecked, user } = useAuthRedux();
+  const { isAuthenticated, isAuthChecked, user } = useAuth();
 
   const isAuthorized = 
     !allowedRoles || 
