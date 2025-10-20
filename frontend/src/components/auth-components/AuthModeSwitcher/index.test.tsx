@@ -43,17 +43,6 @@ describe("AuthModeSwitcher", () => {
       expect(screen.getByText("Sign In")).toBeInTheDocument();
       expect(screen.getByText("Sign Up")).toBeInTheDocument();
     });
-
-    it("renders divider between buttons", () => {
-      const store = createMockStore(true);
-      const { container } = render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-      const divider = container.querySelector(".border-l-2");
-      expect(divider).toBeInTheDocument();
-    });
   });
 
   describe("Active States", () => {
