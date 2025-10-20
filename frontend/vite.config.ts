@@ -23,7 +23,7 @@ export default defineConfig({
       'data': path.resolve(__dirname, './src/data'),
       'hooks': path.resolve(__dirname, './src/hooks'),
       'assets': path.resolve(__dirname, './src/assets'),
-      'store': path.resolve(__dirname, './src/store'),
+      'redux-toolkit': path.resolve(__dirname, './src/redux-toolkit'),
       'routes': path.resolve(__dirname, './src/routes'),
     }
   }

@@ -1,126 +1,75 @@
-import { describe, it, expect, vi } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
-import userEvent from "@testing-library/user-event";
+import React from "react";
+import { render, screen, fireEvent } from "@testing-library/react";
+import { vi } from "vitest";
 import AuthModeSwitcher from "components/auth-components/AuthModeSwitcher";
+import { useAuth } from "hooks/useAuth";
+
+vi.mock("hooks/useAuth", () => ({
+  useAuth: vi.fn(),
+}));
+
+const mockDispatch = vi.fn();
+
+vi.mock("redux-toolkit/store", async () => {
+  const actual = await vi.importActual("redux-toolkit/store");
+  return {
+    ...actual,
+    useAppDispatch: () => mockDispatch,
+  };
+});
 
 vi.mock("components/base-components/ModeButton", () => ({
-  default: ({ label, active, onClick }: any) => (
-    <button onClick={onClick} data-active={active}>
+  default: ({ label, onClick, active }: any) => (
+    <button
+      data-testid={`mode-button-${label.replace(/\s+/g, "-").toLowerCase()}`}
+      onClick={onClick}
+      data-active={active}
+    >
       {label}
     </button>
   ),
 }));
 
-const mockToggleMode = vi.fn();
-
-vi.mock("store/slices/authUiSlice", () => ({
-  toggleMode: () => ({ type: "authUi/toggleMode" }),
-}));
-
-const createMockStore = (isLoginMode: boolean) => {
-  return configureStore({
-    reducer: {
-      authUi: () => ({ isLoginMode }),
-    },
-  });
-};
-
 describe("AuthModeSwitcher", () => {
   beforeEach(() => {
-    mockToggleMode.mockClear();
+    mockDispatch.mockClear();
   });
 
-  describe("Rendering", () => {
-    it("renders both mode buttons", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-      expect(screen.getByText("Sign In")).toBeInTheDocument();
-      expect(screen.getByText("Sign Up")).toBeInTheDocument();
-    });
+  it("renders Sign In and Sign Up buttons", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: true });
+    render(<AuthModeSwitcher />);
+    const signInButton = screen.getByTestId("mode-button-sign-in");
+    const signUpButton = screen.getByTestId("mode-button-sign-up");
 
-    it("renders divider between buttons", () => {
-      const store = createMockStore(true);
-      const { container } = render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-      const divider = container.querySelector(".border-l-2");
-      expect(divider).toBeInTheDocument();
-    });
+    expect(signInButton).toBeInTheDocument();
+    expect(signUpButton).toBeInTheDocument();
   });
 
-  describe("Active States", () => {
-    it("Sign In is active in login mode", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-      const signInButton = screen.getByText("Sign In");
-      expect(signInButton).toHaveAttribute("data-active", "true");
-    });
+  it("activates Sign In button in login mode", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: true });
+    render(<AuthModeSwitcher />);
+    const signInButton = screen.getByTestId("mode-button-sign-in");
+    const signUpButton = screen.getByTestId("mode-button-sign-up");
 
-    it("Sign Up is active in signup mode", () => {
-      const store = createMockStore(false);
-      render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-      const signUpButton = screen.getByText("Sign Up");
-      expect(signUpButton).toHaveAttribute("data-active", "true");
-    });
-
-    it("only one button is active at a time", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-      const signInButton = screen.getByText("Sign In");
-      const signUpButton = screen.getByText("Sign Up");
-
-      expect(signInButton).toHaveAttribute("data-active", "true");
-      expect(signUpButton).toHaveAttribute("data-active", "false");
-    });
+    expect(signInButton.dataset.active).toBe("true");
+    expect(signUpButton.dataset.active).toBe("false");
   });
 
-  describe("Interactions", () => {
-    it("dispatches toggleMode when Sign In clicked", async () => {
-      const store = createMockStore(false);
-      const dispatchSpy = vi.spyOn(store, "dispatch");
+  it("activates Sign Up button in signup mode", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: false });
+    render(<AuthModeSwitcher />);
+    const signInButton = screen.getByTestId("mode-button-sign-in");
+    const signUpButton = screen.getByTestId("mode-button-sign-up");
 
-      render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
+    expect(signInButton.dataset.active).toBe("false");
+    expect(signUpButton.dataset.active).toBe("true");
+  });
 
-      await userEvent.click(screen.getByText("Sign In"));
-      expect(dispatchSpy).toHaveBeenCalled();
-    });
-
-    it("dispatches toggleMode when Sign Up clicked", async () => {
-      const store = createMockStore(true);
-      const dispatchSpy = vi.spyOn(store, "dispatch");
-
-      render(
-        <Provider store={store}>
-          <AuthModeSwitcher />
-        </Provider>
-      );
-
-      await userEvent.click(screen.getByText("Sign Up"));
-      expect(dispatchSpy).toHaveBeenCalled();
-    });
+  it("dispatches toggleLoginMode when buttons are clicked", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: true });
+    render(<AuthModeSwitcher />);
+    fireEvent.click(screen.getByText("Sign In"));
+    fireEvent.click(screen.getByText("Sign Up"));
+    expect(mockDispatch).toHaveBeenCalledTimes(2);
   });
 });

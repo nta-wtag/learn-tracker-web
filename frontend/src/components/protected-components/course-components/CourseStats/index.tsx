@@ -2,7 +2,7 @@ import React from 'react';
 import { Book, BookCheck, Clock, AlertCircle, CheckCircle } from 'lucide-react';
 import { Course } from 'types/course-types';
 import StatItem from 'components/base-components/StatItem';
-import { useCourse } from 'hooks/useCourse';
+import { useCourse } from 'hooks/useCourseDetails';
 
 interface CourseStatsProps {
   course: Course;

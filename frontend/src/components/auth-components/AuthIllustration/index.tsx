@@ -1,12 +1,11 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "store";
 
 import loginImg from "assets/login-illustration.jpg";
 import registerImg from "assets/register-illustration.jpeg";
+import { useAuth } from "hooks/useAuth";
 
 const AuthIllustration: React.FC = () => {
-  const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
+  const { isLoginMode } = useAuth();
   return (
     <div className="w-full lg:w-1/2 h-1/3 lg:h-1/2 flex justify-center self-center">
       <img

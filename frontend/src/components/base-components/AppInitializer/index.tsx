@@ -1,18 +1,23 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { checkAuth } from "store/slices/authSlice";
+import { useAppDispatch } from "redux-toolkit/store";
+import { checkAuth } from "redux-toolkit/thunks/authThunk";
+import { loadEnrollmentsThunk } from "redux-toolkit/thunks/enrollmentThunk";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const AppInitializer: React.FC<Props> = ({ children }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
-    dispatch(checkAuth());
+    const initializeApp = async () => {
+      await dispatch(checkAuth());
+      await dispatch(loadEnrollmentsThunk());
+    };
+    
+    initializeApp();
   }, [dispatch]);
-
   return <>{children}</>;
 };
 

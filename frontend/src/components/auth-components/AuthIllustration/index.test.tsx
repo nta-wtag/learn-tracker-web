@@ -1,67 +1,36 @@
-import { describe, it, expect } from "vitest";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
+import { vi } from "vitest";
 import AuthIllustration from "components/auth-components/AuthIllustration";
 
-const createMockStore = (isLoginMode: boolean) => {
-  return configureStore({
-    reducer: {
-      authUi: () => ({ isLoginMode }),
-    },
-  });
-};
+let mockIsLoginMode = true;
+
+vi.mock("hooks/useAuth", () => ({
+  useAuth: () => ({ isLoginMode: mockIsLoginMode }),
+}));
+
+vi.mock("assets/login-illustration.jpg", () => ({
+  default: "loginImg",
+}));
+
+vi.mock("assets/register-illustration.jpeg", () => ({
+  default: "registerImg",
+}));
+
 
 describe("AuthIllustration", () => {
-  describe("Rendering", () => {
-    it("renders image", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <AuthIllustration />
-        </Provider>
-      );
-      expect(screen.getByAltText("Auth illustration")).toBeInTheDocument();
-    });
-
-    it("has correct alt text", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <AuthIllustration />
-        </Provider>
-      );
-      expect(screen.getByAltText("Auth illustration")).toBeInTheDocument();
-    });
+  it("renders login illustration when in login mode", () => {
+    mockIsLoginMode = true;
+    render(<AuthIllustration />);
+    const img = screen.getByAltText("Auth illustration") as HTMLImageElement;
+    expect(img).toBeInTheDocument();
+    expect(img.src).toContain("loginImg");
   });
 
-  describe("Image Selection", () => {
-    it("shows login image in login mode", () => {
-      const store = createMockStore(true);
-      render(
-        <Provider store={store}>
-          <AuthIllustration />
-        </Provider>
-      );
-      const img = screen.getByAltText("Auth illustration");
-      expect(img).toHaveAttribute(
-        "src",
-        expect.stringContaining("login-illustration")
-      );
-    });
-
-    it("shows register image in signup mode", () => {
-      const store = createMockStore(false);
-      render(
-        <Provider store={store}>
-          <AuthIllustration />
-        </Provider>
-      );
-      const img = screen.getByAltText("Auth illustration");
-      expect(img).toHaveAttribute(
-        "src",
-        expect.stringContaining("register-illustration")
-      );
-    });
+  it("renders register illustration when in register mode", () => {
+    mockIsLoginMode = false;
+    render(<AuthIllustration />);
+    const img = screen.getByAltText("Auth illustration") as HTMLImageElement;
+    expect(img).toBeInTheDocument();
+    expect(img.src).toContain("registerImg");
   });
 });
