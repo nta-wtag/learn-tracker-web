@@ -1,9 +1,9 @@
 import { useMemo } from "react";
-import type { RootState } from "store";
+import type { RootState } from "redux-toolkit/store";
 import type { Course } from "types/course-types";
 import type { EnrolledCourse } from "types/auth-types";
 import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
-import { useAppSelector } from "store/hooks";
+import { useAppSelector } from "redux-toolkit/store";
 
 export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
   const completedLessons = useAppSelector(

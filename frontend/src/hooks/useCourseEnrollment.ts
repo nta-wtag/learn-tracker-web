@@ -1,12 +1,12 @@
-import { useCallback, useEffect, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
-
-import type { RootState } from "store";
 import type { Course } from "types/course-types";
-import { enrollCourseThunk, loadEnrollmentsThunk } from "store/thunks/enrollmentThunk";
+import {
+  enrollCourseThunk,
+} from "redux-toolkit/thunks/enrollmentThunk";
 import { getCoursePath, getEnrollCoursePath } from "routes/paths";
 import { useCourseContext } from "hooks/useCourseContext";
-import { useAppDispatch, useAppSelector } from "store/hooks";
+import { useAppDispatch, useAppSelector, RootState } from "redux-toolkit/store";
+import { useCallback, useMemo } from "react";
 
 export const useCourseEnrollment = (course: Course) => {
   const dispatch = useAppDispatch();
@@ -14,7 +14,7 @@ export const useCourseEnrollment = (course: Course) => {
   const variant = useCourseContext();
 
   const enrolledCourses = useAppSelector(
-    (state: RootState) => state.enrollment.enrolledCourses
+    (state: RootState) => state.enrollment?.enrolledCourses || []
   );
 
   const enrollment = useMemo(
@@ -24,17 +24,21 @@ export const useCourseEnrollment = (course: Course) => {
 
   const isEnrolled = !!enrollment;
 
-  useEffect(() => {
-    dispatch(loadEnrollmentsThunk());
-  }, [dispatch]);
-
   const enroll = useCallback(async () => {
-    if (isEnrolled) return { success: false, message: `Already enrolled in ${course.course}` };
+    if (isEnrolled)
+      return {
+        success: false,
+        message: `Already enrolled in ${course.course}`,
+      };
 
     try {
       const result = await dispatch(enrollCourseThunk(course.course)).unwrap();
-      
-      return { success: true, message: `Successfully enrolled in ${course.course}`, enrollment: result };
+
+      return {
+        success: true,
+        message: `Successfully enrolled in ${course.course}`,
+        enrollment: result,
+      };
     } catch (err: any) {
       return { success: false, message: err.message || "Enrollment failed" };
     }
@@ -48,5 +52,12 @@ export const useCourseEnrollment = (course: Course) => {
     navigate(path, { state: { course } });
   }, [navigate, course, variant]);
 
-  return { variant, enroll, enrollment, isEnrolled, enrolledCourses, goToLessons };
+  return {
+    variant,
+    enroll,
+    enrollment,
+    isEnrolled,
+    enrolledCourses,
+    goToLessons,
+  };
 };

@@ -1,17 +1,19 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
-import { getCurrentUser, setCurrentUser, getUsers } from "utils/auth-storage";
+import { getCurrentUser, setCurrentUser, getUsers, saveUserToStorage } from "utils/auth-storage";
 import type { EnrolledCourse } from "types/auth-types";
 
-// ✅ Load user enrollments
 export const loadEnrollmentsThunk = createAsyncThunk<EnrolledCourse[]>(
   "enrollment/loadEnrollments",
   async () => {
     const user = getCurrentUser();
-    return user?.courses || [];
+    if (!user) {
+      return [];
+    }
+
+    return user.courses || [];
   }
 );
 
-// ✅ Enroll in a course
 export const enrollCourseThunk = createAsyncThunk<EnrolledCourse, string>(
   "enrollment/enrollCourse",
   async (courseName) => {
@@ -33,13 +35,12 @@ export const enrollCourseThunk = createAsyncThunk<EnrolledCourse, string>(
 
     user.courses.push(newEnrollment);
 
-    // Sync storage
     setCurrentUser(user);
     const users = getUsers();
     const idx = users.findIndex((u) => u.email === user.email);
     if (idx !== -1) {
       users[idx] = user;
-      localStorage.setItem("users", JSON.stringify(users));
+      saveUserToStorage(user);
     }
 
     return newEnrollment;

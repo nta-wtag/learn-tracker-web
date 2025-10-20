@@ -1,8 +1,8 @@
 import React from "react";
 import { CircleDashed, ExternalLink, CheckCircle } from "lucide-react";
 import { useDispatch, useSelector } from "react-redux";
-import type { RootState } from "store";
-import { markLessonComplete, unmarkLesson } from "store/slices/lessonSlice";
+import type { RootState } from "redux-toolkit/store";
+import { markLessonComplete, unmarkLesson } from "redux-toolkit/slices/lessonSlice";
 import { Module } from "types/course-types";
 import { useCourseContext } from "hooks/useCourseContext";
 
