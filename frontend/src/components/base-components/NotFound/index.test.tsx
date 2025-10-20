@@ -55,7 +55,7 @@ describe("NotFoundComponent", () => {
       });
 
       renderWithRouter(<NotFoundComponent />);
-      const image = screen.getByRole("img");
+      const image = screen.getByTestId("404-img");
       expect(image).toBeInTheDocument();
     });
 
@@ -70,7 +70,7 @@ describe("NotFoundComponent", () => {
       });
 
       renderWithRouter(<NotFoundComponent />);
-      expect(screen.getByRole("link", { name: "Go Home" })).toBeInTheDocument();
+      expect(screen.getByTestId("go-home-link")).toBeInTheDocument();
     });
   });
 
@@ -86,7 +86,7 @@ describe("NotFoundComponent", () => {
       });
 
       renderWithRouter(<NotFoundComponent />);
-      const link = screen.getByRole("link", { name: "Go Home" });
+      const link = screen.getByTestId("go-home-link");
       expect(link).toHaveAttribute("href", "/auth");
     });
 
@@ -101,7 +101,7 @@ describe("NotFoundComponent", () => {
       });
 
       renderWithRouter(<NotFoundComponent />);
-      const link = screen.getByRole("link", { name: "Go Home" });
+      const link = screen.getByTestId("go-home-link");
       expect(link).toHaveAttribute("href", "/");
     });
   });
