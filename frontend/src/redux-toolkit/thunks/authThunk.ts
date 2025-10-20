@@ -12,6 +12,7 @@ export const checkAuth = createAsyncThunk<AuthData | null>(
   "auth/checkAuth",
   async () => {
     const user = getCurrentUser();
+
     return user || null;
   }
 );
@@ -79,6 +80,7 @@ export const logoutUser = createAsyncThunk<
   async (_, { rejectWithValue }) => {
     try {
       removeUser();
+      
       return null;
     } catch (error) {
       return rejectWithValue("Failed to logout");
