@@ -1,19 +1,19 @@
 import { useMemo } from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "store";
 import type { Course } from "types/course-types";
 import type { EnrolledCourse } from "types/auth-types";
-import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
+import {
+  calculateCourseStats,
+  calculateDeadline,
+  isDeadlineOver,
+} from "utils/course-handler";
+import { useLessonSelectors } from "hooks/useEnrollmentSelectors";
 
-export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
-  const completedLessons = useSelector(
-    (state: RootState) => state.lesson.completedLessons
-  );
+export const useCourseProgress = (course: Course, enrollment?: EnrolledCourse) => {
+  const { completedLessons } = useLessonSelectors();
 
   return useMemo(() => {
     const { totalLessons, totalDays } = calculateCourseStats(course.lessons);
 
-    // 🔹 Count completed modules dynamically
     const completedModules = completedLessons.filter(
       (l) => l.courseName === course.course
     ).length;
@@ -23,10 +23,18 @@ export const useCourseInfo = (course: Course, enrollment?: EnrolledCourse) => {
       : 0;
 
     if (!enrollment) {
-      return { completedModules, progressPercent, totalLessons, totalDays };
+      return { 
+        completedModules, 
+        progressPercent, 
+        totalLessons, 
+        totalDays 
+      };
     }
 
-    const { deadline, daysLeft } = calculateDeadline(enrollment.enrolledAt, totalDays);
+    const { deadline, daysLeft } = calculateDeadline(
+      enrollment.enrolledAt,
+      totalDays
+    );
 
     return {
       completedModules,
