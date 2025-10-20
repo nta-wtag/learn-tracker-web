@@ -1,13 +1,12 @@
-import ModeButton from "components/base-components/ModeButton";
 import React from "react";
-import { useSelector, useDispatch } from "react-redux";
-
-import { type RootState } from "redux-toolkit/store";
+import ModeButton from "components/base-components/ModeButton";
 import { toggleLoginMode } from "redux-toolkit/slices/authSlice";
+import { useAuth } from "hooks/useAuth";
+import { useAppDispatch } from "redux-toolkit/store";
 
 const AuthModeSwitcher: React.FC = () => {
-  const dispatch = useDispatch();
-  const isLoginMode = useSelector((state: RootState) => state.auth.isLoginMode);
+  const dispatch = useAppDispatch();
+  const { isLoginMode } = useAuth();
 
   return (
     <div className="flex items-baseline mt-16 w-full justify-evenly">

@@ -1,12 +1,10 @@
 import React from "react";
 import { Field } from "react-final-form";
-import { useSelector } from "react-redux";
-
-import { type RootState } from "redux-toolkit/store";
 import Input from "components/base-components/Input";
+import { useAuth } from "hooks/useAuth";
 
 const AuthInputFields: React.FC = () => {
-  const isLoginMode = useSelector((state: RootState) => state.auth.isLoginMode);
+  const { isLoginMode } = useAuth();
 
   return (
     <>
