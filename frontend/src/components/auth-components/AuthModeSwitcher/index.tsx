@@ -6,7 +6,7 @@ import { useAppDispatch } from "redux-toolkit/store";
 
 const AuthModeSwitcher: React.FC = () => {
   const dispatch = useAppDispatch();
-  const { isLoginMode } = useAuth();
+    const { isLoginMode } = useAuth();
 
   return (
     <div className="flex items-baseline mt-16 w-full justify-evenly">
