@@ -20,17 +20,17 @@ describe("Button", () => {
 
         it("has default type of button", () => {
             render(<Button text="Test" />);
-            expect(screen.getByTestId("main-button")).toHaveAttribute("type", "button");
+            expect(screen.getByRole("button")).toHaveAttribute("type", "button");
         });
 
         it("can have submit type", () => {
             render(<Button text="Submit" type="submit" />);
-            expect(screen.getByTestId("main-button")).toHaveAttribute("type", "submit");
+            expect(screen.getByRole("button")).toHaveAttribute("type", "submit");
         });
 
         it("can have reset type", () => {
             render(<Button text="Reset" type="reset" />);
-            expect(screen.getByTestId("main-button")).toHaveAttribute("type", "reset");
+            expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
         });
     });
 
@@ -39,7 +39,7 @@ describe("Button", () => {
             const handleClick = vi.fn();
             render(<Button text="Click" onClick={handleClick} />);
 
-            await userEvent.click(screen.getByTestId("main-button"));
+            await userEvent.click(screen.getByRole("button"));
             expect(handleClick).toHaveBeenCalledTimes(1);
         });
 
@@ -47,7 +47,7 @@ describe("Button", () => {
             const handleClick = vi.fn();
             render(<Button text="Click" onClick={handleClick} disabled />);
 
-            await userEvent.click(screen.getByTestId("main-button"));
+            await userEvent.click(screen.getByRole("button"));
             expect(handleClick).not.toHaveBeenCalled();
         });
 
@@ -55,7 +55,7 @@ describe("Button", () => {
             const handleClick = vi.fn();
             render(<Button text="Click" onClick={handleClick} />);
 
-            const button = screen.getByTestId("main-button");
+            const button = screen.getByRole("button");
             await userEvent.click(button);
             await userEvent.click(button);
             await userEvent.click(button);

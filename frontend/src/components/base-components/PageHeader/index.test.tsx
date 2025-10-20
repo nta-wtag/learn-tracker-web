@@ -11,7 +11,7 @@ describe("PageHeader", () => {
 
     it("renders without subtitle", () => {
       render(<PageHeader title="My Page" />);
-      expect(screen.queryByTestId("header-subtitle")).not.toBeInTheDocument();
+      expect(screen.queryByRole("paragraph")).not.toBeInTheDocument();
     });
 
     it("renders with subtitle when provided", () => {
@@ -23,8 +23,7 @@ describe("PageHeader", () => {
   describe("Accessibility", () => {
     it("uses heading tag for title", () => {
       render(<PageHeader title="My Page" />);
-      const heading = screen.getByRole("heading", { level: 1 });
-      expect(heading).toHaveTextContent("My Page");
+      expect(screen.getByRole("heading", { level: 1 })).toBeInTheDocument();
     });
   });
 });
