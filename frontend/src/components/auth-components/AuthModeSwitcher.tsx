@@ -1,11 +1,11 @@
-import ModeButton from "components/base-components/ModeButton";
 import React from "react";
-import { useDispatch } from "react-redux";
+import ModeButton from "components/base-components/ModeButton";
 import { toggleLoginMode } from "redux-toolkit/slices/authSlice";
 import { useAuth } from "hooks/useAuth";
+import { useAppDispatch } from "redux-toolkit/store";
 
 const AuthModeSwitcher: React.FC = () => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
     const { isLoginMode } = useAuth();
 
   return (
