@@ -1,18 +1,16 @@
 import React from "react";
 import { useNavigate } from "react-router-dom";
 import { Form } from "react-final-form";
-import { useSelector } from "react-redux";
 import toast, { Toaster } from "react-hot-toast";
 
 import { ROUTES } from "routes/paths";
-
-import { type RootState } from "store";
-import { useAuthRedux } from "hooks/useAuthRedux";
-
+import { useAppDispatch } from "store/hooks";
 import { validateAuth } from "utils/auth-validation";
+import { useAuth } from "hooks/useAuth";
 
 import Button from "components/base-components/Button";
 import AuthInputFields from "components/auth-components/AuthInputFields";
+import { loginUser, registerUser } from "store/thunks/authThunk";
 
 interface AuthFormValues {
   username?: string;
@@ -21,41 +19,38 @@ interface AuthFormValues {
 }
 
 const AuthForm: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
-  const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
-  const { login, register } = useAuthRedux();
+  const { isLoginMode } = useAuth();
 
-  const handleSubmit = ({ username, email, password }: AuthFormValues) => {
-    if (isLoginMode) {
-      const result = login(email, password);
 
-      // Login failed
-      if (!result.success || !result.user) { 
-        toast.error(result.message || "Something went wrong");
+  const handleSubmit = async ({ username, email, password }: AuthFormValues) => {
+    try {
+      if (isLoginMode) {
+        await dispatch(
+          loginUser({
+            email: email,
+            password: password
+          })
+        ).unwrap();
 
-        return;
+        toast.success("Login successful"); 
+      } else {
+        await dispatch(
+          registerUser({
+            username: username!,
+            email: email,
+            password: password,
+          })
+        ).unwrap();
+
+        toast.success("Registration successful");
       }
 
-      // Login successful
-      toast.success(result.message || "Login successful");
-      navigate(ROUTES.DASHBOARD.path, {replace: true});
-
-      return;
+        navigate(ROUTES.DASHBOARD.path);  
+    } catch (error) {
+      toast.error(error as string);
     }
-
-    const result = register(username!, email, password);
-
-    // Registration failed
-    if (!result.success || !result.user) {
-      toast.error(result.message || "Something went wrong");
-
-      return;
-    }
-
-    // Registration successful
-    toast.success(result.message || "Registration successful");
-    
-    navigate(ROUTES.DASHBOARD.path, {replace: true});
   };
 
   return (

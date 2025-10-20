@@ -6,7 +6,7 @@ import { type RootState } from "store";
 import Input from "components/fields/Input";
 
 const AuthInputFields: React.FC = () => {
-  const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
+  const isLoginMode = useSelector((state: RootState) => state.auth.isLoginMode);
 
   return (
     <>

@@ -1,13 +1,13 @@
 import { useEffect } from "react";
-import { useDispatch } from "react-redux";
-import { checkAuth } from "store/slices/authSlice";
+import { useAppDispatch } from "store/hooks";
+import { checkAuth } from "store/thunks/authThunk";
 
 interface Props {
   children: React.ReactNode;
 }
 
 const AppInitializer: React.FC<Props> = ({ children }) => {
-  const dispatch = useDispatch();
+  const dispatch = useAppDispatch();
 
   useEffect(() => {
     dispatch(checkAuth());
