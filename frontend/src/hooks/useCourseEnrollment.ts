@@ -1,13 +1,17 @@
+import { useCallback, useMemo } from "react";
 import { useNavigate } from "react-router-dom";
+
 import type { Course } from "types/course-types";
+
+import { useAppDispatch} from "redux-toolkit/store";
 import {
   enrollCourseThunk,
 } from "redux-toolkit/thunks/enrollmentThunk";
+
 import { getCoursePath, getEnrollCoursePath } from "routes/paths";
-import { useCourseContext } from "hooks/useCourseContext";
-import { useAppDispatch} from "redux-toolkit/store";
-import { useCallback, useMemo } from "react";
 import { useEnrollmentSelectors } from "hooks/useEnrollmentSelectors";
+import { useCourseContext } from "hooks/useCourseContext";
+import { EnrolledCourse } from "types/auth-types";
 
 export const useCourseEnrollment = (course: Course) => {
   const dispatch = useAppDispatch();
@@ -17,7 +21,7 @@ export const useCourseEnrollment = (course: Course) => {
   const { enrolledCourses } = useEnrollmentSelectors();
 
   const enrollment = useMemo(
-    () => enrolledCourses.find((c) => c.courseName === course.course),
+    () => enrolledCourses.find((c: EnrolledCourse) => c.courseName === course.course),
     [enrolledCourses, course.course]
   );
 

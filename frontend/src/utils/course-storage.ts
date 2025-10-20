@@ -33,6 +33,7 @@ export const enrollCourseForCurrentUser = (courseName: string): string => {
   const enrollment: EnrolledCourse = {
     courseName,
     enrolledAt: new Date().toISOString(),
+    completedAt: "",
   };
 
   user.courses.push(enrollment);

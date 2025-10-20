@@ -16,6 +16,7 @@ export const markLessonCompleteThunk = createAsyncThunk<
 
     if (!exists) {
       const updatedLessons = [...state.completedLessons, lesson];
+
       saveCompletedLessons(updatedLessons);
 
       return lesson;
@@ -32,14 +33,15 @@ export const unmarkLessonThunk = createAsyncThunk<
   "lessons/unmarkLesson",
   async (lesson, { getState }) => {
     const state = (getState() as { lesson: { completedLessons: CompletedLesson[] } }).lesson;
+
     const updatedLessons = state.completedLessons.filter(
       (l) =>
         l.courseName !== lesson.courseName ||
         l.moduleTitle !== lesson.moduleTitle
     );
+
     saveCompletedLessons(updatedLessons);
 
     return lesson;
   }
 );
-

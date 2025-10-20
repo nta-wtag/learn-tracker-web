@@ -6,7 +6,7 @@ import {
   calculateDeadline,
   isDeadlineOver,
 } from "utils/course-handler";
-import { useLessonSelectors } from "./useEnrollmentSelectors";
+import { useLessonSelectors } from "hooks/useEnrollmentSelectors";
 
 export const useCourseProgress = (course: Course, enrollment?: EnrolledCourse) => {
   const { completedLessons } = useLessonSelectors();
