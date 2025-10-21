@@ -1,7 +1,7 @@
 export interface EnrolledCourse {
   courseName: string;
   enrolledAt: string;
-  completedAt: string;
+  completedAt: string | null;
 }
 
 export interface AuthData {

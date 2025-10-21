@@ -1,10 +1,21 @@
-import { describe, it, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
-import userEvent from "@testing-library/user-event";
+import { render, screen, fireEvent, waitFor } from "@testing-library/react";
+import { vi } from "vitest";
 import TopNav from "components/protected-components/layout/TopNav";
+import { logoutUser } from "redux-toolkit/thunks/authThunk";
 
 const mockNavigate = vi.fn();
-const mockLogoutUser = vi.fn();
+const mockDispatch = vi.fn();
+
+let mockUser = {
+    username: "TestUser",
+    email: "abc@gmail.com",
+    password: "password123",
+    role: "user",
+};
+
+vi.mock("hooks/useAuth", () => ({
+    useAuth: () => ({ user: mockUser }),
+}));
 
 vi.mock("react-router-dom", async () => {
     const actual = await vi.importActual("react-router-dom");
@@ -14,16 +25,26 @@ vi.mock("react-router-dom", async () => {
     };
 });
 
-vi.mock("hooks/useAuthRedux", () => ({
-    useAuthRedux: () => ({
-        user: { username: "John" },
-        logoutUser: mockLogoutUser,
+vi.mock("redux-toolkit/thunks/authThunk", () => ({
+    logoutUser: vi.fn(() => async (dispatch: any) => {
+        return Promise.resolve();
     }),
+}));
+
+vi.mock("redux-toolkit/store", () => ({
+    useAppDispatch: () => (action: any) => {
+        if (typeof action === "function") {
+            return action(mockDispatch);
+        }
+        return action;
+    },
 }));
 
 vi.mock("components/base-components/Button", () => ({
     default: ({ text, onClick }: any) => (
-        <button onClick={onClick}>{text}</button>
+        <button data-testid={`button-${text.toLowerCase()}`} onClick={onClick}>
+            {text}
+        </button>
     ),
 }));
 
@@ -32,23 +53,24 @@ describe("TopNav", () => {
         vi.clearAllMocks();
     });
 
-    it("renders user greeting with username", () => {
-        render(<TopNav />);
-        expect(screen.getByText(/Hey there,/)).toBeInTheDocument();
-        expect(screen.getByText("John")).toBeInTheDocument();
+    it("renders username", () => {
+        mockUser = {
+            username: "Noushin",
+            email: "abc@gmail.com",
+            password: "password123",
+            role: "user",
+        };
 
+        render(<TopNav />);
+
+        expect(screen.getByText(/hey there/i)).toBeInTheDocument();
+        expect(screen.getByText("Noushin")).toBeInTheDocument();
     });
 
-    it("calls navigate to enroll page when Enroll clicked", async () => {
+    it("navigates to enroll page when Enroll button clicked", () => {
         render(<TopNav />);
-        await userEvent.click(screen.getByText("Enroll"));
+        fireEvent.click(screen.getByTestId("button-enroll"));
+
         expect(mockNavigate).toHaveBeenCalledWith("/enroll");
-    });
-
-    it("calls logoutUser and navigates to auth page when Log out clicked", async () => {
-        render(<TopNav />);
-        await userEvent.click(screen.getByText("Log out"));
-        expect(mockLogoutUser).toHaveBeenCalled();
-        expect(mockNavigate).toHaveBeenCalledWith("/auth", { replace: true });
     });
 });

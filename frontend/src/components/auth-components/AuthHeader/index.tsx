@@ -1,9 +1,8 @@
 import React from "react";
-import { useSelector } from "react-redux";
-import type { RootState } from "store";
+import { useAuth } from "hooks/useAuth";
 
 const AuthHeader: React.FC = ()=> {
-  const isLoginMode = useSelector((state: RootState) => state.authUi.isLoginMode);
+  const { isLoginMode } = useAuth();
   return (
   <div className="mb-8 w-full">
     <h1 className="text-3xl lg:text-5xl font-black text-primaryColor">
