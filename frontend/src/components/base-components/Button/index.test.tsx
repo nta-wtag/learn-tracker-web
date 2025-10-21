@@ -6,8 +6,8 @@ import Button from "components/base-components/Button";
 describe("Button", () => {
     describe("Rendering", () => {
         it("renders button with text", () => {
-            render(<Button text="Click me" data-testid="main-button" />);
-            expect(screen.getByTestId("main-button")).toBeInTheDocument();
+            render(<Button text="Click me" />);
+            expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
         });
 
         it("renders with icon", () => {
