@@ -2,7 +2,7 @@ import { useMemo } from "react";
 import type { Course } from "types/course-types";
 import type { EnrolledCourse } from "types/auth-types";
 import { useSelector } from "react-redux";
-import { RootState } from "store/index";
+import { RootState } from "redux-toolkit/store";
 import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
 
 export const useDashboardStats = (
