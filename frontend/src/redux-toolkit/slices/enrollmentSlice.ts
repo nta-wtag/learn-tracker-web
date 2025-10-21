@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { enrollCourseThunk, unenrollCourseThunk, loadEnrollmentsThunk, completeCourseThunk } from "redux-toolkit/thunks/enrollmentThunk";
+import { enrollCourseThunk, loadEnrollmentsThunk, completeCourseThunk } from "redux-toolkit/thunks/enrollmentThunk";
 import type { EnrolledCourse } from "types/auth-types";
 
 interface EnrollmentState {
@@ -45,18 +45,14 @@ const enrollmentSlice = createSlice({
         state.enrolledCourses.push(action.payload);
       })
 
-      .addCase(unenrollCourseThunk.fulfilled, (state, action) => {
-        state.enrolledCourses = state.enrolledCourses.filter(
-          (c) => c.courseName !== action.payload
-        );
-      })
-
       .addCase(completeCourseThunk.fulfilled, (state, action) => {
         const updatedCourse = action.payload;
         const existing = state.enrolledCourses.find(
           (c) => c.courseName === updatedCourse.courseName
         );
-        if (existing) existing.completedAt = updatedCourse.completedAt;
+        if (existing) {
+          existing.completedAt = updatedCourse.completedAt;
+        }
       });
   },
 });
