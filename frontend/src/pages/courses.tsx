@@ -1,12 +1,44 @@
-import React from 'react';
-import { ROUTES } from 'routes/paths';
+import React from "react";
+import coursesData from "data/Courses.json";
+import { Outlet } from "react-router-dom";
+import CourseGrid from "components/protected-components/course-components/CourseGrid";
+import EmptyState from "components/base-components/EmptyState";
+import PageHeader from "components/base-components/PageHeader";
+import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
+import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
 
-const Courses: React.FC = () =>{
+const Courses: React.FC = () => {
+    const { enrolledCourses, loading } = useUserEnrolledCourses();
+    const filteredCourses = useUserFilteredCourses(coursesData, enrolledCourses);
+
+    if (loading) {
+        return <div className="p-6">Loading...</div>;
+    }
+
+    if (filteredCourses.length === 0) {
+        return (
+            <div className="p-6">
+                <PageHeader title="My Courses" subtitle="0 courses enrolled" />
+                <EmptyState
+                    title="No courses yet"
+                    description="You are not enrolled in any courses yet."
+                    actionText="Browse Courses"
+                    actionLink="/enroll"
+                />
+            </div>
+        );
+    }
+
     return (
-        <>
-            {ROUTES.COURSES.label}
-        </>
+        <div className="flex flex-col gap-8 py-4">
+            <PageHeader
+                title="My Courses"
+                subtitle={`${filteredCourses.length} course${filteredCourses.length === 1 ? "" : "s"} enrolled`}
+            />
+            <CourseGrid courses={filteredCourses} />
+            <Outlet />
+        </div>
     );
-}
+};
 
 export default Courses;

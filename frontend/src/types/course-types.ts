@@ -19,3 +19,5 @@ export interface CourseStats {
   totalLessons: number;
   totalDays: number;
 }
+
+export type CourseCardVariant = "enroll" | "courses";
