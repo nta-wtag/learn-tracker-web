@@ -1,4 +1,5 @@
 import React from "react";
+import classNames from "classnames";
 
 interface Props {
   progressPercent: number;
@@ -8,7 +9,7 @@ interface Props {
 
 const ProgressBar: React.FC<Props> = ({
   progressPercent,
-  className = "",
+  className,
   height = 10,
 }) => {
   // Determine color based on progress
@@ -26,13 +27,17 @@ const ProgressBar: React.FC<Props> = ({
       </div>
 
       <div
-        className={`w-full bg-gray-200 rounded-full overflow-hidden ${className}`}
+        className={classNames(
+          "w-full bg-gray-200 rounded-full overflow-hidden",
+          className
+        )}
         style={{ height }}
       >
         <div
-          className={`${getProgressColor(
-            progressPercent
-          )} rounded-full transition-all duration-300`}
+          className={classNames(
+            getProgressColor(progressPercent),
+            "rounded-full transition-all duration-300"
+          )}
           style={{ width: `${progressPercent}%`, height }}
         />
       </div>
