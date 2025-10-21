@@ -12,7 +12,9 @@ const CourseStats: React.FC<CourseStatsProps> = ({ course }) => {
   const { variant, courseInfo, enrollment } = useCourse(course);
 
   const getCourseStatus = () => {
-    if (!courseInfo || !enrollment) return null;
+    if (!courseInfo || !enrollment) {
+      return null;
+    }
 
     const { completedModules, totalLessons, isDeadlineOver } = courseInfo;
 
