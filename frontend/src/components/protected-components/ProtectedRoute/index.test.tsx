@@ -1,106 +1,155 @@
-import { describe, it, vi, beforeEach } from "vitest";
-import { render, screen } from "@testing-library/react";
-import { BrowserRouter } from "react-router-dom";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
+import { describe, it, expect, vi, beforeEach, afterEach } from "vitest";
+import { render, screen, waitFor } from "@testing-library/react";
+import { MemoryRouter } from "react-router-dom";
 import ProtectedRoute from "components/protected-components/ProtectedRoute";
 
+const mockNavigate = vi.fn();
+vi.mock("react-router-dom", async () => {
+  const actual = await vi.importActual("react-router-dom");
+  return {
+    ...actual,
+    Navigate: ({ to, replace }: any) => {
+      mockNavigate(to, replace);
+      return <div data-testid="navigate" data-to={to} data-replace={replace} />;
+    },
+  };
+});
+
+const mockUseAuth = vi.fn();
+vi.mock("hooks/useAuth", () => ({
+  useAuth: () => mockUseAuth(),
+}));
+
 vi.mock("components/base-components/Spinner", () => ({
-  default: () => <div data-testid="spinner">Spinner</div>,
+  default: () => <div data-testid="spinner">Loading...</div>,
 }));
 
 vi.mock("components/protected-components/layout/AppLayout", () => ({
-  default: () => <div data-testid="app-layout">AppLayout</div>,
+  default: () => <div data-testid="app-layout">App Layout</div>,
 }));
 
-const mockUseAuthRedux = {
-  isAuthenticated: true,
-  isAuthChecked: true,
-  user: { role: "user" },
+const mockUser = {
+  id: "2",
+  email: "user@test.com",
+  username: "user",
+  role: "user",
 };
 
-vi.mock("hooks/useAuthRedux", () => ({
-  useAuthRedux: () => mockUseAuthRedux,
-}));
-
-const createMockStore = () =>
-  configureStore({
-    reducer: { authUi: () => ({}) },
-  });
+const renderProtectedRoute = (props = {}) => {
+  return render(
+    <MemoryRouter>
+      <ProtectedRoute {...props} />
+    </MemoryRouter>
+  );
+};
 
 describe("ProtectedRoute", () => {
   beforeEach(() => {
-    // reset mock before each test
-    mockUseAuthRedux.isAuthenticated = true;
-    mockUseAuthRedux.isAuthChecked = true;
-    mockUseAuthRedux.user = { role: "user" };
+    vi.clearAllMocks();
   });
 
-  it("renders Spinner when auth check is not finished", () => {
-    mockUseAuthRedux.isAuthChecked = false;
-
-    const store = createMockStore();
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <ProtectedRoute />
-        </BrowserRouter>
-      </Provider>
-    );
-
-    expect(screen.getByTestId("spinner")).toBeInTheDocument();
+  afterEach(() => {
+    vi.clearAllMocks();
   });
 
-  it("renders AppLayout when authorized", () => {
-    mockUseAuthRedux.isAuthenticated = true;
-    mockUseAuthRedux.isAuthChecked = true;
-    mockUseAuthRedux.user = { role: "user" };
+  describe("Loading State", () => {
+    it("should show spinner when auth is not checked", () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: false,
+        user: null,
+      });
 
-    const store = createMockStore();
-    render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <ProtectedRoute />
-        </BrowserRouter>
-      </Provider>
-    );
+      renderProtectedRoute();
 
-    expect(screen.getByTestId("app-layout")).toBeInTheDocument();
+      expect(screen.getByTestId("spinner")).toBeInTheDocument();
+      expect(screen.getByText("Loading...")).toBeInTheDocument();
+    });
+
+    it("should NOT show AppLayout while loading", () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: false,
+        user: null,
+      });
+
+      renderProtectedRoute();
+
+      expect(screen.queryByTestId("app-layout")).not.toBeInTheDocument();
+    });
+
+    it("should NOT navigate while loading", () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: false,
+        user: null,
+      });
+
+      renderProtectedRoute();
+
+      expect(screen.queryByTestId("navigate")).not.toBeInTheDocument();
+    });
   });
 
-  it("redirects when not authenticated", () => {
-    mockUseAuthRedux.isAuthenticated = false;
-    mockUseAuthRedux.isAuthChecked = true;
+  describe("Unauthenticated User", () => {
+    it("should redirect to auth page when not authenticated", async () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: true,
+        user: null,
+      });
 
-    const store = createMockStore();
-    const { container } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <ProtectedRoute />
-        </BrowserRouter>
-      </Provider>
-    );
+      renderProtectedRoute();
 
-    // since Navigate renders nothing, we can check that AppLayout is not rendered
-    expect(container.querySelector("[data-testid='app-layout']")).toBeNull();
-    expect(screen.queryByTestId("spinner")).toBeNull();
+      await waitFor(() => {
+        expect(screen.getByTestId("navigate")).toBeInTheDocument();
+      });
+
+      const navigate = screen.getByTestId("navigate");
+      expect(navigate).toHaveAttribute("data-to", "/auth");
+      expect(navigate).toHaveAttribute("data-replace", "true");
+    });
+
+    it("should NOT show AppLayout when not authenticated", () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: true,
+        user: null,
+      });
+
+      renderProtectedRoute();
+
+      expect(screen.queryByTestId("app-layout")).not.toBeInTheDocument();
+    });
   });
 
-  it("redirects when unauthorized", () => {
-    mockUseAuthRedux.isAuthenticated = true;
-    mockUseAuthRedux.isAuthChecked = true;
-    mockUseAuthRedux.user = { role: "guest" };
+  describe("Component Rendering", () => {
+    it("should render only Navigate when not authenticated", () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: true,
+        user: null,
+      });
 
-    const store = createMockStore();
-    const { container } = render(
-      <Provider store={store}>
-        <BrowserRouter>
-          <ProtectedRoute allowedRoles={["admin"]} />
-        </BrowserRouter>
-      </Provider>
-    );
+      renderProtectedRoute();
 
-    // AppLayout should not render for unauthorized user
-    expect(container.querySelector("[data-testid='app-layout']")).toBeNull();
+      expect(screen.getByTestId("navigate")).toBeInTheDocument();
+      expect(screen.queryByTestId("app-layout")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("toaster")).not.toBeInTheDocument();
+    });
+
+    it("should render only Spinner when auth not checked", () => {
+      mockUseAuth.mockReturnValue({
+        isAuthenticated: false,
+        isAuthChecked: false,
+        user: null,
+      });
+
+      renderProtectedRoute();
+
+      expect(screen.getByTestId("spinner")).toBeInTheDocument();
+      expect(screen.queryByTestId("app-layout")).not.toBeInTheDocument();
+      expect(screen.queryByTestId("navigate")).not.toBeInTheDocument();
+    });
   });
 });
