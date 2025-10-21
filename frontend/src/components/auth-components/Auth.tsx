@@ -3,9 +3,17 @@ import AuthForm from "components/auth-components/AuthForm";
 import AuthHeader from "components/auth-components/AuthHeader";
 import AuthIllustration from "components/auth-components/AuthIllustration";
 import AuthToggleButton from "components/auth-components/AuthModeSwitcher";
+import { useCurrentUserAuth } from "hooks/useCurrentUserAuth";
+import { Navigate } from "react-router-dom";
+import { ROUTES } from "routes/paths";
 
 const Auth:React.FC = () => {
   const [isLoginMode, setIsLoginMode] = useState(true);
+  const { isAuthenticated } = useCurrentUserAuth();
+
+  if (isAuthenticated) {
+    return <Navigate to={ROUTES.DASHBOARD.path} replace />;
+  }
 
   return (
     <div className="w-full h-screen relative flex lg:px-16 xl:px-32 3xl:px-64 font-[poppins]">
