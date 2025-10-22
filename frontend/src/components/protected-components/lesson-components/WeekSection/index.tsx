@@ -13,7 +13,7 @@ const WeekSection: React.FC<WeekSectionProps> = ({ course, week }) => {
       <h2 className="text-xl font-semibold">Week {week.week}</h2>
       <div className="h-[1px] bg-gray-300 mb-8" />
       <ul className="space-y-2">
-        {week.modules.map((module, idx) => (
+        {(week.modules || []).map((module, idx) => (
           <ModuleItem key={idx} module={module} courseName={course.course} />
         ))}
       </ul>
