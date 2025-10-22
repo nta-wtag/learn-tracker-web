@@ -30,7 +30,8 @@
       "assets/*": ["assets/*"],
       "data/*": ["data/*"],
       "routes/*": ["routes/*"],
-      "hooks/*": ["hooks/*"]
+      "hooks/*": ["hooks/*"],
+      "redux-toolkit/*": ["redux-toolkit/*"]
     }
   },
   "include": ["src"]

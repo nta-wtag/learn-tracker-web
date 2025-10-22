@@ -23,6 +23,7 @@
       "types/*": ["types/*"],
       "assets/*": ["assets/*"],
       "data/*": ["data/*"],
+      "redux-toolkit/*": ["redux-toolkit/*"],
       "routes/*": ["routes/*"],
       "hooks/*": ["hooks/*"]
     }
