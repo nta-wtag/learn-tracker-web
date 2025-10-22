@@ -36,6 +36,7 @@ vi.mock("redux-toolkit/store", () => ({
         if (typeof action === "function") {
             return action(mockDispatch);
         }
+        
         return action;
     },
 }));
