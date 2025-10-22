@@ -2,7 +2,13 @@ import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
 import TextCard from "components/base-components/TextCard";
 
-function CompletedCourses({ completedCourses }) {
+interface CompletedCoursesProps {
+  completedCourses: {
+    course: string;
+  }[];
+}
+
+const CompletedCourses: React.FC<CompletedCoursesProps> = ({ completedCourses }) => {
   const badge = "src/assets/badge.png";
 
   return (
