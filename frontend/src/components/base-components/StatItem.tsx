@@ -14,7 +14,7 @@ const StatItem: React.FC<StatItemProps> = ({
 }) => (
     <div className={`flex items-center gap-2 ${className}`}>
         <Icon className="w-4 h-4 text-primaryColor" />
-        <span>{label}</span>
+        <span className="text-sm font-medium py-2">{label}</span>
     </div>
 );
 

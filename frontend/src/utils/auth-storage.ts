@@ -29,12 +29,12 @@ export const setCurrentUser = (user: AuthData): void => {
 };
 
 // Save new user to users list
-export const saveUser = (user: AuthData): void => {
+export const saveUserToStorage = (user: AuthData): void => {
   const users = getUsers();
   localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify([...users, user]));
 };
 
-// Logout current user
-export const logout = (): void => {
+// Remove current user
+export const removeUser = (): void => {
   localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
 };
