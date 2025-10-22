@@ -31,8 +31,11 @@ export const setCurrentUser = (user: AuthData): void => {
 // Save new user to users list
 export const saveUserToStorage = (user: AuthData): void => {
   const users = getUsers();
-  if (user) localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify([...users, user]));
-  else localStorage.removeItem(STORAGE_KEYS.USERS);
+  if (user) {
+    localStorage.setItem(STORAGE_KEYS.USERS, JSON.stringify([...users, user]));
+  }  else {
+    localStorage.removeItem(STORAGE_KEYS.USERS);
+  }
 };
 
 // Remove current user
