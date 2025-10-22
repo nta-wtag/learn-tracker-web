@@ -6,8 +6,9 @@ interface ActiveCoursesProps {
   courseInfos: {
     course: string;
     progressPercent: number;
-    deadline: string;
-    daysLeft: number;
+    deadline?: string;
+    daysLeft?: number;
+    isDeadlineOver?: boolean;
     image: string;
   }[];
 }

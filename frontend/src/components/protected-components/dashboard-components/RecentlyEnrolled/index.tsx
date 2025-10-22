@@ -5,7 +5,7 @@ import TextCard from "components/base-components/TextCard";
 interface RecentlyEnrolledProps {
   recentCourses: {
     course: string;
-    enrolledAt: string;
+    enrolledAt?: string;
     image: string;
   }[];
 }

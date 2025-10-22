@@ -5,6 +5,7 @@ import TextCard from "components/base-components/TextCard";
 interface CompletedCoursesProps {
   completedCourses: {
     course: string;
+    completedAt?: string | null;
   }[];
 }
 

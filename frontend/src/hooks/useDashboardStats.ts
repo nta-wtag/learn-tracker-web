@@ -71,9 +71,9 @@ export const useDashboardStats = (
     const totalProgress =
       totalCourses > 0
         ? `${(
-            courseInfos.reduce((sum, c) => sum + c.progressPercent, 0) /
-            totalCourses
-          ).toFixed(0)}%`
+          courseInfos.reduce((sum, c) => sum + c.progressPercent, 0) /
+          totalCourses
+        ).toFixed(0)}%`
         : "0%";
 
     const completedCourses = courseInfos.filter(

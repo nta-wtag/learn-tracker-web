@@ -11,35 +11,37 @@ import Spinner from "components/base-components/Spinner";
 import { useAppSelector } from "redux-toolkit/store";
 
 const Dashboard: React.FC = () => {
-    const enrolledCourses = useAppSelector(state => state.enrollment.enrolledCourses);
-    const loading = useAppSelector(state => state.enrollment.loading);
+  const enrolledCourses = useAppSelector(
+    (state) => state.enrollment.enrolledCourses
+  );
+  const loading = useAppSelector((state) => state.enrollment.loading);
 
-    const userCourses = useUserFilteredCourses(
-        coursesData as Course[],
-        enrolledCourses
-    );
+  const userCourses = useUserFilteredCourses(
+    coursesData as Course[],
+    enrolledCourses
+  );
 
-    const { courseInfos, stats } = useDashboardStats(
-        userCourses,
-        enrolledCourses
-    );
+  const { courseInfos, stats } = useDashboardStats(
+    userCourses,
+    enrolledCourses
+  );
 
-    if (loading) {
-        return <Spinner />;
-    }
+  if (loading) {
+    return <Spinner />;
+  }
 
-    return (
-        <div className="space-y-8">
-            <UserStats
-                progress={stats.totalProgress}
-                enrolledCoursesCount={stats.enrolledCount}
-                completedCoursesCount={stats.completedCount}
-            />
-            <ActiveCourses courseInfos={courseInfos} />
-            <RecentlyEnrolled recentCourses={stats.recentCourses} />
-            <CompletedCourses completedCourses={stats.completedCourses} />
-        </div>
-    );
+  return (
+    <div className="space-y-8">
+      <UserStats
+        progress={stats.totalProgress}
+        enrolledCoursesCount={stats.enrolledCount}
+        completedCoursesCount={stats.completedCount}
+      />
+      <ActiveCourses courseInfos={courseInfos} />
+      <RecentlyEnrolled recentCourses={stats.recentCourses} />
+      <CompletedCourses completedCourses={stats.completedCourses} />
+    </div>
+  );
 };
 
 export default Dashboard;
