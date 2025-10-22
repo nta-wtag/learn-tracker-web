@@ -1,8 +1,8 @@
 import React, { useEffect } from "react";
 import { Navigate } from "react-router-dom";
+import { useAuth } from "hooks/useAuth";
 import toast, { Toaster } from "react-hot-toast";
 
-import { useCurrentUserAuth } from "hooks/useCurrentUserAuth";
 import { ROUTES } from "routes/paths";
 import Spinner from "components/base-components/Spinner";
 import AppLayout from "components/protected-components/layout/AppLayout";
@@ -17,11 +17,11 @@ const AUTH_MESSAGES = {
 } as const;
 
 const ProtectedRoute: React.FC<ProtectedRouteProps> = ({ allowedRoles }) => {
-  const { isAuthenticated, isAuthChecked, currentUser } = useCurrentUserAuth();
+  const { isAuthenticated, isAuthChecked, user } = useAuth();
 
   const isAuthorized = 
     !allowedRoles || 
-    (currentUser && allowedRoles.includes(currentUser.role));
+    (user && allowedRoles.includes(user.role));
 
   useEffect(() => {
     if (!isAuthChecked) {

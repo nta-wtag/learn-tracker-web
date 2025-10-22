@@ -3,51 +3,54 @@ import { useNavigate } from "react-router-dom";
 import { Form } from "react-final-form";
 import toast, { Toaster } from "react-hot-toast";
 
+import { ROUTES } from "routes/paths";
+import { useAppDispatch } from "redux-toolkit/store";
+import { validateAuth } from "utils/auth-validation";
+import { useAuth } from "hooks/useAuth";
+
 import Button from "components/base-components/Button";
 import AuthInputFields from "components/auth-components/AuthInputFields";
+import { loginUser, registerUser } from "redux-toolkit/thunks/authThunk";
 
-import { validateAuth } from "utils/auth-validation";
-import { handleLogin, handleRegister } from "utils/auth-handlers";
-import { AuthFormValues } from "types/auth-types";
-
-interface AuthFormProps {
-  isLoginMode: boolean;
+interface AuthFormValues {
+  username?: string;
+  email: string;
+  password: string;
 }
 
-const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
+const AuthForm: React.FC = () => {
+  const dispatch = useAppDispatch();
   const navigate = useNavigate();
+  const { isLoginMode } = useAuth();
 
-  const handleSubmit = ({ username, email, password }: AuthFormValues) => {
-    if (isLoginMode) {
-      const result = handleLogin(email, password);
 
-      // Login failed
-      if (!result.success || !result.user) { 
-        toast.error(result.message || "Something went wrong");
+  const handleSubmit = async ({ username, email, password }: AuthFormValues) => {
+    try {
+      if (isLoginMode) {
+        await dispatch(
+          loginUser({
+            email: email,
+            password: password
+          })
+        ).unwrap();
 
-        return;
+        toast.success("Login successful"); 
+      } else {
+        await dispatch(
+          registerUser({
+            username: username!,
+            email: email,
+            password: password,
+          })
+        ).unwrap();
+
+        toast.success("Registration successful");
       }
 
-      // Login successful
-      toast.success(result.message || "Login successful");
-      navigate("/", {replace: true});
-
-      return;
+        navigate(ROUTES.DASHBOARD.path);  
+    } catch (error) {
+      toast.error(error as string);
     }
-
-    const result = handleRegister(username!, email, password);
-
-    // Registration failed
-    if (!result.success || !result.user) {
-      toast.error(result.message || "Something went wrong");
-
-      return;
-    }
-
-    // Registration successful
-    toast.success(result.message || "Registration successful");
-    
-    navigate("/", {replace: true});
   };
 
   return (
@@ -60,7 +63,7 @@ const AuthForm: React.FC<AuthFormProps> = ({ isLoginMode }) => {
             onSubmit={handleSubmit}
             className="flex flex-col space-y-4 w-full"
           >
-            <AuthInputFields isLoginMode={isLoginMode} />
+            <AuthInputFields />
             <Button
               type="submit"
               text={isLoginMode ? "Sign In" : "Sign Up"}
