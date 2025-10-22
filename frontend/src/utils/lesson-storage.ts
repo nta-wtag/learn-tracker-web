@@ -16,7 +16,3 @@ export const getCompletedLessons = (): CompletedLesson[] => {
 export const saveCompletedLessons = (lessons: CompletedLesson[]): void => {
   localStorage.setItem(getCompletedLessonsKey(), JSON.stringify(lessons));
 };
-
-export const clearCompletedLessons = (): void => {
-  localStorage.removeItem(getCompletedLessonsKey());
-};

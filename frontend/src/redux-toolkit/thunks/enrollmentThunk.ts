@@ -1,6 +1,7 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { getCurrentUser, setCurrentUser, getUsers, saveUserToStorage } from "utils/auth-storage";
 import type { EnrolledCourse } from "types/auth-types";
+import { CompletedLesson } from "types/course-types";
 
 export const loadEnrollmentsThunk = createAsyncThunk<EnrolledCourse[]>(
   "enrollment/loadEnrollments",
@@ -14,6 +15,7 @@ export const loadEnrollmentsThunk = createAsyncThunk<EnrolledCourse[]>(
     return user.courses || [];
   }
 );
+
 
 export const enrollCourseThunk = createAsyncThunk<EnrolledCourse, string>(
   "enrollment/enrollCourse",

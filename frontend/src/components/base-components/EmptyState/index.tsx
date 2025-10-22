@@ -15,8 +15,8 @@ const EmptyState: React.FC<EmptyStateProps> = ({
   actionText,
   actionLink,
 }) => (
-  <div className="flex flex-col items-center justify-center py-16 text-center">
-    <h2 className="text-xl font-semibold text-gray-700 mb-2">{title}</h2>
+  <div className="flex flex-col items-center justify-center py-8 text-center gap-2 bg-white shadow-lg rounded-lg my-4">
+    <h2 className="text-xl font-semibold text-gray-700">{title}</h2>
     <p className="text-gray-500 mb-6">{description}</p>
     {actionText && actionLink && (
       <Link to={actionLink}>

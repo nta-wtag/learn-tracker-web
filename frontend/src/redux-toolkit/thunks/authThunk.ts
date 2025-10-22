@@ -81,6 +81,7 @@ export const logoutUser = createAsyncThunk<
     try {
       removeUser();
       
+      
       return null;
     } catch (error) {
       return rejectWithValue("Failed to logout");
