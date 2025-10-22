@@ -20,4 +20,9 @@ export interface CourseStats {
   totalDays: number;
 }
 
+export interface CompletedLesson {
+  courseName: string;
+  moduleTitle: string;
+}
+
 export type CourseCardVariant = "enroll" | "courses";
