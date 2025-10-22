@@ -1,22 +1,18 @@
-import React from 'react';
-import Button from 'components/base-components/Button';
-import { Course } from 'types/course-types';
-import { useCourseContext } from 'hooks/useCourseContext';
-import { useCourseEnrollment } from 'hooks/useCourseEnrollment';
-import { useNavigateToCourse } from 'hooks/useNavigateToCourse';
-import toast from 'react-hot-toast';
+import React from "react";
+import Button from "components/base-components/Button";
+import { Course } from "types/course-types";
+import toast from "react-hot-toast";
+import { useCourse } from "hooks/useCourseDetails";
 
 interface CourseActionsProps {
-    course: Course;
+  course: Course;
 }
 
 const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
-    const { isEnrolled, enroll } = useCourseEnrollment(course.course);
-    const { goToLessons } = useNavigateToCourse(course);
-    const variant = useCourseContext();
+  const { isEnrolled, enroll, navigateToLessons, variant } = useCourse(course);
 
-    const handleEnroll = () => {
-        const { success, message } = enroll();
+  const handleEnroll = async () => {
+    const { success, message } = await enroll();
 
         if (success) {
             toast.success(message);
@@ -27,17 +23,18 @@ const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
         toast.error(message);
     };
 
-    return (
-        <div className="flex gap-4">
-            <Button text="Lesson Plan" variant="secondary" onClick={goToLessons} />
-            {variant === 'enroll' && <Button
-                text={isEnrolled ? "Enrolled" : "Enroll Now"}
-                onClick={handleEnroll}
-                disabled={isEnrolled}
-            />
-            }
-        </div>
-    );
-}
+  return (
+    <div className="flex gap-4">
+      <Button text="Lesson Plan" variant="secondary" onClick={navigateToLessons} />
+      {variant === "enroll" && (
+        <Button
+          text={isEnrolled ? "Enrolled" : "Enroll Now"}
+          onClick={handleEnroll}
+          disabled={isEnrolled}
+        />
+      )}
+    </div>
+  );
+};
 
 export default CourseActions;

@@ -4,11 +4,13 @@ import { Outlet } from "react-router-dom";
 import CourseGrid from "components/protected-components/course-components/CourseGrid";
 import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
-import { useUserEnrolledCourses } from "hooks/useUserEnrolledCourses";
 import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
+import { useAppSelector } from "redux-toolkit/store";
 
 const Courses: React.FC = () => {
-    const { enrolledCourses, loading } = useUserEnrolledCourses();
+    const enrolledCourses = useAppSelector(state => state.enrollment.enrolledCourses);
+    const loading = useAppSelector(state => state.enrollment.loading);
+    
     const filteredCourses = useUserFilteredCourses(coursesData, enrolledCourses);
 
     if (loading) {

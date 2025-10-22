@@ -1,32 +1,66 @@
-import { useState, useCallback } from "react";
+import { useCallback, useMemo } from "react";
+import { useNavigate } from "react-router-dom";
+
+import type { Course } from "types/course-types";
+
+import { useAppDispatch} from "redux-toolkit/store";
 import {
-  enrollCourseForCurrentUser,
-  isEnrolled as checkEnrollment,
-} from "utils/course-storage";
+  enrollCourseThunk,
+} from "redux-toolkit/thunks/enrollmentThunk";
 
-interface EnrollmentResult {
-  success: boolean;
-  message: string;
-}
+import { getCoursePath, getEnrollCoursePath } from "routes/paths";
+import { useEnrollmentSelectors } from "hooks/useEnrollmentSelectors";
+import { useCourseContext } from "hooks/useCourseContext";
+import { EnrolledCourse } from "types/auth-types";
 
-export const useCourseEnrollment = (courseName: string) => {
-  const [isEnrolled, setIsEnrolled] = useState(checkEnrollment(courseName));
+export const useCourseEnrollment = (course: Course) => {
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
+  const variant = useCourseContext();
 
-  const enroll = useCallback((): EnrollmentResult => {
-    const message = enrollCourseForCurrentUser(courseName);
+  const { enrolledCourses } = useEnrollmentSelectors();
 
-    if (message.includes("Successfully")) {
-      setIsEnrolled(true);
+  const enrollment = useMemo(
+    () => enrolledCourses.find((c: EnrolledCourse) => c.courseName === course.course),
+    [enrolledCourses, course.course]
+  );
 
-      return { success: true, message };
+  const isEnrolled = !!enrollment;
+
+  const enroll = useCallback(async () => {
+    if (isEnrolled)
+      return {
+        success: false,
+        message: `Already enrolled in ${course.course}`,
+      };
+
+    try {
+      const result = await dispatch(enrollCourseThunk(course.course)).unwrap();
+
+      return {
+        success: true,
+        message: `Successfully enrolled in ${course.course}`,
+        enrollment: result,
+      };
+    } catch (err: any) {
+      return { success: false, message: err.message || "Enrollment failed" };
     }
+  }, [dispatch, course.course, isEnrolled]);
 
-    if (message.includes("Already enrolled")) {
-      return { success: false, message };
-    }
+  const navigateToLessons = useCallback(() => {
+    const path =
+      variant === "courses"
+        ? getCoursePath(course.course)
+        : getEnrollCoursePath(course.course);
+    navigate(path, { state: { course } });
+  }, [navigate, course, variant]);
 
-    return { success: false, message };
-  }, [courseName]);
-
-  return { isEnrolled, enroll };
+  return {
+    variant,
+    enroll,
+    enrollment,
+    isEnrolled,
+    enrolledCourses,
+    navigateToLessons,
+  };
 };
