@@ -36,7 +36,7 @@ const Button: React.FC<ButtonProps> = ({
   );
 
   return (
-    <button type={type} onClick={onClick} disabled={disabled} className={buttonClass}>
+    <button type={type} onClick={onClick} disabled={disabled} className={buttonClass} >
       {icon && <span className="flex items-center">{icon}</span>}
       {text}
     </button>
