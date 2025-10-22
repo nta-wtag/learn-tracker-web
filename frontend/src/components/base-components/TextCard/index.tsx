@@ -1,5 +1,7 @@
 import React from "react";
 import Button from "components/base-components/Button";
+import { useNavigate } from "react-router-dom";
+import { getCoursePath } from "routes/paths";
 
 interface TextCardProps {
   courseName: string;
@@ -13,6 +15,12 @@ const TextCard: React.FC<TextCardProps> = ({
   showButton = false,
   img,
 }) => {
+  const navigate = useNavigate();
+
+  const navigateToCourse = () => {
+    navigate(getCoursePath(courseName));
+  }
+
   return (
     <div
       key={courseName}
@@ -25,7 +33,7 @@ const TextCard: React.FC<TextCardProps> = ({
           Enrolled on <span className="font-bold font-poppins">{enrolledAt}</span>
         </span>
       )}
-      {showButton && <Button text="View Course" />}
+      {showButton && <Button text="View Course" onClick={navigateToCourse} />}
     </div>
   );
 };

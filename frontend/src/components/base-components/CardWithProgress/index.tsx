@@ -1,4 +1,6 @@
 import { CalendarClock } from "lucide-react";
+import { useNavigate } from "react-router-dom";
+import { getCoursePath } from "routes/paths";
 
 interface CardWithProgressProps {
   course: string;
@@ -15,20 +17,33 @@ const CardWithProgress: React.FC<CardWithProgressProps> = ({
   daysLeft,
   image,
 }) => {
+  const navigate = useNavigate();
+
+  const navigateToCourse = (courseName: string) => {
+    navigate(getCoursePath(courseName));
+  };
+
   const radius = 50;
   const stroke = 12;
   const normalizedRadius = radius - stroke / 2;
   const circumference = 2 * Math.PI * normalizedRadius;
-  const strokeDashoffset =
-    circumference - (progressPercent / 100) * circumference;
+  const strokeDashoffset = circumference - (progressPercent / 100) * circumference;
 
   let strokeColor = "#10b981"; // green
-  if (progressPercent < 40)
+  
+  if (progressPercent < 40){
     strokeColor = "#ef4444"; // red
-  else if (progressPercent < 70) strokeColor = "#f59e0b"; // orange
+  }  else if (progressPercent < 70) {
+    strokeColor = "#f59e0b"; // orange
+  }
 
   return (
-    <div className="p-4 shadow-lg w-full rounded-lg bg-white flex items-center justify-between gap-6 font-poppins">
+    <div
+      onClick={() => {
+        navigateToCourse(course);
+      }}
+      className="p-4 shadow-lg w-full rounded-lg bg-white flex items-center justify-between gap-6 font-poppins cursor-pointer hover:shadow-xl transition-shadow"
+    >
       <div className="flex items-center gap-4">
         <img src={image} alt={course} className="w-16 h-16" />
         <div className="flex flex-col gap-2">

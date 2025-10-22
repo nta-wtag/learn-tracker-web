@@ -5,7 +5,7 @@ import type { EnrolledCourse } from "types/auth-types";
 interface EnrollmentState {
   enrolledCourses: EnrolledCourse[];
   loading: boolean;
-  loaded: boolean; 
+  loaded: boolean;
   error: string | null;
 }
 
@@ -21,7 +21,10 @@ const enrollmentSlice = createSlice({
   initialState,
   reducers: {
     resetEnrollments: (state) => {
+      state.enrolledCourses = [];
+      state.loading = false;
       state.loaded = false;
+      state.error = null;
     },
   },
   extraReducers: (builder) => {
@@ -57,4 +60,5 @@ const enrollmentSlice = createSlice({
   },
 });
 
+export const { resetEnrollments } = enrollmentSlice.actions;
 export default enrollmentSlice.reducer;
