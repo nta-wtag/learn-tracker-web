@@ -1,20 +1,30 @@
 import { useMemo } from "react";
-import type { Course } from "types/course-types";
-import type { EnrolledCourse } from "types/auth-types";
 import { useSelector } from "react-redux";
-import { RootState } from "store/index";
-import { calculateCourseStats, calculateDeadline, isDeadlineOver } from "utils/course-handler";
+import type { RootState } from "redux-toolkit/store";
+import type { BaseCourseInfo, Course, DashboardStats, EnrichedCourse, EnrolledCourseInfo } from "types/course-types";
+import type { EnrolledCourse } from "types/auth-types";
+import {
+  calculateCourseStats,
+  calculateDeadline,
+  isDeadlineOver,
+} from "utils/course-handler";
+
+
+interface UseDashboardStatsReturn {
+  courseInfos: EnrichedCourse[];
+  stats: DashboardStats;
+}
 
 export const useDashboardStats = (
   userCourses: Course[],
   enrolledCourses: EnrolledCourse[]
-) => {
+): UseDashboardStatsReturn => {
   const completedLessons = useSelector(
     (state: RootState) => state.lesson.completedLessons
   );
 
   return useMemo(() => {
-    const courseInfos = userCourses.map((course) => {
+    const courseInfos: EnrichedCourse[] = userCourses.map((course) => {
       const enrollment = enrolledCourses.find(
         (e) => e.courseName === course.course
       );
@@ -29,7 +39,7 @@ export const useDashboardStats = (
         ? (completedModules / totalLessons) * 100
         : 0;
 
-      let info = {
+      const baseInfo: BaseCourseInfo = {
         completedModules,
         progressPercent,
         totalLessons,
@@ -42,26 +52,28 @@ export const useDashboardStats = (
           totalDays
         );
 
-        info = {
-          ...info,
+        const enrolledInfo: EnrolledCourseInfo = {
+          ...baseInfo,
           deadline,
           daysLeft,
           isDeadlineOver: isDeadlineOver(deadline),
           enrolledAt: enrollment.enrolledAt,
           completedAt: enrollment.completedAt,
         };
+
+        return { ...course, ...enrolledInfo };
       }
 
-      return { ...course, ...info };
+      return { ...course, ...baseInfo };
     });
-    
+
     const totalCourses = courseInfos.length;
     const totalProgress =
       totalCourses > 0
         ? `${(
-            courseInfos.reduce((sum, c) => sum + c.progressPercent, 0) /
-            totalCourses
-          ).toFixed(0)}%`
+          courseInfos.reduce((sum, c) => sum + c.progressPercent, 0) /
+          totalCourses
+        ).toFixed(0)}%`
         : "0%";
 
     const completedCourses = courseInfos.filter(

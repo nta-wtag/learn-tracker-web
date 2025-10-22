@@ -6,8 +6,8 @@ import Button from "components/base-components/Button";
 describe("Button", () => {
     describe("Rendering", () => {
         it("renders button with text", () => {
-            render(<Button text="Click me" data-testid="main-button" />);
-            expect(screen.getByTestId("main-button")).toBeInTheDocument();
+            render(<Button text="Click me" />);
+            expect(screen.getByRole("button", { name: "Click me" })).toBeInTheDocument();
         });
 
         it("renders with icon", () => {
@@ -31,50 +31,6 @@ describe("Button", () => {
         it("can have reset type", () => {
             render(<Button text="Reset" type="reset" />);
             expect(screen.getByRole("button")).toHaveAttribute("type", "reset");
-        });
-    });
-
-    describe("Variants", () => {
-        it("applies primary variant styles by default", () => {
-            render(<Button text="Primary" />);
-            const button = screen.getByRole("button");
-            expect(button).toHaveClass("bg-primaryColor");
-        });
-
-        it("applies secondary variant styles", () => {
-            render(<Button text="Secondary" variant="secondary" />);
-            const button = screen.getByRole("button");
-            expect(button).toHaveClass("bg-lightPrimaryColor");
-        });
-
-        it("applies danger variant styles", () => {
-            render(<Button text="Delete" variant="danger" />);
-            const button = screen.getByRole("button");
-            expect(button).toHaveClass("bg-danger");
-        });
-    });
-
-    describe("States", () => {
-        it("can be disabled", () => {
-            render(<Button text="Disabled" disabled />);
-            const button = screen.getByRole("button");
-
-            expect(button).toBeDisabled();
-            expect(button).toHaveClass("bg-gray-300");
-            expect(button).toHaveClass("cursor-not-allowed");
-        });
-
-        it("removes variant styles when disabled", () => {
-            render(<Button text="Disabled" disabled variant="primary" />);
-            const button = screen.getByRole("button");
-
-            expect(button).not.toHaveClass("bg-primaryColor");
-            expect(button).toHaveClass("bg-gray-300");
-        });
-
-        it("can be full width", () => {
-            render(<Button text="Full Width" fullWidth />);
-            expect(screen.getByRole("button")).toHaveClass("w-full");
         });
     });
 

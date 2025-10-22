@@ -35,7 +35,7 @@ export const saveUserToStorage = (user: AuthData): void => {
   else localStorage.removeItem(STORAGE_KEYS.USERS);
 };
 
-// Logout current user
-export const logout = (): void => {
+// Remove current user
+export const removeUser = (): void => {
   localStorage.removeItem(STORAGE_KEYS.CURRENT_USER);
 };

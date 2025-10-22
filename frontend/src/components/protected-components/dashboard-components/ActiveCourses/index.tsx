@@ -2,7 +2,18 @@ import CardWithProgress from "components/base-components/CardWithProgress";
 import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
 
-function ActiveCourses({ courseInfos }) {
+interface ActiveCoursesProps {
+  courseInfos: {
+    course: string;
+    progressPercent: number;
+    deadline?: string;
+    daysLeft?: number;
+    isDeadlineOver?: boolean;
+    image: string;
+  }[];
+}
+
+const ActiveCourses: React.FC<ActiveCoursesProps> = ({ courseInfos }) => {
   return (
     <section>
       <PageHeader title="Active Courses" />

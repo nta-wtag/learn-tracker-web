@@ -2,7 +2,15 @@ import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
 import TextCard from "components/base-components/TextCard";
 
-function RecentlyEnrolled({ recentCourses }) {
+interface RecentlyEnrolledProps {
+  recentCourses: {
+    course: string;
+    enrolledAt?: string;
+    image: string;
+  }[];
+}
+
+const RecentlyEnrolled: React.FC<RecentlyEnrolledProps> = ({ recentCourses }) => {
   return (
     <section>
       <PageHeader title="Recently Enrolled" />

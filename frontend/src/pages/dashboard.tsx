@@ -8,10 +8,13 @@ import ActiveCourses from "components/protected-components/dashboard-components/
 import RecentlyEnrolled from "components/protected-components/dashboard-components/RecentlyEnrolled";
 import CompletedCourses from "components/protected-components/dashboard-components/CompletedCourses";
 import Spinner from "components/base-components/Spinner";
-import { useEnrollmentData } from "hooks/useEnrollmentData";
+import { useAppSelector } from "redux-toolkit/store";
 
 const Dashboard: React.FC = () => {
-  const { enrolledCourses, loading } = useEnrollmentData();
+  const enrolledCourses = useAppSelector(
+    (state) => state.enrollment.enrolledCourses
+  );
+  const loading = useAppSelector((state) => state.enrollment.loading);
 
   const userCourses = useUserFilteredCourses(
     coursesData as Course[],

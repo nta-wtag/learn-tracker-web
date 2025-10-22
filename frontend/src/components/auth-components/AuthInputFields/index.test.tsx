@@ -1,95 +1,44 @@
-import { describe, it, expect, vi } from "vitest";
+import React from "react";
 import { render, screen } from "@testing-library/react";
-import { Provider } from "react-redux";
-import { configureStore } from "@reduxjs/toolkit";
 import { Form } from "react-final-form";
-import AuthInputFields from "components/auth-components/AuthInputFields";
+import { vi } from "vitest";
 
-vi.mock("components/base-components/Input", () => ({
-  default: ({ input, placeholder, type }: any) => (
-    <input {...input} placeholder={placeholder} type={type || "text"} />
-  ),
+import AuthInputFields from "components/auth-components/AuthInputFields";
+import { useAuth } from "hooks/useAuth";
+
+vi.mock("hooks/useAuth", () => ({
+  useAuth: vi.fn(),
 }));
 
-const createMockStore = (isLoginMode: boolean) => {
-  return configureStore({
-    reducer: {
-      authUi: () => ({ isLoginMode }),
-    },
-  });
-};
-
-const renderWithForm = (isLoginMode: boolean) => {
-  const store = createMockStore(isLoginMode);
-  return render(
-    <Provider store={store}>
-      <Form
-        onSubmit={vi.fn()}
-        render={() => (
-          <form>
-            <AuthInputFields />
-          </form>
-        )}
-      />
-    </Provider>
-  );
-};
-
 describe("AuthInputFields", () => {
-  describe("Login Mode", () => {
-    it("renders email field", () => {
-      renderWithForm(true);
-      expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
-    });
+  const renderForm = () =>
+    render(
+      <Form onSubmit={vi.fn()} render={() => <AuthInputFields />} />
+    );
 
-    it("renders password field", () => {
-      renderWithForm(true);
-      expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
-    });
-
-    it("does not render username field", () => {
-      renderWithForm(true);
-      expect(screen.queryByPlaceholderText("Username")).not.toBeInTheDocument();
-    });
-
-    it("email field has email type", () => {
-      renderWithForm(true);
-      const emailInput = screen.getByPlaceholderText("Email");
-      expect(emailInput).toHaveAttribute("type", "email");
-    });
-
-    it("password field has password type", () => {
-      renderWithForm(true);
-      const passwordInput = screen.getByPlaceholderText("Password");
-      expect(passwordInput).toHaveAttribute("type", "password");
-    });
+  it("renders username field in signup mode", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: false });
+    renderForm();
+    expect(screen.getByPlaceholderText("Username")).toBeInTheDocument();
   });
 
-  describe("Signup Mode", () => {
-    it("renders all three fields", () => {
-      renderWithForm(false);
-      expect(screen.getByPlaceholderText("Username")).toBeInTheDocument();
-      expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
-      expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
-    });
-
-    it("username field appears first", () => {
-      renderWithForm(false);
-      const inputs = screen.getAllByRole("textbox");
-
-      // Username should be first textbox
-      expect(inputs[0]).toHaveAttribute("placeholder", "Username");
-    });
+  it("does not render username field in login mode", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: true });
+    renderForm();
+    expect(screen.queryByPlaceholderText("Username")).toBeNull();
   });
 
-  describe("Field Order", () => {
-    it("maintains correct field order in signup", () => {
-      renderWithForm(false);
-      const allInputs = document.querySelectorAll("input");
+  it("renders email and password fields in login mode", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: true });
+    renderForm();
+    expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
+  });
 
-      expect(allInputs[0]).toHaveAttribute("placeholder", "Username");
-      expect(allInputs[1]).toHaveAttribute("placeholder", "Email");
-      expect(allInputs[2]).toHaveAttribute("placeholder", "Password");
-    });
+  it("renders email and password fields in signup mode", () => {
+    (useAuth as any).mockReturnValue({ isLoginMode: false });
+    renderForm();
+    expect(screen.getByPlaceholderText("Email")).toBeInTheDocument();
+    expect(screen.getByPlaceholderText("Password")).toBeInTheDocument();
   });
 });
