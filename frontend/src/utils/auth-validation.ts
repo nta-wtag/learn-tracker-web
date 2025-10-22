@@ -1,5 +1,6 @@
 import validator from "validator";
 import type { AuthFormValues } from "types/auth-types";
+import { findUserByEmail } from "./auth-storage";
 
 export const validateAuth = (
   values: AuthFormValues,
@@ -12,6 +13,8 @@ export const validateAuth = (
     errors.email = "Email is required";
   } else if (!validator.isEmail(values.email)) {
     errors.email = "Invalid email format";
+  } else if (findUserByEmail(values.email) && isEditing) {
+    errors.email = "Email already exists";
   }
 
   if (!isLoginMode || isEditing) {
