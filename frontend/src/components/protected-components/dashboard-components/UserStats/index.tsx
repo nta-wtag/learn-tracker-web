@@ -1,5 +1,4 @@
 import StatCard from 'components/base-components/StatCard';
-import { i } from 'framer-motion/dist/types.d-BJcRxCew';
 import { Book, Check, CircleCheck } from 'lucide-react';
 
 interface UserStatsProps {
