@@ -5,7 +5,8 @@ import { findUserByEmail } from "./auth-storage";
 export const validateAuth = (
   values: AuthFormValues,
   isLoginMode: boolean,
-  isEditing?: boolean
+  isEditing?: boolean,
+  currentEmail?: string
 ) => {
   const errors: Partial<Record<keyof AuthFormValues, string>> = {};
 
@@ -13,7 +14,11 @@ export const validateAuth = (
     errors.email = "Email is required";
   } else if (!validator.isEmail(values.email)) {
     errors.email = "Invalid email format";
-  } else if (findUserByEmail(values.email) && isEditing) {
+  } else if (
+    isEditing &&
+    values.email !== currentEmail &&
+    findUserByEmail(values.email)
+  ) {
     errors.email = "Email already exists";
   }
 

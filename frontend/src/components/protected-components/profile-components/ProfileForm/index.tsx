@@ -42,7 +42,7 @@ const ProfileForm: React.FC<ProfileFormProps> = ({
                     email: user.email,
                     password: "",
                 }}
-                validate={(values) => validateAuth(values, false, true)}
+                validate={(values) => validateAuth(values, false, true, user.email)}
                 render={({ handleSubmit, submitting, pristine }) => (
                     <form onSubmit={handleSubmit}>
                         <div className="space-y-6">
