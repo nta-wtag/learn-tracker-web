@@ -1,14 +1,18 @@
 import React, { useState } from "react";
 import { Form, Field } from "react-final-form";
-import { useAuthRedux } from "hooks/useAuthRedux";
-import { User, Edit3, Save, LogOutIcon } from "lucide-react";
+import { Edit3, Save, LogOutIcon } from "lucide-react";
 import PageHeader from "components/base-components/PageHeader";
 import Button from "components/base-components/Button";
 import Input from "components/base-components/Input";
 import EmptyState from "components/base-components/EmptyState";
+import { useAuth } from "hooks/useAuth";
+import { useAppDispatch } from "redux-toolkit/store";
+import { logoutUser, updateUser } from "redux-toolkit/thunks/authThunk";
 
 const Profile: React.FC = () => {
-  const { user, logoutUser, updateUser } = useAuthRedux();
+  const dispatch = useAppDispatch();
+
+  const { user } = useAuth();
   const [isEditing, setIsEditing] = useState(false);
 
   if (!user) {
@@ -22,8 +26,8 @@ const Profile: React.FC = () => {
     );
   }
 
-  const onSubmit = (values: any) => {
-    updateUser?.(values);
+  const onSubmit = async (values: any) => {
+    await dispatch(updateUser(values)).unwrap()
     setIsEditing(false);
   };
 
@@ -64,14 +68,14 @@ const Profile: React.FC = () => {
                     validate={(v) => (!v ? "Required" : undefined)}
                   >
                     {({ input, meta }) => (
-                        <Input
-                          input={input}
-                          error={meta.error}
-                          touched={meta.touched}
-                          placeholder="Enter your name"
-                          type="text"
-                          label="Username"
-                        />
+                      <Input
+                        input={input}
+                        error={meta.error}
+                        touched={meta.touched}
+                        placeholder="Enter your name"
+                        type="text"
+                        label="Username"
+                      />
                     )}
                   </Field>
 
@@ -80,28 +84,28 @@ const Profile: React.FC = () => {
                     validate={(v) => (!v ? "Required" : undefined)}
                   >
                     {({ input, meta }) => (
-                        <Input
-                          input={input}
-                          error={meta.error}
-                          touched={meta.touched}
-                          placeholder="Enter your email"
-                          type="email"
-                          label="Email"
-                        />
+                      <Input
+                        input={input}
+                        error={meta.error}
+                        touched={meta.touched}
+                        placeholder="Enter your email"
+                        type="email"
+                        label="Email"
+                      />
                     )}
                   </Field>
                 </div>
 
                 <Field name="password">
                   {({ input, meta }) => (
-                      <Input
-                        input={input}
-                        error={meta.error}
-                        touched={meta.touched}
-                        placeholder="••••••••"
-                        type="password"
-                        label="Password"
-                      />
+                    <Input
+                      input={input}
+                      error={meta.error}
+                      touched={meta.touched}
+                      placeholder="••••••••"
+                      type="password"
+                      label="Password"
+                    />
                   )}
                 </Field>
                 <p className="text-xs text-gray-500">
@@ -114,7 +118,8 @@ const Profile: React.FC = () => {
                   variant="danger"
                   icon={<LogOutIcon />}
                   text="Log Out"
-                  onClick={logoutUser}
+                  onClick={async () =>
+                    await dispatch(logoutUser()).unwrap()}
                 />
 
                 {!isEditing ? (

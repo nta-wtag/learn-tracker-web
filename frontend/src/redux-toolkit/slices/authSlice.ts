@@ -1,5 +1,5 @@
 import { createSlice } from "@reduxjs/toolkit";
-import { loginUser, registerUser, logoutUser, restoreUser, checkAuth } from "redux-toolkit/thunks/authThunk";
+import { loginUser, registerUser, logoutUser, restoreUser, checkAuth, updateUser } from "redux-toolkit/thunks/authThunk";
 import type { AuthData } from "types/auth-types";
 
 interface AuthState {
@@ -73,6 +73,22 @@ const authSlice = createSlice({
       .addCase(registerUser.rejected, (state, action) => {
         state.status = "failed";
         state.error = action.payload || "Registration failed";
+        state.isAuthChecked = true;
+      })
+
+      // Update
+      .addCase(updateUser.pending, (state) => {
+        state.status = "loading";
+        state.error = null;
+      })
+      .addCase(updateUser.fulfilled, (state, action) => {
+        state.currentUser = action.payload;
+        state.isAuthChecked = true;
+        state.status = "succeeded";
+      })
+      .addCase(updateUser.rejected, (state, action) => {
+        state.status = "failed";
+        state.error = action.payload || "Update failed";
         state.isAuthChecked = true;
       })
 
