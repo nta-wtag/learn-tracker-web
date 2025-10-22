@@ -1,7 +1,7 @@
 import validator from "validator";
 import type { AuthFormValues } from "types/auth-types";
 
-export const validateAuth = (values: AuthFormValues, isLoginMode: boolean) => {
+export const validateAuth = (values: AuthFormValues, isLoginMode?: boolean) => {
   const errors: Record<string, string> = {};
 
   if (!values.email) {
