@@ -6,6 +6,7 @@ import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
 import { useUserFilteredCourses } from "hooks/useUserFilteredCourses";
 import { useAppSelector } from "redux-toolkit/store";
+import { ROUTES } from "routes/paths";
 
 const Courses: React.FC = () => {
     const enrolledCourses = useAppSelector(state => state.enrollment.enrolledCourses);
@@ -25,7 +26,7 @@ const Courses: React.FC = () => {
           title="No courses yet"
           description="You are not enrolled in any courses yet."
           actionText="Browse Courses"
-          actionLink="/enroll"
+          actionLink={ROUTES.ENROLL.path}
         />
       </div>
     );
