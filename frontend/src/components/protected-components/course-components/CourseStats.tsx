@@ -14,9 +14,9 @@ const CourseStats: React.FC<CourseStatsProps> = ({course}) => {
     return (
         <div className="flex flex-col gap-4">
         <img
-          src={course.image}
+          src={course.backdrop}
           alt={`${course.course} course thumbnail`}
-          className="w-full h-24 object-contain rounded mb-4"
+          className="w-full h-48 object-cover rounded mb-2"
         />
         <h2 className="text-2xl font-bold">{course.course}</h2>
         <div className="flex flex-wrap gap-8">
