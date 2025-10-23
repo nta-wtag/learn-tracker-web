@@ -11,7 +11,9 @@ const Lessons: React.FC = () => {
   const course = location.state?.course || 
     (coursesData as Course[]).find((c) => c.course === courseId);
 
-  if (!course) return <p className="p-6 text-red-500">Course not found</p>;
+  if (!course) {
+    return <p className="p-6 text-red-500">Course not found</p>;
+  }
 
   return (
     <div className="flex flex-col h-screen overflow-none z-0">
