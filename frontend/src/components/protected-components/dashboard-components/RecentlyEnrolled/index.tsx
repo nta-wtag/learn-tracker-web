@@ -1,6 +1,7 @@
 import EmptyState from "components/base-components/EmptyState";
 import PageHeader from "components/base-components/PageHeader";
 import TextCard from "components/base-components/TextCard";
+import { useCourse } from "hooks/useCourseDetails";
 
 interface RecentlyEnrolledProps {
   recentCourses: {

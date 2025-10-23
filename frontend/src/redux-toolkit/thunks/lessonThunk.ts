@@ -2,6 +2,19 @@ import { createAsyncThunk } from "@reduxjs/toolkit";
 import type { CompletedLesson } from "types/course-types";
 import { saveCompletedLessons } from "utils/lesson-storage";
 
+export const loadLessonsThunk = createAsyncThunk<CompletedLesson[]>(
+  "lesson/loadLessons",
+  async () => {
+    try {
+      const stored = localStorage.getItem("completedLessons");
+      return stored ? JSON.parse(stored) : [];
+    } catch (error) {
+      console.error("Error loading completed lessons:", error);
+      return [];
+    }
+  }
+);
+
 export const markLessonCompleteThunk = createAsyncThunk<
   CompletedLesson,
   CompletedLesson

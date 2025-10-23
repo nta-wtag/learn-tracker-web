@@ -8,6 +8,7 @@ import { ROUTES } from "routes/paths";
 
 import Button from "components/base-components/Button";
 import { useAppDispatch } from "redux-toolkit/store";
+import {resetEnrollments} from "redux-toolkit/slices/enrollmentSlice";
 
 const TopNav: React.FC = () => {
   const navigate = useNavigate();
@@ -22,6 +23,7 @@ const TopNav: React.FC = () => {
   const handleLogout = async () => {
     try {
       await dispatch(logoutUser()).unwrap();
+      dispatch(resetEnrollments());
 
       navigate(ROUTES.AUTH.path, { replace: true });
     } catch (error) {
