@@ -1,5 +1,5 @@
 import { AuthData, AuthResult } from "types/auth-types";
-import { findUserByEmail, saveUser, setCurrentUser } from "utils/auth-storage";
+import { findUserByEmail, saveUserToStorage, setCurrentUser } from "utils/auth-storage";
 
 // Error messages
 const AUTH_MESSAGES = {
@@ -32,7 +32,7 @@ export const handleRegister = (username: string, email: string, password: string
 
   const newUser: AuthData = { username, email, password, role: "USER" };
 
-  saveUser(newUser);
+  saveUserToStorage(newUser);
   setCurrentUser(newUser);
 
   return { success: true, user: newUser, message: AUTH_MESSAGES.REGISTER_SUCCESS };
