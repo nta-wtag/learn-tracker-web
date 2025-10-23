@@ -2,6 +2,7 @@
   {
     "course": "Javascript",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/javascript/javascript-original.svg",
+    "backdrop": "https://tenten.vn/tin-tuc/wp-content/uploads/2022/06/cach-nhung-js-len-website-4.jpeg",
     "lessons": [
       {
         "week": 1,
@@ -53,6 +54,7 @@
   {
     "course": "React",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/react/react-original.svg",
+    "backdrop": "https://cdn-images-1.medium.com/max/800/1*zRJjAN-REufPq8D8ZpQDeg.jpeg",
     "lessons": [
       {
         "week": 1,
@@ -126,6 +128,7 @@
   {
     "course": "Python",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/python/python-original.svg",
+    "backdrop": "https://www.sirtbhopal.ac.in/assets/images/blogs/why-should-we-have-to-learn-python.webp",
     "lessons": [
       {
         "week": 1,
@@ -164,6 +167,7 @@
   {
     "course": "HTML & CSS",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/html5/html5-original.svg",
+    "backdrop": "https://img.freepik.com/premium-photo/programming-web-pages-with-html-css-code-desktop-computer_671359-114.jpg",
     "lessons": [
       {
         "week": 1,
@@ -202,6 +206,7 @@
   {
     "course": "Node.js",
     "image": "https://cdn.jsdelivr.net/gh/devicons/devicon/icons/nodejs/nodejs-original.svg",
+    "backdrop": "https://courses.tutorialswebsite.com/assets/front/img/category/Nodejs-banner.jpeg",
     "lessons": [
       {
         "week": 1,

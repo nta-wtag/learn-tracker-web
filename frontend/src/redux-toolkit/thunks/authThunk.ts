@@ -1,10 +1,10 @@
 import { createAsyncThunk } from "@reduxjs/toolkit";
 import { AuthData } from "types/auth-types";
 import { validateLogin, validateRegistration } from "utils/auth-handlers";
-import { 
-  getCurrentUser, 
-  saveUserToStorage, 
-  removeUser, 
+import {
+  getCurrentUser,
+  saveUserToStorage,
+  removeUser,
   setCurrentUser
 } from "utils/auth-storage";
 
@@ -26,13 +26,13 @@ export const loginUser = createAsyncThunk<
   async ({ email, password }, { rejectWithValue }) => {
     try {
       const result = validateLogin(email, password);
-      
+
       if (!result.success || !result.user) {
         return rejectWithValue(result.message || "Invalid credentials");
       }
 
       setCurrentUser(result.user);
-      
+
       return result.user;
     } catch (error) {
       return rejectWithValue("An error occurred during login");
@@ -49,14 +49,14 @@ export const registerUser = createAsyncThunk<
   async ({ username, email, password }, { rejectWithValue }) => {
     try {
       const result = validateRegistration(username, email, password);
-      
+
       if (!result.success || !result.user) {
         return rejectWithValue(result.message || "Registration failed");
       }
 
       saveUserToStorage(result.user);
       setCurrentUser(result.user);
-      
+
       return result.user;
     } catch (error) {
       return rejectWithValue("An error occurred during registration");
@@ -64,10 +64,39 @@ export const registerUser = createAsyncThunk<
   }
 );
 
+export const updateUser = createAsyncThunk<
+  AuthData,
+  Partial<AuthData>, 
+  { rejectValue: string }
+>(
+  "auth/updateUser",
+  async (updatedData, { rejectWithValue }) => {
+    try {
+      const currentUser = getCurrentUser();
+
+      if (!currentUser) {
+        return rejectWithValue("No user is currently logged in");
+      }
+
+      const newUserData: AuthData = {
+        ...currentUser,
+        ...updatedData,
+      };
+
+      saveUserToStorage(newUserData);
+      setCurrentUser(newUserData);
+
+      return newUserData;
+    } catch (error) {
+      return rejectWithValue("An error occurred while updating the user");
+    }
+  }
+);
+
 export const restoreUser = createAsyncThunk(
   "auth/restoreUser",
   async () => {
-    return getCurrentUser(); 
+    return getCurrentUser();
   }
 );
 
@@ -80,7 +109,6 @@ export const logoutUser = createAsyncThunk<
   async (_, { rejectWithValue }) => {
     try {
       removeUser();
-      
       
       return null;
     } catch (error) {
