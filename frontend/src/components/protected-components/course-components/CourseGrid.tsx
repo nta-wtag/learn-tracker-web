@@ -11,7 +11,7 @@ const CourseGrid: React.FC<CourseGridProps> = ({ courses }) => {
   return (
     <div className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6">
       {courses.map((course) => (
-        <div className="bg-white p-6 flex flex-col gap-8 shadow-lg rounded-lg" key={course.course}>
+        <div className="bg-white p-4 flex flex-col gap-4 shadow-lg rounded-lg" key={course.course}>
           <CourseStats course={course} />
           <CourseActions course={course} />
         </div>

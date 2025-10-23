@@ -3,7 +3,7 @@ import { useNavigate } from "react-router-dom";
 import { LogOut, UserPlus } from "lucide-react";
 
 import Button from "components/base-components/Button";
-import { getCurrentUser, logout } from "utils/auth-storage";
+import { getCurrentUser, removeUser } from "utils/auth-storage";
 import { ROUTES } from "routes/paths";
 
 const TopNav: React.FC = () => {
@@ -15,14 +15,14 @@ const TopNav: React.FC = () => {
   };
 
   const handleLogout = () => {
-    logout();
+    removeUser();
     navigate(ROUTES.AUTH.path, { replace: true });
   };
 
   return (
     <div className="py-4 px-8 flex justify-between items-center sticky top-0 z-100 shadow bg-white m-2 rounded-lg">
       <p className="text-gray-400">
-        Hey there, <span className="font-semibold">{user?.username}</span>
+        Hey there, <span className="font-semibold capitalize">{user?.username}</span>
       </p>
       <div className="flex gap-4">
         <Button

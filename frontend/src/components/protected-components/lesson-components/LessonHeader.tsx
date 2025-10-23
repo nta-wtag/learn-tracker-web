@@ -1,17 +1,26 @@
 import React from 'react';
-import { useNavigate } from 'react-router-dom';
-import toast from 'react-hot-toast';
 import Button from 'components/base-components/Button';
 import { Course } from 'types/course-types';
-import { ROUTES } from 'routes/paths';
+import { useCourseEnrollment } from 'hooks/useCourseEnrollment';
+import toast from 'react-hot-toast';
 
 interface LessonHeaderProps {
-    course: Course;
+  course: Course;
 }
 
 const LessonHeader: React.FC<LessonHeaderProps> = ({ course }) => {
+    const {enroll} = useCourseEnrollment(course.course);
+
     const handleStartLearning = () => {
-        toast.success(`Enrolled in  ${course.course}`)
+        const {success, message} = enroll();
+
+        if (success) {
+            toast.success(message);
+
+            return;
+        }
+        
+        toast.error(message);
     };
 
     return (

@@ -1,9 +1,10 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useNavigate } from 'react-router-dom';
 import toast from 'react-hot-toast';
 import Button from 'components/base-components/Button';
 import { Course } from 'types/course-types';
 import { getEnrollCoursePath } from 'routes/paths';
+import { useCourseEnrollment } from 'hooks/useCourseEnrollment';
 
 interface CourseActionsProps {
     course: Course;
@@ -11,9 +12,18 @@ interface CourseActionsProps {
 
 const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
     const navigate = useNavigate();
+    const { isEnrolled, enroll } = useCourseEnrollment(course.course);
 
-    const handleStartLearning = () => {
-        toast.success(`You are now enrolled in ${course.course}!`);
+    const handleEnrollment = () => {
+        const { success, message } = enroll();
+
+        if (success) {
+            toast.success(message);
+
+            return;
+        }
+        
+        toast.error(message);
     };
 
     return (
@@ -26,8 +36,9 @@ const CourseActions: React.FC<CourseActionsProps> = ({ course }) => {
                 })}
             />
             <Button
-                text="Enroll"
-                onClick={handleStartLearning}
+                text={isEnrolled ? "Enrolled" : "Enroll Now"}
+                onClick={handleEnrollment}
+                disabled={isEnrolled}
             />
         </div>
     );
