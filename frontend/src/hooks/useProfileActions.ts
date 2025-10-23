@@ -7,59 +7,59 @@ import { AuthFormValues } from "types/auth-types";
 import { ROUTES } from "routes/paths";
 
 export const useProfileActions = () => {
-    const dispatch = useAppDispatch();
-    const navigate = useNavigate();
-    
-    const [isEditing, setIsEditing] = useState(false);
+  const dispatch = useAppDispatch();
+  const navigate = useNavigate();
 
-    const handleUpdateProfile = useCallback(
-        async (values: AuthFormValues) => {
-            try {
-                const updateData: any = {
-                    username: values.username,
-                    email: values.email,
-                };
+  const [isEditing, setIsEditing] = useState(false);
 
-                if (values.password) {
-                    updateData.password = values.password;
-                }
+  const handleUpdateProfile = useCallback(
+    async (values: AuthFormValues) => {
+      try {
+        const updateData: Partial<AuthFormValues> = {
+          username: values.username,
+          email: values.email,
+        };
 
-                await dispatch(updateUser(updateData)).unwrap();
-
-                toast.success("Profile updated successfully");
-                setIsEditing(false);
-            } catch (error) {
-                toast.error(error as string || "Failed to update profile");
-            }
-        },
-        [dispatch]
-    );
-
-    const handleLogout = useCallback(async () => {
-        try {
-            await dispatch(logoutUser()).unwrap();
-
-            toast.success("Logged out successfully");
-
-            navigate(ROUTES.AUTH.path, { replace: true });
-        } catch (error) {
-            toast.error(error as string || "Failed to logout");
+        if (values.password && values.password.trim() !== "") {
+          updateData.password = values.password;
         }
-    }, [dispatch, navigate]);
 
-    const startEditing = useCallback(() => {
-        setIsEditing(true);
-    }, []);
+        await dispatch(updateUser(updateData)).unwrap();
 
-    const cancelEditing = useCallback(() => {
+        toast.success("Profile updated successfully");
         setIsEditing(false);
-    }, []);
+      } catch (error) {
+        toast.error((error as string) || "Failed to update profile");
+      }
+    },
+    [dispatch]
+  );
 
-    return {
-        isEditing,
-        handleUpdateProfile,
-        handleLogout,
-        startEditing,
-        cancelEditing,
-    };
+  const handleLogout = useCallback(async () => {
+    try {
+      await dispatch(logoutUser()).unwrap();
+
+      toast.success("Logged out successfully");
+
+      navigate(ROUTES.AUTH.path, { replace: true });
+    } catch (error) {
+      toast.error((error as string) || "Failed to logout");
+    }
+  }, [dispatch, navigate]);
+
+  const startEditing = useCallback(() => {
+    setIsEditing(true);
+  }, []);
+
+  const cancelEditing = useCallback(() => {
+    setIsEditing(false);
+  }, []);
+
+  return {
+    isEditing,
+    handleUpdateProfile,
+    handleLogout,
+    startEditing,
+    cancelEditing,
+  };
 };
