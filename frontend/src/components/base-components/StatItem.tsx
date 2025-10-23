@@ -13,7 +13,7 @@ const StatItem: React.FC<StatItemProps> = ({
     className = "text-gray-600"
 }) => (
     <div className={`flex items-center gap-2 ${className}`}>
-        <Icon className="w-4 h-4 text-primaryColor" />
+        <Icon className="w-4 h-4 text-darkPrimaryColor" />
         <span>{label}</span>
     </div>
 );

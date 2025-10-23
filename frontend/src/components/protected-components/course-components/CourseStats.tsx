@@ -1,5 +1,5 @@
 import React from 'react';
-import { Book, Clock } from 'lucide-react';
+import { Blocks, Hourglass } from 'lucide-react';
 import { Course } from 'types/course-types';
 import { useCourseInfo } from 'hooks/useCourseInfo';
 import StatItem from 'components/base-components/StatItem';
@@ -20,8 +20,8 @@ const CourseStats: React.FC<CourseStatsProps> = ({course}) => {
         />
         <h2 className="text-2xl font-bold">{course.course}</h2>
         <div className="flex flex-wrap gap-8">
-            <StatItem icon={Book} label={`${totalLessons} Lesson${totalLessons === 1 ? "" : "s"}`} />
-            <StatItem icon={Clock} label={`Duration: ${totalDays} day${totalDays === 1 ? "" : "s"}`} />
+            <StatItem icon={Blocks} label={`${totalLessons} Lesson${totalLessons === 1 ? "" : "s"}`} />
+            <StatItem icon={Hourglass} label={`Duration: ${totalDays} day${totalDays === 1 ? "" : "s"}`} />
         </div>
       </div>
     );
