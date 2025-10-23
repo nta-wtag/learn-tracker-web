@@ -7,7 +7,10 @@ import { Outlet } from "react-router-dom";
 const EnrollCourse: React.FC = () => {
     return (
         <div className="py-4 gap-8 flex flex-col">
-            <PageHeader title="Enroll in a Course" subtitle="Browse and enroll in new courses" />
+            <PageHeader
+                title="Enroll in a Course"
+                subtitle="Browse and enroll in new courses"
+            />
             <CourseGrid courses={coursesData} />
             <Outlet />
         </div>
