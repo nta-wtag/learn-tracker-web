@@ -1,3 +1,4 @@
+import PageHeader from 'components/base-components/PageHeader';
 import StatCard from 'components/base-components/StatCard';
 import { Book, Check, CircleCheck } from 'lucide-react';
 
@@ -9,7 +10,9 @@ interface UserStatsProps {
 
 const UserStats: React.FC<UserStatsProps> = ({progress, enrolledCoursesCount, completedCoursesCount}) => {
     return (
-        <section className="grid grid-cols-3 gap-4 my-8">
+        <div>
+            <PageHeader title="Your Statistics" />
+            <section className="grid grid-cols-3 gap-4 my-4">
             <StatCard
                 icon={CircleCheck}
                 text="Overall Progress"
@@ -26,6 +29,7 @@ const UserStats: React.FC<UserStatsProps> = ({progress, enrolledCoursesCount, co
                 count={completedCoursesCount.toString()}
             />
         </section>
+        </div>
     );
 }
 

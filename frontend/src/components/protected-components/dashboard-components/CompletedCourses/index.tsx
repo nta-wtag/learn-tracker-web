@@ -10,7 +10,7 @@ interface CompletedCoursesProps {
 }
 
 const CompletedCourses: React.FC<CompletedCoursesProps> = ({ completedCourses }) => {
-  const badge = "src/assets/badge.png";
+  const badge = "https://www.iconpacks.net/icons/1/free-certificate-icon-1356-thumb.png";
 
   return (
     <section>
